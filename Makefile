@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "Apagando os .o"
+	git commit -m "adicionando mais 1 arquivo do man"
 	git push
