@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "adicionando mais 1 arquivo do man"
+	git commit -m "Adicioando algumas funções no man1.md"
 	git push
