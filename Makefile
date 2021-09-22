@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "Doing a simple makefile"
+	git commit -m "Apagando os .o"
 	git push
