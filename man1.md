@@ -70,8 +70,24 @@
 >  
 > `pid_t wait(int *wstatus)`  
 > `pid_t waitpid(pid_t pid, int *wstatus, int option)`  
-> O wait suspende a execução da thread de chamada até que um de seus filhso seja encerrado.  
+> O wait suspende a execução da thread de chamada até que um de seus filho seja encerrado.  
 > O waitpid suspedende até que o pid especificado mude de status.  
-> Com sucesso retorna o id do processo do child encerrado(mudança de status) e -1 no caso de falha.
-
+> Com sucesso retorna o id do processo do child encerrado(mudança de status) e -1 no caso de falha.  
+>  
+>  
+> **getcwd**  
+>  
+> `#include <unistd.h>`  
+> `char *getcwd(char *buf, size_t size)`  
+> Retorna um null-terminated string contendo o endereço absoluto pathname da pasta atual de onde o processo está sendo chamado.  
+> O pathname é retornado como resultado da função e também é armazenado na argumento buf, se present.  
+> Em caso de falha o retorno será NULL.  
+>  
+>  
+> **chdir**  
+> `#include <unistd.h>`  
+> `int chdir(const char *path)`  
+> Muda o diretorio atual de onde o processo é chamado para o diretorio especificado no path.  
+> Em caso de sucesso 0 é retornado e -1 em caso de erro.  
+>  
 
