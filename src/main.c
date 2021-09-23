@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/23 20:26:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/23 20:48:53 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int	check_command(char *command)
 {
 	if (!ft_strncmp(command, "echo", 4))
 		printf("BANNA\n");
+	else if (!ft_strncmp(command, "pwd", 3))
+		printf("NONONO\n");
+	else if (!ft_strncmp(command, "cd"))
+		printf("CDCDHEHHE\n");
 	return (0);
 }
 

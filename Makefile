@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "começando a implementar o cmd"
+	git commit -m "adicionado os if do check_command"
 	git push
