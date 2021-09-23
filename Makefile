@@ -7,7 +7,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall
+CFLAGS = -Wextra -Werror -Wall 
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -22,7 +22,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(PATH_LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) -lreadline $(OBJS) $(LIBFT) -o $(NAME)
 
 $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)
@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "Adicioando mais funções no man1.md"
+	git commit -m "começando a implementar o cmd"
 	git push

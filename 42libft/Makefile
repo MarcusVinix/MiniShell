@@ -32,7 +32,7 @@ SRCS =	ft_bzero.c ft_isalpha.c \
 		ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c \
 		ft_lstmap.c ft_putnbr_base_fd.c \
-		ft_itoa_base.c ft_swap.c
+		ft_itoa_base.c ft_swap.c ft_strcmp.c
 
 OBJS_PATH = objs
 

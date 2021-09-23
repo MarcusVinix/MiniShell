@@ -8,7 +8,7 @@
 > A linha recebida teve memoria alocada com malloc.  
 > Uma linha em branco retorna uma string vazia.  
 > Se tiver EOF em uma linha vazia, o retorno será NULL.  
-> Se tiver EOF em uma linha não vazia, ele vai ser considerado uma nova linha. 
+> Se tiver EOF em uma linha não vazia, ele vai ser considerado uma nova linha.  
 >  
 >  
 > **rl_clear_history**  
