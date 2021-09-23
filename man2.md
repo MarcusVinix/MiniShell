@@ -99,3 +99,96 @@
  > fecha o diretório do tipo dir, que é criado no opendir;
  >
  > `RETORNO: ` retorna 0 se for um sucesso, caso contrario, retorna -1
+
+  **strerror**
+```c
+ #include <string.h>
+ char *strerror(int errnum);
+ ```
+ > retorna um ponteiro para uma string com o erro que eh descrito pelo codigo passado pelo parametro, errnum;
+ >
+ > `RETORNO: ` retorna uma string com o erro, ou "Unknown error nnn" se não for encontrado o codigo do erro;
+
+
+  **perror**
+```c
+ #include <stdio.h>
+ void perror(const char *s);
+ ```
+ > serve para printar na tela, pelo stderror, uma mensagem de erro dependendo do s que voce mandar, normalmente ele recebe o nome da função que deu erro;
+ >
+ > `RETORNO: ` não tem;
+
+   **perror**
+```c
+ #include <unistd.h>
+ int isatty(int fd);
+```
+ > verifica se o fd é um arquivo aberto referente a um terminal
+ >
+ > `RETORNO: ` 1 se for verdade e 0 se for falso;  
+
+
+ **ttyname**
+```c
+ #include <unistd.h>
+ char *ttyname(int fd)
+ ```
+ > ele retorna uma string com o caminho do arquivo que esta estabelecido em fd se ele estiver conectado a um terminal.
+ >
+ > `RETORNO: ` retorna o caminho do carquivo ou null se der algum erro
+
+ **ttyslot**
+```c
+ #include <unistd.h>
+ int ttyslot(void);
+ ```
+ > busca o número do terminal de controle do processo atual
+ >
+ > `RETORNO: ` retorna o número da unidade do arquivo do dispositivo se encontrado; caso contrário, o valor zero é retornado.
+
+**ttyslot**
+```c
+ #include <sys/ioctl.h>
+ int ioctl(int fd, unsigned long request, ...);
+ ```
+ > A chamada de sistema ioctl () manipula os parâmetros de dispositivo subjacentes de arquivos especiais. Em particular, muitas características operacionais de arquivos especiais de caracteres (por exemplo, terminais) podem ser controladas com solicitações ioctl (). O argumento fd deve ser um descritor de arquivo aberto
+ >
+ > `RETORNO: ` se der tudo certo, retorna 0, caso contrario, retorna -1
+
+**getenv**
+```c
+ #include <stdlib.h>
+ char *getenv(const char *name);
+ ```
+ > pesquisa pela lista de variaveis de ambiente pelo nome escrito no parametro name;
+ >
+ > `RETORNO: ` retorna um ponteiro para essa variavel de ambiente, NULL se ele não encontrar nada;
+
+
+ **getenv**
+```c
+ #include <termios.h>
+ #include <unistd.h>
+ int tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
+ ```
+ > deve definir os parâmetros associados ao terminal referido pelo descritor de arquivo aberto fildes (um descritor de arquivo aberto associado a um terminal) a partir da estrutura termios;  
+ > [link_doc](https://pubs.opengroup.org/onlinepubs/009696799/functions/tcsetattr.html)  
+ >
+ > `RETORNO: ` se der tudo certo, retorna 0, caso contrario, retorna -1;
+
+ **getenv**
+```c
+ #include <curses.h>
+ #include <term.h>
+ int tgetent(char *bp, const char *name);
+ int tgetflag(char *id);
+ int tgetnum(char *id);
+ char *tgetstr(char *id, char **area);
+ char *tgoto(const char *cap, int col, int row);
+ int tputs(const char *str, int affcnt, int (*putc)(int));
+```
+ > estas funçoes estão todas sendo explicadas no link abaixo:  
+ > [link](https://nxmnpg.lemoda.net/3/tgetent)
+ >
+ > `RETORNO: ` retorna um ponteiro para essa variavel de ambiente, NULL se ele não encontrar nada;
