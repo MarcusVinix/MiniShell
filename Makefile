@@ -7,7 +7,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall 
+CFLAGS = -Wextra -Werror -Wall -I ./includes/
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "adicionado pasta builtins"
+	git commit -m "adicionado pasta includes"
 	git push
