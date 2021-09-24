@@ -8,14 +8,14 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/
+CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=leak
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
 #para melhor visão colocar no maximo 3 arquivos por linha
 #Se necessário pode criar novas pastas dentro do src
 SRC =	$(PATH_SRC)main.c \
-		$(PATH_BUILTINS)pwd.c
+		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
