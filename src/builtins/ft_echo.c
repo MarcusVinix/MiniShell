@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/24 19:22:02 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 19:33:09 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void free_list_string(char **str)
 		free(*str);
 		str++;
 	}
-	free(str);
 }
 
 void ft_echo(char *command)
@@ -39,6 +38,8 @@ void ft_echo(char *command)
 			printf("%s ", str[count]);
 		count++;
 	}
+	if (count != 1)
+		add_history(command);
 	if (!flag)
 		printf("\n");
 	free_list_string(str);
