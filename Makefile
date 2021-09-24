@@ -8,7 +8,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=leak
+CFLAGS = -Wextra -Werror -Wall -I ./includes/ 
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
