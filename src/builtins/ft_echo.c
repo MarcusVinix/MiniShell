@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/24 19:40:33 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 20:23:10 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void ft_echo(char *command)
 	}
 	if (!flag)
 		printf("\n");
+	else
+		printf("\b");
 	free_list_string(str);
 }
