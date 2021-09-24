@@ -6,14 +6,12 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 18:15:21 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 18:22:47 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+
 
 char	*get_command(void)
 {
@@ -24,7 +22,7 @@ char	*get_command(void)
 	getcwd(cwd, 2021);
 	prompt = ft_strjoin(cwd, "$ ");
 	command = readline(prompt);
-	printf("%s\n", command);
+	//printf("%s\n", command);
 	if (!ft_strcmp(command, "exit"))
 	{
 		exit(0);
@@ -38,7 +36,7 @@ int	check_command(char *command)
 	if (!ft_strncmp(command, "echo", 4))
 		printf("BANNA\n");
 	else if (!ft_strncmp(command, "pwd", 3))
-		printf("NONONO\n");
+		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
 		printf("CDCDHEHHE\n");
 	return (0);

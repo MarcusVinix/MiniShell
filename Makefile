@@ -1,6 +1,7 @@
 PATH_SRC = ./src/
 PATH_LIBFT = ./42libft/
 PATH_OBJS = ./objs/
+PATH_BUILTINS = $(PATH_SRC)builtins/
 
 LIBFT = $(PATH_LIBFT)libft.a
 
@@ -13,7 +14,8 @@ RM = rm -rf
 #Adicione os novos arquivos nessa linha.
 #para melhor visão colocar no maximo 3 arquivos por linha
 #Se necessário pode criar novas pastas dentro do src
-SRC = $(PATH_SRC)main.c
+SRC =	$(PATH_SRC)main.c \
+		$(PATH_BUILTINS)pwd.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -26,6 +28,7 @@ $(NAME): $(OBJS)
 
 $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)
+	@mkdir -p $(PATH_OBJS)builtins
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
@@ -45,5 +48,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "adicionado pasta includes"
+	git commit -m "ajustando o makefile pra pegar a pasta builtins"
 	git push
