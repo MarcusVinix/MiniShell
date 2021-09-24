@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 19:00:16 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 19:07:14 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	check_command(char *command)
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
 		printf("CDCDHEHHE\n");
+	else
+		printf("%s: command not found\n", command);
 	return (0);
 }
 
