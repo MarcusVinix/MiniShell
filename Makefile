@@ -48,5 +48,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "ajustando o makefile pra pegar a pasta builtins"
+	git commit -m "ajustando o nome de algumas funções no man2.md"
 	git push
