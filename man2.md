@@ -35,7 +35,7 @@
  >
  > `RETORNO: `só retorna algo se der algum erro (-1)
 
-  **execve**
+  **dup, dup2**
   ```c
  #include <unistd.h>
  int dup(int oldfd);
@@ -46,7 +46,7 @@
  >
  > `RETORNO: `se for um sucesso, ele vai retornar o novo file descriptor (fd), retorna -1 se der ruim;
 
-  **execve**
+  **pipe**
   ```c
  #include <unistd.h>
  int pipe(int pipefd[2]);
@@ -119,7 +119,7 @@
  >
  > `RETORNO: ` não tem;
 
-   **perror**
+   **isatty**
 ```c
  #include <unistd.h>
  int isatty(int fd);
@@ -147,7 +147,7 @@
  >
  > `RETORNO: ` retorna o número da unidade do arquivo do dispositivo se encontrado; caso contrário, o valor zero é retornado.
 
-**ttyslot**
+**ioctl**
 ```c
  #include <sys/ioctl.h>
  int ioctl(int fd, unsigned long request, ...);
@@ -166,7 +166,7 @@
  > `RETORNO: ` retorna um ponteiro para essa variavel de ambiente, NULL se ele não encontrar nada;
 
 
- **getenv**
+ **tcsetattr**
 ```c
  #include <termios.h>
  #include <unistd.h>
