@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 18:22:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 18:33:16 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_command(void)
 int	check_command(char *command)
 {
 	if (!ft_strncmp(command, "echo", 4))
-		printf("BANNA\n");
+		ft_echo(command);
 	else if (!ft_strncmp(command, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))

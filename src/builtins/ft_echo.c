@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 18:41:56 by jestevam         ###   ########.fr       */
+/*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
+/*   Updated: 2021/09/24 19:03:22 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
+#include "minishell.h"
 
-# define MINISHELL_H
+void free_list_string(char **str)
+{
+	while (*str)
+	{
+		free(*str);
+		str++;
+	}
+	free(str);
+}
 
-# include "../42libft/libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+void ft_echo(char *command)
+{
+	char **str;
+	int count;
 
-int	ft_pwd();
-void ft_echo(char *command);
-
-#endif
+	count = 1;
+	str = ft_split(command, ' ');
+	while (str[count])
+	{
+		printf("%s ", str[count]);
+		count++;
+	}
+	free_list_string(str);
+	printf("\n");
+}
