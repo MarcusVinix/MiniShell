@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 18:22:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 19:00:16 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*get_command(void)
 	char	*command;
 
 	getcwd(cwd, 2021);
-	prompt = ft_strjoin(cwd, "$ ");
+	prompt = ft_strjoin("\033[33m", cwd);
+	prompt = ft_strjoin(prompt, "$\033[0m ");
 	command = readline(prompt);
 	//printf("%s\n", command);
 	if (!ft_strcmp(command, "exit"))
