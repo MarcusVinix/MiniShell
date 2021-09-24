@@ -45,5 +45,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "adicionado os if do check_command"
+	git commit -m "adicionado pasta builtins"
 	git push
