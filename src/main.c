@@ -6,12 +6,13 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 21:14:52 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:08:49 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern char** environ;
 
 char	*get_command(void)
 {
@@ -25,9 +26,7 @@ char	*get_command(void)
 	command = readline(prompt);
 	//printf("%s\n", command);
 	if (!ft_strcmp(command, "exit"))
-	{
 		exit(0);
-	}
 	free(prompt);
 	add_history(command);
 	return (command);
@@ -41,6 +40,8 @@ int	check_command(char *command)
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
 		ft_cd(command);
+	else if (!ft_strncmp(command, "env", 3))
+		ft_env(environ);
 	else
 		printf("%s: command not found\n", command);
 	return (0);

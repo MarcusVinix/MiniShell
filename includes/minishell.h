@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 21:17:33 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:08:06 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 #include <readline/history.h>
 
 //builtins
-int	ft_pwd();
-void ft_echo(char *command);
-int	ft_cd(char *command);
+int		ft_pwd();
+void	ft_echo(char *command);
+int		ft_cd(char *command);
+void	ft_env(char **envi);
+
 #endif
