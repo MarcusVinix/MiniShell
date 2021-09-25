@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:26:58 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:32:02 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 //builtins
 int		ft_pwd(char *command);
 void	ft_echo(char *command);
+void	ft_env(char *command, char **envi);
 int		ft_cd(char *command);
-void	ft_env(char **envi);
 
 //errors
 int		not_found(char *command);

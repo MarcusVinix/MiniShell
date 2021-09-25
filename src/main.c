@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:25:29 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:31:53 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_command(char *command)
 	else if (!ft_strncmp(command, "cd", 2))
 		ft_cd(command);
 	else if (!ft_strncmp(command, "env", 3))
-		ft_env(environ);
+		ft_env(command, environ);
 	else
 		not_found(command);
 	return (0);

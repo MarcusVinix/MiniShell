@@ -52,7 +52,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "removendo os objs"
+	git commit -m "merge"
 
 push:	add
 	git push
