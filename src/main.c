@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 21:50:01 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:01:28 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_command(char *command)
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
 		printf("CDCDHEHHE\n");
-	else if (!ft_strcmp(command, "env"))
+	else if (!ft_strncmp(command, "env", 3))
 		ft_env(environ);
 	else
 		printf("%s: command not found\n", command);
