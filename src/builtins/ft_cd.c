@@ -6,14 +6,14 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 21:17:46 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:55:52 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cd(char *command)
+int	ft_cd(t_shell *shell)
 {
-	printf("ele é %s\n", command);
+	printf("ele é %s\n", shell->command);
 	return (0);
 }
