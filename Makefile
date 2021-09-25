@@ -47,7 +47,8 @@ re: fclean all
 norminha:
 	norminette $(PATH_SRC)
 
-git:
+add:
 	git add .
-	git commit -m "arrumando bug do pwd"
+	git commit -m "removendo obj e mudando regras do git no make"
+push:	add
 	git push
