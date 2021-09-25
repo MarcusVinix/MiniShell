@@ -52,7 +52,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "fazendo uma parte do comando cd"
+	git commit -m "removendo objs..."
 
 push:	add
 	git push
