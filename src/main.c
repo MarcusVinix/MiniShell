@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:06:56 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:25:08 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	check_command(char *command)
 {
 	if (!ft_strncmp(command, "echo", 4))
 		ft_echo(command);
-	else if (!ft_strncmp(command, "pwd", 3))
+	else if (!ft_strncmp(command, "pwd", 3) && ft_strlen(command) == 3)
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
-		printf("CDCDHEHHE\n");
+		ft_cd(command);
 	else if (!ft_strncmp(command, "env", 3))
 		ft_env(command, environ);
 	else

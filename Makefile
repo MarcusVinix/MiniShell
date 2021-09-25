@@ -15,7 +15,8 @@ RM = rm -rf
 #para melhor visão colocar no maximo 3 arquivos por linha
 #Se necessário pode criar novas pastas dentro do src
 SRC =	$(PATH_SRC)main.c \
-		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_env.c
+		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
+		$(PATH_BUILTINS)ft_env.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -46,7 +47,8 @@ re: fclean all
 norminha:
 	norminette $(PATH_SRC)
 
-git:
+add:
 	git add .
-	git commit -m "ajustando o nome de algumas funções no man2.md"
+	git commit -m "removendo obj e mudando regras do git no make"
+push:	add
 	git push
