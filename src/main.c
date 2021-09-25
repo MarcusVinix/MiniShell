@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 19:40:26 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 21:14:52 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_command(char *command)
 	else if (!ft_strncmp(command, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
-		printf("CDCDHEHHE\n");
+		ft_cd(command);
 	else
 		printf("%s: command not found\n", command);
 	return (0);

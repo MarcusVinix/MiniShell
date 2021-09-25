@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 21:17:33 by mavinici         ###   ########.fr       */
+/*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
+/*   Updated: 2021/09/24 21:17:46 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
+#include "minishell.h"
 
-# define MINISHELL_H
-
-# include "../42libft/libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//builtins
-int	ft_pwd();
-void ft_echo(char *command);
-int	ft_cd(char *command);
-#endif
+int	ft_cd(char *command)
+{
+	printf("ele é %s\n", command);
+	return (0);
+}
