@@ -6,12 +6,13 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 19:40:26 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/24 21:39:52 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern char **envi;
 
 char	*get_command(void)
 {
@@ -41,6 +42,8 @@ int	check_command(char *command)
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 2))
 		printf("CDCDHEHHE\n");
+	else if (!ft_strncmp(command, "env", 3))
+		ft_env(envi);
 	else
 		printf("%s: command not found\n", command);
 	return (0);
