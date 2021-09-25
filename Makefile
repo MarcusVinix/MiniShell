@@ -52,7 +52,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "adicionando pasta errors e arrumando bug do pwd"
+	git commit -m "removendo os objs"
 
 push:	add
 	git push
