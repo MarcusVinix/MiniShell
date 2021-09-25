@@ -2,6 +2,7 @@ PATH_SRC = ./src/
 PATH_LIBFT = ./42libft/
 PATH_OBJS = ./objs/
 PATH_BUILTINS = $(PATH_SRC)builtins/
+PATH_ERRORS = $(PATH_SRC)errors/
 
 LIBFT = $(PATH_LIBFT)libft.a
 
@@ -16,7 +17,8 @@ RM = rm -rf
 #Se necessário pode criar novas pastas dentro do src
 SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
-		$(PATH_BUILTINS)ft_env.c
+		$(PATH_BUILTINS)ft_env.c \
+		$(PATH_ERRORS)errors.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -30,6 +32,7 @@ $(NAME): $(OBJS)
 $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)
 	@mkdir -p $(PATH_OBJS)builtins
+	@mkdir -p $(PATH_OBJS)errors
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
@@ -49,6 +52,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "removendo obj e mudando regras do git no make"
+	git commit -m "adicionando pasta errors e arrumando bug do pwd"
+
 push:	add
 	git push

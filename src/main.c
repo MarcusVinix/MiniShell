@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:13:24 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 22:25:29 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	check_command(char *command)
 {
 	if (!ft_strncmp(command, "echo", 4))
 		ft_echo(command);
-	else if (!ft_strncmp(command, "pwd", 3) && ft_strlen(command) == 3)
-		ft_pwd();
+	else if (!ft_strncmp(command, "pwd", 3))
+		ft_pwd(command);
 	else if (!ft_strncmp(command, "cd", 2))
 		ft_cd(command);
 	else if (!ft_strncmp(command, "env", 3))
 		ft_env(environ);
 	else
-		printf("%s: command not found\n", command);
+		not_found(command);
 	return (0);
 }
 
