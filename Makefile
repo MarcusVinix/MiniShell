@@ -49,5 +49,5 @@ norminha:
 
 git:
 	git add .
-	git commit -m "ajustando o nome de algumas funções no man2.md"
+	git commit -m "arrumando bug do pwd"
 	git push
