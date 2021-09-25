@@ -9,7 +9,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/ 
+CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=address
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -52,7 +52,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "merge"
+	git commit -m "fazendo uma parte do comando cd"
 
 push:	add
 	git push

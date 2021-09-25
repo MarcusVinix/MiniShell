@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:56:06 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 23:12:25 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ int		ft_cd(t_shell *shell);
 
 //errors
 int		not_found(char *command);
+int		error_cd(char *path);
+
 
 #endif

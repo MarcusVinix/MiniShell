@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 22:55:52 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/24 23:22:27 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 int	ft_cd(t_shell *shell)
 {
-	printf("ele é %s\n", shell->command);
+	char	*path;
+	char	cwd[2021];
+
+	path = ft_strchr(shell->command, ' ');
+	if (chdir(path + 1) != 0)
+	{
+		return (error_cd(path));
+	}
+	shell->command = getcwd(cwd, 2021);
 	return (0);
 }
