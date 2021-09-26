@@ -6,20 +6,11 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/24 22:20:32 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/26 15:08:21 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void free_list_string(char **str)
-{
-	while (*str)
-	{
-		free(*str);
-		str++;
-	}
-}
 
 void	ft_env(char *command, char **envi)
 {

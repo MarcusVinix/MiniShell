@@ -15,9 +15,9 @@ RM = rm -rf
 #Adicione os novos arquivos nessa linha.
 #para melhor visão colocar no maximo 3 arquivos por linha
 #Se necessário pode criar novas pastas dentro do src
-SRC =	$(PATH_SRC)main.c \
+SRC =	$(PATH_SRC)main.c $(PATH_SRC)utils.c\
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
-		$(PATH_BUILTINS)ft_env.c \
+		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c \
 		$(PATH_ERRORS)errors.c
 
 #Os objetos
