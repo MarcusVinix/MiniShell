@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/26 12:37:55 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/27 23:30:23 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		ft_pwd(char *command);
 void	ft_echo(char *command);
 void	ft_env(char *command, char **envi);
 int		ft_cd(t_shell *shell);
+void	ft_export(char *command, char** env);
 
 //errors
 int		not_found(char *command);
@@ -47,5 +48,7 @@ int		error_no_file(char *path);
 //free
 void	free_all(t_shell *shell);
 
+//utils
+void	free_list_string(char **str);
 
 #endif
