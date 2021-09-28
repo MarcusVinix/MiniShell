@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 23:12:25 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:37:55 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,18 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+# define NO_FILE "No such file or directory"
+# define NO_OLDPWD "OLDPWD not set"
+
+typedef struct s_path
+{
+	char	*pwd;
+	char	*old_pwd;
+}			t_path;
 typedef struct s_shell
 {
-	char *command;
+	char	*command;
+	t_path	path;
 }			t_shell;
 
 //builtins
@@ -32,7 +41,11 @@ int		ft_cd(t_shell *shell);
 
 //errors
 int		not_found(char *command);
-int		error_cd(char *path);
+int		error_cd(char *message);
+int		error_no_file(char *path);
+
+//free
+void	free_all(t_shell *shell);
 
 
 #endif

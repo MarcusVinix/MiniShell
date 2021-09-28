@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/24 23:48:30 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/27 23:06:08 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_command(t_shell  *shell)
 	if (!ft_strcmp(shell->command, "exit"))
 	{
 		free(prompt);
-		free(shell->command);
+		free_all(shell);
 		exit(0);
 	}
 	free(prompt);
@@ -51,11 +51,18 @@ int	check_command(t_shell *shell)
 	return (0);
 }
 
+void	start_struct(t_shell *shell)
+{
+	shell->path.pwd = NULL;
+	shell->path.old_pwd = NULL;
+	shell->command = NULL;
+}
+
 int	main(void)
 {
 	t_shell	shell;
 
-	shell.command = NULL;
+	start_struct(&shell);
 	while (1)
 	{
 		get_command(&shell);

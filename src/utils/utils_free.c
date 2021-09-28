@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/25 00:15:35 by mavinici         ###   ########.fr       */
+/*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
+/*   Updated: 2021/09/26 12:41:05 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	not_found(char *command)
+void	free_all(t_shell *shell)
 {
-	printf("%s: command not found\n", command);
-	return (0);
-}
-
-int	error_no_file(char *path)
-{
-	printf("minishell: cd: %s: %s\n", path, NO_FILE);
-	return (0);
-}
-
-int	error_cd(char *message)
-{
-	printf("minishell: cd: %s\n", message);
-	return (0);
+	free(shell->command);
+	free(shell->path.pwd);
+	free(shell->path.old_pwd);
 }

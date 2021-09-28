@@ -3,6 +3,7 @@ PATH_LIBFT = ./42libft/
 PATH_OBJS = ./objs/
 PATH_BUILTINS = $(PATH_SRC)builtins/
 PATH_ERRORS = $(PATH_SRC)errors/
+PATH_UTILS = $(PATH_SRC)utils/
 
 LIBFT = $(PATH_LIBFT)libft.a
 
@@ -18,7 +19,8 @@ RM = rm -rf
 SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
 		$(PATH_BUILTINS)ft_env.c \
-		$(PATH_ERRORS)errors.c
+		$(PATH_ERRORS)errors.c \
+		$(PATH_UTILS)utils_free.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -27,12 +29,13 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(PATH_LIBFT)
-	$(CC) $(CFLAGS) -lreadline $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) -lreadline  $(OBJS) $(LIBFT) -o $(NAME)
 
 $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)
 	@mkdir -p $(PATH_OBJS)builtins
 	@mkdir -p $(PATH_OBJS)errors
+	@mkdir -p $(PATH_OBJS)utils
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
@@ -52,7 +55,7 @@ norminha:
 
 add:
 	git add .
-	git commit -m "removendo objs..."
+	git commit -m "adicionando funcionalidade - e ~"
 
 push:	add
 	git push
