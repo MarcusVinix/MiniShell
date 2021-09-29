@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/26 16:27:25 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/28 23:17:53 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,17 @@ static void	check_is_exist(char **env, char *new_env)
 			signal = 1;
 		}
 		count++;
+		free_list_string(exist_k_v);
+		exist_k_v = NULL;
 	}
-	if (signal)
-		env[count] = ft_strdup(new_env);
+	if (!signal && !env[count])
+	{
+		printf("s: %s n: %i\n", env[count], count);
+		env[count++] = ft_strdup(new_env);
+		printf("s: %s n: %i\n", env[count - 1], count);
+		env[count++] = ft_strdup(new_env);
+		printf("nesse: %s\n", env[count]);
+	}
 	free_list_string(key_val);
 }
 
