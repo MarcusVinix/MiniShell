@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/28 21:25:42 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/28 21:34:42 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	free_all(t_shell *shell)
 
 void free_list_string(char **str)
 {
-	while (*str)
-	{
-		free(*str);
-		str++;
-	}
+	int count;
+
+	count = 0;
+	while (str[count])
+		free(str[count++]);
+	free(str);
 }
