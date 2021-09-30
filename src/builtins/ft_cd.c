@@ -6,11 +6,24 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/30 14:43:37 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 19:52:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
+
+char	*get_variable(char *path, t_shell *shell)
+{
+	char	*tmp;
+
+	tmp = find_value(&shell->lst_env, path);
+	if (!tmp || ft_strcmp(tmp, "") == 0)
+		tmp = find_value(&shell->lst_env, "HOME");
+	
+	printf("VALUE IS |%s|\n", tmp);
+	return (tmp);
+}
 
 void	go_to_path(t_shell *shell, char *go_to)
 {
@@ -19,6 +32,11 @@ void	go_to_path(t_shell *shell, char *go_to)
 	char	*path;
 
 	path = ft_strtrim(go_to, " ");
+	if (*path == '$' && (*(path + 1) != ' ' || *(path + 1) != '\0'))
+	{
+		printf("CAIU || is |%c| full %s\n", *(path + 1), path);
+		path = get_variable(path + 1, shell);
+	}
 	getcwd(cwd, 2021);
 	if (chdir(path) != 0)
 		error_no_file(path);
@@ -28,7 +46,6 @@ void	go_to_path(t_shell *shell, char *go_to)
 		getcwd(new_cwd, 2021);
 		change_value(&shell->lst_env, "PWD", new_cwd);
 	}
-	free(path);
 }
 
 int go_to_home(t_shell *shell)
