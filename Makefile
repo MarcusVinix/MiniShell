@@ -55,7 +55,7 @@ norminha:
 
 add: fclean
 	git add .
-	git commit -m "arrumando bugs"
+	git commit -m "criando função que pesquisa na lista lincada pela chave, e retorna o valor, caso a chave tenha sido encontrada, ainda não foi testada, pois precisa da create_bckup_env"
 
 push:	add
 	git push
