@@ -20,8 +20,8 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
 		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c \
 		$(PATH_ERRORS)errors.c \
-		$(PATH_UTILS)utils_free.c
-
+		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c
+		
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
 

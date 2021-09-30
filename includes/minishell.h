@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/27 23:30:23 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/29 21:50:55 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_shell
 {
 	char	*command;
 	t_path	path;
+	t_list	*lst_env;
 }			t_shell;
 
 //builtins
@@ -47,8 +48,10 @@ int		error_no_file(char *path);
 
 //free
 void	free_all(t_shell *shell);
+void	free_list_string(char **str);
 
 //utils
-void	free_list_string(char **str);
+t_list	*create_bckup_env(char **env);
+
 
 #endif
