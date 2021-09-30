@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   is_all_space.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/29 11:33:00 by marcus            #+#    #+#             */
-/*   Updated: 2021/09/30 10:16:32 by mavinici         ###   ########.fr       */
+/*   Created: 2021/09/30 14:27:34 by mavinici          #+#    #+#             */
+/*   Updated: 2021/09/30 14:36:02 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-void	ft_lstclear(t_list **lst, void (*del) (void *))
+int	is_all_space(char *str)
 {
-	t_list	*tmp;
+	int	i;
 
-	if (*lst == NULL)
-		return ;
-	while (*lst)
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+		if (str[i] != ' ')
+			return (0);
+		i++;
 	}
-	*lst = NULL;
+	return (1);
 }

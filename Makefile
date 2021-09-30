@@ -55,7 +55,7 @@ norminha:
 
 add: fclean
 	git add .
-	git commit -m "arrumando a função do backup e os leaks dela"
+	git commit -m "mudando o cd pra pegar da lista, arrumando o bug dos espaços no cd e adicionando a função is_all_space no libft"
 
 push:	add
 	git push

@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/30 09:31:14 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:47:37 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_command(t_shell *shell)
 	if (!ft_strncmp(shell->command, "echo", 4))
 		ft_echo(shell->command);
 	else if (!ft_strncmp(shell->command, "pwd", 3))
-		ft_pwd(shell->command);
+		ft_pwd(shell, shell->command);
 	else if (!ft_strncmp(shell->command, "cd", 2))
 		ft_cd(shell);
 	else if (!ft_strncmp(shell->command, "env", 3))
@@ -55,8 +55,6 @@ int	check_command(t_shell *shell)
 
 void	start_struct(t_shell *shell)
 {
-	shell->path.pwd = NULL;
-	shell->path.old_pwd = NULL;
 	shell->command = NULL;
 	shell->lst_env = create_bckup_env(environ);
 	

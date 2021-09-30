@@ -6,11 +6,29 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 09:30:05 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:09:22 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	change_value(t_list **lst, char *key, char *new_value)
+{
+	t_list	*tmp;
+
+	tmp = *lst;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(new_value);
+			return (1) ;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 int	find_pos(char *str)
 {
@@ -46,11 +64,14 @@ t_list	*create_bckup_env(char **env)
 
 char	*find_value(t_list **lst, char *key)
 {
-	while (*lst)
+	t_list	*tmp;
+
+	tmp = *lst;
+	while (tmp)
 	{
-		if (ft_strcmp((*lst)->key, key) == 0)
-			return ((*lst)->value);
-		*lst = (*lst)->next;
+		if (ft_strcmp(tmp->key, key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }

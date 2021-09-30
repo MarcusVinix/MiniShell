@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/29 23:28:58 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:47:27 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,14 @@
 # define NO_FILE "No such file or directory"
 # define NO_OLDPWD "OLDPWD not set"
 
-typedef struct s_path
-{
-	char	*pwd;
-	char	*old_pwd;
-}			t_path;
 typedef struct s_shell
 {
 	char	*command;
-	t_path	path;
 	t_list	*lst_env;
 }			t_shell;
 
 //builtins
-int		ft_pwd(char *command);
+int		ft_pwd(t_shell *shell, char *command);
 void	ft_echo(char *command);
 void	ft_env(char *command, char **envi);
 int		ft_cd(t_shell *shell);
@@ -53,5 +47,7 @@ void	free_list_string(char **str);
 //utils
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
+int		change_value(t_list **lst, char *key, char *new_value);
+
 
 #endif
