@@ -55,7 +55,7 @@ norminha:
 
 add: fclean
 	git add .
-	git commit -m "implementação da função creat_backup_envi e correção do bug da find_value, mas tem alguns leaks"
+	git commit -m "arrumando a função do backup e os leaks dela"
 
 push:	add
 	git push

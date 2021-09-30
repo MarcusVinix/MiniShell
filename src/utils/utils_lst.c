@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/29 23:27:54 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 09:30:05 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,10 @@ t_list	*create_bckup_env(char **env)
 	len = 0;
 	while (env[i])
 	{
-
 		pos = find_pos(env[i]);
 		len = ft_strlen(env[i]);
-		if (!list)
-			list = ft_lstnew(ft_substr(env[i], 0, pos),
-				ft_substr(env[i], pos + 1, len - pos));
-		list->next = ft_lstnew(ft_substr(env[i], 0, pos),
-				ft_substr(env[i], pos + 1, len - pos));
+		ft_lstadd_back(&list, ft_lstnew(ft_substr(env[i], 0, pos),
+			ft_substr(env[i], pos + 1, len - pos)));
 		i++;
 	}
 	return (list);
@@ -52,7 +48,7 @@ char	*find_value(t_list **lst, char *key)
 {
 	while (*lst)
 	{
-		if (!ft_strcmp((*lst)->key, key))
+		if (ft_strcmp((*lst)->key, key) == 0)
 			return ((*lst)->value);
 		*lst = (*lst)->next;
 	}
