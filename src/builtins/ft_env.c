@@ -6,13 +6,18 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/26 15:08:21 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/30 20:30:04 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char *command, char **envi)
+static void printlst(char *key, char *value)
+{
+	printf("%s=%s\n", key, value);
+}
+
+void	ft_env(char *command, t_shell *sh)
 {
 	char **str;
 	int count;
@@ -29,11 +34,7 @@ void	ft_env(char *command, char **envi)
 			printf("%s: command not found\n", str[1]);
 		return ;
 	}
-	while (*envi)
-	{
-		printf("%s\n", *envi);
-		envi++;
-	}
+	ft_lstiter(sh->lst_env, printlst);
 	free_list_string(str);
 	return;
 }
