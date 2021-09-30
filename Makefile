@@ -53,9 +53,9 @@ re: fclean all
 norminha:
 	norminette $(PATH_SRC)
 
-add:
+add: fclean
 	git add .
-	git commit -m "arrumando pastas"
+	git commit -m "arrumando bugs"
 
 push:	add
 	git push
