@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/29 21:48:21 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/29 23:40:11 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	start_struct(t_shell *shell)
 	shell->path.pwd = NULL;
 	shell->path.old_pwd = NULL;
 	shell->command = NULL;
+	shell->lst_env = create_bckup_env(environ);
+	
 }
 
 int	main(void)

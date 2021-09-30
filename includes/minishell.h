@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/29 21:50:55 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/29 23:28:58 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	free_list_string(char **str);
 
 //utils
 t_list	*create_bckup_env(char **env);
-
+char	*find_value(t_list **lst, char *key);
 
 #endif

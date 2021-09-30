@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/28 21:21:19 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/29 23:35:00 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int go_to_home(t_shell *shell)
 {
 	char	*path;
 
-	path = ft_strdup(getenv("HOME"));
+	path = ft_strdup(find_value(&shell->lst_env, "HOME"));
 	if (!path)
 		return (error_cd("no home"));
 	go_to_path(shell, path);
