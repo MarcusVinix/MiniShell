@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/30 20:25:46 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/30 20:49:41 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_command(t_shell *shell)
 	else if (!ft_strncmp(shell->command, "env", 3))
 		ft_env(shell->command, shell);
 	else if (!ft_strncmp(shell->command, "export", 6))
-		ft_export(shell->command, environ);
+		ft_export(shell->command, shell);
 	else
 		not_found(shell->command);
 	return (0);
