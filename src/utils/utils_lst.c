@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 19:52:08 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/09/30 23:05:10 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	change_value(t_list **lst, char *key, char *new_value)
 	tmp = *lst;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (ft_strcmp(tmp->key, key) == 0 && new_value)
 		{
 			if (tmp->value)
 				free(tmp->value);

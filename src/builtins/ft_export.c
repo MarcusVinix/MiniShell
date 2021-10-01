@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 21:56:47 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/30 23:06:50 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,9 @@ char **ft_split_v2(char *str, char c)
 static void	check_is_exist(t_list *lst, char *new_env)
 {
 	char **key_val;
-	t_list *aux;
 
-	aux = lst;
 	key_val = ft_split_v2(new_env, '=');
-	while (aux)
-	{
-		if(!ft_strcmp(key_val[0], aux->key))
-		{
-			if (key_val[1])
-			{
-				free(aux->value);
-				aux->value = ft_strdup(key_val[1]);
-			}
-			break;
-		}
-		aux = aux->next;
-	}
-	if (!aux)
+	if (!change_value(&lst, key_val[0], key_val[1]))
 	{
 		if (key_val[1])
 			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(key_val[0]), 
