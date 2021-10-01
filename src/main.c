@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/30 20:49:41 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/09/30 22:04:16 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	get_command(t_shell  *shell)
 int	check_command(t_shell *shell)
 {
 	if (!ft_strncmp(shell->command, "echo", 4))
-		ft_echo(shell->command);
+		ft_echo(shell);
 	else if (!ft_strncmp(shell->command, "pwd", 3))
 		ft_pwd(shell, shell->command);
 	else if (!ft_strncmp(shell->command, "cd", 2))
