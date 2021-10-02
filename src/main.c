@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/09/30 22:04:16 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/02 00:01:16 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	check_command(t_shell *shell)
 		ft_env(shell->command, shell);
 	else if (!ft_strncmp(shell->command, "export", 6))
 		ft_export(shell->command, shell);
+	else if (!ft_strncmp(shell->command, "unset", 5))
+		ft_unset(shell, &shell->lst_env);
 	else
 		not_found(shell->command);
 	return (0);

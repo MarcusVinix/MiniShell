@@ -18,7 +18,7 @@ RM = rm -rf
 #Se necessário pode criar novas pastas dentro do src
 SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
-		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c \
+		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c $(PATH_BUILTINS)ft_unset.c \
 		$(PATH_ERRORS)errors.c \
 		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c
 		
@@ -55,7 +55,7 @@ norminha:
 
 add: fclean
 	git add .
-	git commit -m "arrumando leak do cd"
+	git commit -m "implementando unset"
 
 push:	add
 	git push
