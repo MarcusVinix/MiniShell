@@ -55,7 +55,7 @@ norminha:
 
 add: fclean
 	git add .
-	git commit -m "arrumando o comando env para trabalhar com a nova lista linkada contendo as variaveis de ambiente"
+	git commit -m "arrumando leak do cd"
 
 push:	add
 	git push
