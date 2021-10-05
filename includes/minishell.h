@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/01 23:40:59 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/04 22:45:04 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct s_shell
 {
 	char	*command;
+	char	**split_cmd;
 	t_list	*lst_env;
 }			t_shell;
 

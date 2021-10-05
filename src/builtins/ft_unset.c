@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:04:58 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/02 00:20:06 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/04 23:08:14 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,27 @@
 void	ft_unset(t_shell *shell, t_list **lst)
 {
 	t_list	*tmp;
-	char	*var;
 	t_list	*next;
-	int		check;
+	int		i;
 
-	check = 0;
-	var = ft_strtrim(shell->command + 6, " ");
 	tmp = *lst;
-	if (find_value(&shell->lst_env, var))
+	i = 1;
+	while (shell->split_cmd[i])
 	{
-		while (tmp)
+		if (find_value(&shell->lst_env, shell->split_cmd[i]))
 		{
-			if (ft_strcmp(tmp->next->key, var) == 0)
+			while (tmp)
 			{
-				check = 1;
-				break ;
+				if (ft_strcmp(tmp->next->key, shell->split_cmd[i]) == 0)
+				{
+					next = tmp->next->next;
+					ft_lstdelone(tmp->next, free);
+					tmp->next =  next;
+					break ;
+				}
+				tmp = tmp->next;
 			}
-			tmp = tmp->next;
 		}
-		if (check)
-		{
-			next = tmp->next->next;
-			ft_lstdelone(tmp->next, free);
-			tmp->next =  next;
-		}
+		i++;
 	}
-	free(var);
 }

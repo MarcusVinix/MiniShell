@@ -6,14 +6,14 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/01 23:01:59 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:23:25 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-char	*get_variable(char *path, t_shell *shell)
+static	char	*get_variable(char *path, t_shell *shell)
 {
 	char	*tmp;
 
@@ -24,7 +24,7 @@ char	*get_variable(char *path, t_shell *shell)
 	return (tmp);
 }
 
-void	go_to_path(t_shell *shell, char *go_to)
+static	void	go_to_path(t_shell *shell, char *go_to)
 {
 	char	cwd[2021];
 	char	new_cwd[2021];
@@ -51,7 +51,7 @@ void	go_to_path(t_shell *shell, char *go_to)
 		free(path);
 }
 
-int go_to_home(t_shell *shell)
+static	int go_to_home(t_shell *shell)
 {
 	char	*path;
 
@@ -63,7 +63,7 @@ int go_to_home(t_shell *shell)
 	return (0);
 }
 
-void	go_to_old_path(t_shell *shell)
+static void	go_to_old_path(t_shell *shell)
 {
 	char	*old;
 

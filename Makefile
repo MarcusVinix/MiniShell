@@ -4,6 +4,7 @@ PATH_OBJS = ./objs/
 PATH_BUILTINS = $(PATH_SRC)builtins/
 PATH_ERRORS = $(PATH_SRC)errors/
 PATH_UTILS = $(PATH_SRC)utils/
+PATH_INCLUDES = ./includes/
 
 LIBFT = $(PATH_LIBFT)libft.a
 
@@ -51,11 +52,13 @@ re: fclean all
 .PHONY: re all fclean clean
 
 norminha:
-	norminette $(PATH_SRC)
+	norminette $(PATH_SRC) $(PATH_INCLUDES) $(PATH_LIBFT)
 
-add: fclean
+add:	fclean
 	git add .
-	git commit -m "implementando unset"
+	git commit -m "fazendo a parada do split e já usando no unset"
 
 push:	add
 	git push
+
+

@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/02 00:01:16 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/04 23:26:36 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	get_command(t_shell  *shell)
 	prompt = ft_strjoin(tmp, "$\033[0m ");
 	free(tmp);
 	shell->command = readline(prompt);
+	shell->split_cmd = ft_split(shell->command, ' ');
 	//printf("%s\n", command);
-	if (!ft_strcmp(shell->command, "exit"))
+	if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
 		free(prompt);
 		free_all(shell);
@@ -48,7 +49,7 @@ int	check_command(t_shell *shell)
 		ft_env(shell->command, shell);
 	else if (!ft_strncmp(shell->command, "export", 6))
 		ft_export(shell->command, shell);
-	else if (!ft_strncmp(shell->command, "unset", 5))
+	else if (ft_strncmp(shell->split_cmd[0], "unset", 5) == 0)
 		ft_unset(shell, &shell->lst_env);
 	else
 		not_found(shell->command);
@@ -59,7 +60,6 @@ void	start_struct(t_shell *shell)
 {
 	shell->command = NULL;
 	shell->lst_env = create_bckup_env(environ);
-	
 }
 
 int	main(void)
@@ -71,5 +71,6 @@ int	main(void)
 	{
 		get_command(&shell);
 		check_command(&shell);
+		free_list_string(shell.split_cmd);
 	}
 }
