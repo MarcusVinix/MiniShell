@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 23:06:50 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:24:46 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,13 @@ static void	check_is_exist(t_list *lst, char *new_env)
 	free_list_string(key_val);
 }
 
-void ft_export(char *command, t_shell *sh)
+void ft_export(t_shell *sh)
 {
-	char **str;
 	int count;
 	
-	str = ft_split(command, ' ');
-	if (ft_strcmp(str[0], "export"))
-	{
-		free_list_string(str);
-		return;
-	}
 	count = 1;
-	while (str[count])
-		check_is_exist(sh->lst_env, str[count++]);
+	while (sh->split_cmd[count])
+		check_is_exist(sh->lst_env, sh->split_cmd[count++]);
 	if (count == 1)
 		ft_lstiter(sh->lst_env, printlst);
-	free_list_string(str);
 }

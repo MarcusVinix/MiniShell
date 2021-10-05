@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 20:30:04 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:41:03 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,17 @@ static void printlst(char *key, char *value)
 	printf("%s=%s\n", key, value);
 }
 
-void	ft_env(char *command, t_shell *sh)
+void	ft_env(t_shell *sh)
 {
-	char **str;
-	int count;
-
-	count = 0;
-	str = ft_split(command, ' ');
-	while (str[count])
-		count++;
-	if (count != 1 || ft_strcmp(str[0], "env"))
+	if (ft_strlen_split(sh->split_cmd) != 1 
+			|| ft_strcmp(sh->split_cmd[0], "env"))
 	{
-		if (ft_strcmp(str[0], "env"))
-			printf("%s: command not found\n", str[0]);
+		if (ft_strcmp(sh->split_cmd[0], "env"))
+			printf("%s: command not found\n", sh->split_cmd[0]);
 		else
-			printf("%s: command not found\n", str[1]);
+			printf("%s: command not found\n", sh->split_cmd[1]);
 		return ;
 	}
 	ft_lstiter(sh->lst_env, printlst);
-	free_list_string(str);
 	return;
 }

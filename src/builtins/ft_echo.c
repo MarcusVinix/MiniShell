@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 22:41:36 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:41:48 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,21 @@ static void print_msg(char *msg, t_list *lst)
 
 void	ft_echo(t_shell *sh)
 {
-	char **str;
 	int count;
 	int flag;
 
 	flag = 0;
 	count = 1;
-	str = ft_split(sh->command, ' ');
-	if (ft_strcmp(str[0], "echo"))
+	while (sh->split_cmd[count])
 	{
-		printf("%s: command not found\n", sh->command);
-		return;
-	}
-	while (str[count])
-	{
-		if (!ft_strcmp(str[count], "-n") && count == 1)
+		if (!ft_strcmp(sh->split_cmd[count], "-n") && count == 1)
 			flag = 1;
 		else
-			print_msg(str[count], sh->lst_env);
+			print_msg(sh->split_cmd[count], sh->lst_env);
 		count++;
 	}
 	if (!flag)
 		printf("\n");
 	else
 		printf("\b");
-	free_list_string(str);
 }

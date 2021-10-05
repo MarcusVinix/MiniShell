@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/05 00:07:32 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:53:52 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ void	get_command(t_shell  *shell)
 
 int	check_command(t_shell *shell)
 {
-	if (!ft_strncmp(shell->command, "echo", 4))
+	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell);
-	else if (!ft_strncmp(shell->command, "pwd", 3))
+	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
 		ft_pwd(shell, shell->command);
-	else if (ft_strncmp(shell->split_cmd[0], "cd", 2) == 0)
+	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
 		ft_cd(shell);
-	else if (!ft_strncmp(shell->command, "env", 3))
-		ft_env(shell->command, shell);
-	else if (!ft_strncmp(shell->command, "export", 6))
-		ft_export(shell->command, shell);
-	else if (ft_strncmp(shell->split_cmd[0], "unset", 5) == 0)
+	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
+		ft_env(shell);
+	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
+		ft_export(shell);
+	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
 		ft_unset(shell, &shell->lst_env);
 	else
 		if (execve(shell->split_cmd[0], shell->split_cmd, (char *const *)shell->lst_env) == -1)
-			not_found(shell->command);
+			not_found(shell->split_cmd[0]);
 	return (0);
 }
 

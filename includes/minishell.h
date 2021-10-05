@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/04 22:45:04 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:21:47 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_shell
 //builtins
 int		ft_pwd(t_shell *shell, char *command);
 void	ft_echo(t_shell *sh);
-void	ft_env(char *command, t_shell *sh);
+void	ft_env(t_shell *sh);
 int		ft_cd(t_shell *shell);
-void	ft_export(char *command, t_shell *sh);
+void	ft_export(t_shell *sh);
 void	ft_unset(t_shell *shell, t_list **lst);
 
 
