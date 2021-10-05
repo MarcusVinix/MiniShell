@@ -56,7 +56,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "fazendo a parada do split e já usando no unset"
+	git commit -m "ajustando cd pra usar a variavel splitada"
 
 push:	add
 	git push

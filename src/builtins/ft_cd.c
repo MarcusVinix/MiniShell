@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/04 19:23:25 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/05 00:01:14 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,18 @@ int	ft_cd(t_shell *shell)
 {
 	int		len;
 
-	len = ft_strlen(shell->command);
+	len = ft_strlen_split(shell->split_cmd);
 	if (len > 2)
-		if (ft_strncmp(shell->command, "cd ", 3) != 0)
-			return (not_found(shell->command));
-	if (((len >= 2 && len <= 4) && ft_strcmp(shell->command + 3, "~") == 0)
-		|| len == 2)
+		return (error_cd("too many arguments"));
+	if (len == 1 || ft_strcmp(shell->split_cmd[1], "~") == 0)
 		go_to_home(shell);
-	else if (is_all_space(shell->command + 2))
-		go_to_home(shell);
-	else if (ft_strcmp(shell->command + 3, "-") == 0)
+	else if (ft_strcmp(shell->split_cmd[1], "-") == 0)
 	{
 		if (!find_value(&shell->lst_env, "OLDPWD"))
 			return (error_cd(NO_OLDPWD));
 		go_to_old_path(shell);
 	}
 	else
-		go_to_path(shell, shell->command + 3);
+		go_to_path(shell, shell->split_cmd[1]);
 	return (0);
 }

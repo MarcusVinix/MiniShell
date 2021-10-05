@@ -78,5 +78,6 @@ void	ft_putnbr_base_fd(unsigned int num, char *base, int fd);
 char	*ft_itoa_base(int n, char *base, int len_base);
 int		ft_strcmp(const char *s1, const char *s2);
 int		is_all_space(char *str);
+int		ft_strlen_split(char **split);
 
 #endif

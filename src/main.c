@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/04 23:26:36 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/05 00:07:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_command(t_shell *shell)
 		ft_echo(shell);
 	else if (!ft_strncmp(shell->command, "pwd", 3))
 		ft_pwd(shell, shell->command);
-	else if (!ft_strncmp(shell->command, "cd", 2))
+	else if (ft_strncmp(shell->split_cmd[0], "cd", 2) == 0)
 		ft_cd(shell);
 	else if (!ft_strncmp(shell->command, "env", 3))
 		ft_env(shell->command, shell);
@@ -52,7 +52,8 @@ int	check_command(t_shell *shell)
 	else if (ft_strncmp(shell->split_cmd[0], "unset", 5) == 0)
 		ft_unset(shell, &shell->lst_env);
 	else
-		not_found(shell->command);
+		if (execve(shell->split_cmd[0], shell->split_cmd, (char *const *)shell->lst_env) == -1)
+			not_found(shell->command);
 	return (0);
 }
 
