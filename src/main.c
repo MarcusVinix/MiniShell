@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/05 20:53:52 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/06 00:04:47 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char** environ;
 
 void	get_command(t_shell  *shell)
 {
 	char	cwd[2021];
 	char	*prompt;
 	char	*tmp;
+	int		ret;
 
 	getcwd(cwd, 2021);
 	tmp = ft_strjoin("\033[33m", cwd);
@@ -27,11 +27,14 @@ void	get_command(t_shell  *shell)
 	shell->command = readline(prompt);
 	shell->split_cmd = ft_split(shell->command, ' ');
 	//printf("%s\n", command);
+	ret = 0;
 	if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
+		if (shell->split_cmd[1])
+			ret = ft_atoi(shell->split_cmd[1]);
 		free(prompt);
 		free_all(shell);
-		exit(0);
+		exit(ret);
 	}
 	free(prompt);
 	add_history(shell->command);
@@ -57,17 +60,19 @@ int	check_command(t_shell *shell)
 	return (0);
 }
 
-void	start_struct(t_shell *shell)
+void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
-	shell->lst_env = create_bckup_env(environ);
+	shell->lst_env = create_bckup_env(env);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
-	start_struct(&shell);
+	if (argc != 1 || argv[1])
+		return (0);
+	start_struct(&shell, env);
 	while (1)
 	{
 		get_command(&shell);

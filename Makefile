@@ -56,7 +56,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "ajustando cd pra usar a variavel splitada"
+	git commit -m "adicionando o parametro env no main"
 
 push:	add
 	git push
