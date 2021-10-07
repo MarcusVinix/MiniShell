@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/06 22:31:58 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/07 05:58:26 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int	check_command(t_shell *shell)
 	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
 		ft_unset(shell, &shell->lst_env);
 	else
-		if (execve(shell->split_cmd[0], shell->split_cmd, (char *const *)shell->lst_env) == -1)
-			status = not_found(shell->split_cmd[0]);
+		ft_exec(shell);
 	return (0);
 }
 
@@ -67,6 +66,13 @@ void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
 	shell->lst_env = create_bckup_env(env);
+}
+
+void	sig_handle(int sig)
+{
+	(void)sig;
+	printf("APERTOU HEHE\n");
+	return ;
 }
 
 int	main(int argc, char **argv, char **env)

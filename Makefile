@@ -4,6 +4,7 @@ PATH_OBJS = ./objs/
 PATH_BUILTINS = $(PATH_SRC)builtins/
 PATH_ERRORS = $(PATH_SRC)errors/
 PATH_UTILS = $(PATH_SRC)utils/
+PATH_EXEC = $(PATH_SRC)exec/
 PATH_INCLUDES = ./includes/
 
 LIBFT = $(PATH_LIBFT)libft.a
@@ -21,7 +22,9 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
 		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c $(PATH_BUILTINS)ft_unset.c \
 		$(PATH_ERRORS)errors.c \
-		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c
+		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c \
+		$(PATH_EXEC)exec.c
+
 		
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -37,6 +40,7 @@ $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)builtins
 	@mkdir -p $(PATH_OBJS)errors
 	@mkdir -p $(PATH_OBJS)utils
+	@mkdir -p $(PATH_OBJS)exec
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
@@ -56,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "adicionando o parametro env no main"
+	git commit -m "implementando o basico do /bin"
 
 push:	add
 	git push
