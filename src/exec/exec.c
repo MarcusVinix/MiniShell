@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/07 05:58:40 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/08 01:11:20 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sigquit_handle(int sig_num)
 	rl_redisplay();
 }
 
-void	ft_exec(t_shell *shell)
+int	ft_exec(t_shell *shell)
 {
 	pid_t	pid;
 	
@@ -31,8 +31,8 @@ void	ft_exec(t_shell *shell)
 	if (pid == 0)
 	{
 		if (execve(shell->split_cmd[0], shell->split_cmd, (char *const *)shell->lst_env) == -1)
-			not_found(shell->split_cmd[0]);
-		exit(0);
+			return(not_found(shell->split_cmd[0]));
 	}
 	wait(&pid);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/07 05:58:28 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/08 01:10:38 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_list_string(char **str);
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value);
-void		ft_exec(t_shell *shell);
+int	ft_exec(t_shell *shell);
 void	get_command(t_shell  *shell);
 
 
