@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/07 20:24:57 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/07 20:28:18 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_shell
 //builtins
 int		ft_pwd(t_shell *shell, char *command);
 void	ft_echo(t_shell *sh);
-void	ft_env(t_shell *sh);
+int		ft_env(t_shell *sh);
 int		ft_cd(t_shell *shell);
 int		ft_export(t_shell *sh);
 void	ft_unset(t_shell *shell, t_list **lst);
