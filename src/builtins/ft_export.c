@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/06 22:02:04 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/07 20:25:24 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int verify_valid(char *str, int signal)
 	if (str[0] == '-')
 	{
 		if (signal == 1)
-			invalid_option(str[0]);
+			invalid_option(str);
 		return (2);
 	}
 	else if (str[0] == '.' || ft_isdigit(str[0]) || str[0] == '?')
