@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/07 05:58:26 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/08 01:10:43 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	check_command(t_shell *shell)
 	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
 		ft_unset(shell, &shell->lst_env);
 	else
-		ft_exec(shell);
+		status = ft_exec(shell);
 	return (0);
 }
 

@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/07 20:28:18 by jestevam         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 
@@ -55,7 +45,7 @@ void	free_list_string(char **str);
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value);
-void		ft_exec(t_shell *shell);
+int	ft_exec(t_shell *shell);
 void	get_command(t_shell  *shell);
 
 
