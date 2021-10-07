@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/06 21:59:32 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/07 20:25:04 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ int	not_found(char *command)
 	return (127);
 }
 
-void invalid_option(char c)
+void	invalid_option(char *s)
 {
-	printf("bash: export: `%c': not a valid option\n", c);
+	if (ft_strlen(s) > 1)
+		printf("bash: export: `%c%c': not a valid option\n", s[0], s[1]);
+	else
+		printf("bash: export: `%c': not a valid option\n", s[0]);
 }
 
-void invalid_identifier(char *str)
+void	invalid_identifier(char *str)
 {
 	printf("bash: export: `%s': not a valid identifier\n", str);
 }

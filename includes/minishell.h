@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/08 01:10:38 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/08 01:34:05 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_unset(t_shell *shell, t_list **lst);
 int		not_found(char *command);
 int		error_cd(char *message);
 int		error_no_file(char *path);
-void	invalid_option(char c);
+void	invalid_option(char *s);
 void	invalid_identifier(char *str);
 
 //free

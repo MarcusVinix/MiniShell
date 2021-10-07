@@ -60,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "colocando retorno na função ft_exec"
+	git commit -m "merge"
 
 push:	add
 	git push
