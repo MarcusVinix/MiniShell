@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/07 20:25:24 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:12:08 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,49 @@ static void	check_is_exist(t_list *lst, char *new_env)
 	free_list_string(key_val);
 }
 
+static void exporting_key(char *str, t_shell *sh)
+{
+	char **key_val;
+	char *value;
+	char *str_val;
+	char *new_val;
+
+	if (ft_strlen(str) == 1)
+		return (invalid_identifier(str));
+	str++;
+	key_val = ft_split_v2(str, '=');
+	value = find_value(&sh->lst_env, key_val[0]);
+	new_val = ft_strjoin("=", key_val[1]);
+	if (value)
+	{
+		str_val = ft_strjoin(value, new_val);
+		if (key_val[1])
+			invalid_identifier(str_val);
+		else
+			invalid_identifier(value);
+		free(str_val);
+	}
+	else
+		invalid_identifier(new_val);
+	free(new_val);
+	free_list_string(key_val);
+}
+
 //signal 1 = print error;
 //signal 2 = just return the number of error
-static int verify_valid(char *str, int signal)
+static int verify_valid(char *str, int signal, t_shell *sh)
 {
 	if (str[0] == '-')
 	{
 		if (signal == 1)
 			invalid_option(str);
 		return (2);
+	}
+	else if (str[0] == '$')
+	{
+		if (signal == 1)
+			exporting_key(str, sh);
+		return (1);
 	}
 	else if (str[0] == '.' || ft_isdigit(str[0]) || str[0] == '?')
 	{
@@ -85,10 +119,10 @@ int	ft_export(t_shell *sh)
 	count = 1;
 	while (sh->split_cmd[count])
 	{
-		if (verify_valid(sh->split_cmd[count], 1))
+		if (verify_valid(sh->split_cmd[count], 1, sh))
 		{
 			if (!resp)
-				resp = verify_valid(sh->split_cmd[count], 2);
+				resp = verify_valid(sh->split_cmd[count], 2, sh);
 		}
 		else
 			check_is_exist(sh->lst_env, sh->split_cmd[count]);
