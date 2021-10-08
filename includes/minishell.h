@@ -23,7 +23,7 @@ typedef struct s_shell
 //builtins
 int		ft_pwd(t_shell *shell, char *command);
 void	ft_echo(t_shell *sh);
-void	ft_env(t_shell *sh);
+int		ft_env(t_shell *sh);
 int		ft_cd(t_shell *shell);
 int		ft_export(t_shell *sh);
 void	ft_unset(t_shell *shell, t_list **lst);

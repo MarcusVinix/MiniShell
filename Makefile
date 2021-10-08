@@ -60,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "melhorando o exec pra funcionar sem a necessida de /bin/"
+	git commit -m "merge"
 
 push:	add
 	git push
