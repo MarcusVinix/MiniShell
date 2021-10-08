@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:44:20 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/08 01:10:43 by coder            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -29,7 +18,6 @@ void	get_command(t_shell  *shell)
 		free(shell->command);
 	shell->command = readline(prompt);
 	shell->split_cmd = ft_split(shell->command, ' ');
-	//printf("%s\n", command);
 	ret = 0;
 	if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
@@ -66,13 +54,6 @@ void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
 	shell->lst_env = create_bckup_env(env);
-}
-
-void	sig_handle(int sig)
-{
-	(void)sig;
-	printf("APERTOU HEHE\n");
-	return ;
 }
 
 int	main(int argc, char **argv, char **env)

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:45:30 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/08 01:34:05 by coder            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
@@ -57,6 +46,8 @@ char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value);
 int	ft_exec(t_shell *shell);
 void	get_command(t_shell  *shell);
+void	sigquit_handle(int sig_num);
+
 
 
 #endif

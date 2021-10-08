@@ -22,7 +22,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
 		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c $(PATH_BUILTINS)ft_unset.c \
 		$(PATH_ERRORS)errors.c \
-		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c \
+		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c $(PATH_UTILS)handle_signal.c\
 		$(PATH_EXEC)exec.c
 
 		
@@ -60,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "merge"
+	git commit -m "melhorando o exec pra funcionar sem a necessida de /bin/"
 
 push:	add
 	git push
