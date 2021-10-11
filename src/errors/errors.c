@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/07 20:25:04 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/12 01:18:56 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	invalid_identifier(char *str)
 int	error_no_file(char *path)
 {
 	printf("minishell: cd: %s: %s\n", path, NO_FILE);
-	return (0);
+	return (1);
 }
 
 int	error_cd(char *message)
 {
 	printf("minishell: cd: %s\n", message);
-	return (0);
+	return (1);
 }

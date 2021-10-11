@@ -38,7 +38,7 @@ int	check_command(t_shell *shell)
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
 		ft_pwd(shell, shell->command);
 	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
-		ft_cd(shell);
+		status = ft_cd(shell);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
 		status = ft_env(shell);
 	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
@@ -47,6 +47,7 @@ int	check_command(t_shell *shell)
 		ft_unset(shell, &shell->lst_env);
 	else
 		status = ft_exec(shell);
+	printf("STATUS IS %i\n", status);
 	return (0);
 }
 

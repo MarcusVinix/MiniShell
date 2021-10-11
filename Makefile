@@ -60,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "merge"
+	git commit -m "adicionando exit status no cd"
 
 push:	add
 	git push
