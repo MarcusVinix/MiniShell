@@ -47,7 +47,6 @@ int		change_value(t_list **lst, char *key, char *new_value);
 int	ft_exec(t_shell *shell);
 void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);
-
-
+int	check_quotes(t_shell *shell);
 
 #endif
