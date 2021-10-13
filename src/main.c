@@ -44,7 +44,7 @@ int	check_command(t_shell *shell)
 	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
 		status = ft_export(shell);
 	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
-		ft_unset(shell, &shell->lst_env);
+		status = ft_unset(shell, &shell->lst_env);
 	else
 		status = ft_exec(shell);
 	printf("STATUS IS %i\n", status);

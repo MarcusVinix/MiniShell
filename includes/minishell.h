@@ -26,14 +26,14 @@ void	ft_echo(t_shell *sh);
 int		ft_env(t_shell *sh);
 int		ft_cd(t_shell *shell);
 int		ft_export(t_shell *sh);
-void	ft_unset(t_shell *shell, t_list **lst);
+int		ft_unset(t_shell *shell, t_list **lst);
 
 
 //errors
 int		not_found(char *command);
 int		error_cd(char *message);
 int		error_no_file(char *path);
-void	invalid_option(char *s);
+int		invalid_option(char *s);
 void	invalid_identifier(char *str);
 
 //free

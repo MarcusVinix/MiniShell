@@ -61,7 +61,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "adicionando funcionando das aspas com $ no cd"
+	git commit -m "começando implementar exit status e aspas no unset, ainda não finalizado"
 
 push:	add
 	git push

@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/12 01:18:56 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/13 05:12:59 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ int	not_found(char *command)
 	return (127);
 }
 
-void	invalid_option(char *s)
+int	invalid_option(char *s)
 {
 	if (ft_strlen(s) > 1)
 		printf("bash: export: `%c%c': not a valid option\n", s[0], s[1]);
 	else
 		printf("bash: export: `%c': not a valid option\n", s[0]);
+	return (2);
 }
 
 void	invalid_identifier(char *str)
