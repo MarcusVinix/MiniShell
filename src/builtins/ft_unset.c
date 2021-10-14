@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:04:58 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/13 05:51:40 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/14 04:56:11 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ int	ft_invalid_identifier(char *str)
 	return (1);
 }
 
-int	check_unset(char *tmp)
+int	check_unset(char *tmp, int quotes)
 {
 	int	j;
 
-	if (!tmp)
-		return 0;
+	if (!tmp && quotes == 2)
+		return (ft_invalid_identifier(""));
 	j = 0;
 	while (tmp[j])
 	{
-		if (tmp[j] == '-' || tmp[j] == '.' || ft_isdigit(tmp[0]) || tmp[0] == '$')
+		if (tmp[j] == '-' || tmp[j] == '.' || ft_isdigit(tmp[0]) ||
+			(tmp[0] == '$' && quotes == 1))
 		{
 			if (tmp[j] == '-' && j == 0)
 				return (invalid_option(tmp));
@@ -85,16 +86,17 @@ int	check_variables(t_shell *shell, int quotes)
 	{
 		tmp = ft_strdup(shell->split_cmd[i]);
 		printf("tmp is %s\n", tmp);
-		if (quotes == 2 && tmp[0] == '$')
+		if (quotes == 2 || tmp[0] == '$')
 		{
 			str = find_value(&shell->lst_env, tmp + 1);
-			free(shell->split_cmd[i]);
-			shell->split_cmd[i] = ft_strdup(str);
-			free(str);
-			printf("Entrei\n");
+			if ((str || quotes == 2) && quotes != 1)
+			{
+				free(shell->split_cmd[i]);
+				shell->split_cmd[i] = ft_strdup2(str);
+			}
 		}
 		free(tmp);
-		tmp_stat = check_unset(shell->split_cmd[i]);
+		tmp_stat = check_unset(shell->split_cmd[i], quotes);
 		if ((stat != 2 && i == 1) && tmp_stat != 0)
 			stat = tmp_stat;
 		i++;

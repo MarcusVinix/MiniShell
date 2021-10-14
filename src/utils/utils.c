@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/10/12 02:07:49 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/14 04:27:06 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	check_quotes(t_shell *shell)
 	int		quotes;
 	
 	str = ft_strdup(shell->split_cmd[1]);
+	quotes = 0;
 	if (!str)
 		return (0);
 	if (*str == '\'')
@@ -26,7 +27,7 @@ int	check_quotes(t_shell *shell)
 		shell->split_cmd[1] = ft_strtrim(str, "\'");
 		quotes = 1;
 	}
-	else
+	else if (*str == '\"')
 	{
 		free(shell->split_cmd[1]);
 		shell->split_cmd[1] = ft_strtrim(str, "\"");
