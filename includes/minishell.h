@@ -18,6 +18,7 @@ typedef struct s_shell
 	char	*command;
 	char	**split_cmd;
 	t_list	*lst_env;
+	char	*parse_cmd;
 }			t_shell;
 
 //builtins
@@ -44,9 +45,13 @@ void	free_list_string(char **str);
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value);
-int	ft_exec(t_shell *shell);
+int		ft_exec(t_shell *shell);
 void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);
-int	check_quotes(t_shell *shell);
+int		check_quotes(t_shell *shell);
+
+//parser
+int		check_command(t_shell *shell, int *status);
+void	check_pipe(t_shell *shell);
 
 #endif

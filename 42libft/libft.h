@@ -80,6 +80,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		is_all_space(char *str);
 int		ft_strlen_split(char **split);
 char	*ft_strdup2(const char *s);
-
+int		find_index(char *str, char c);
 
 #endif

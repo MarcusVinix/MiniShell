@@ -5,6 +5,7 @@ PATH_BUILTINS = $(PATH_SRC)builtins/
 PATH_ERRORS = $(PATH_SRC)errors/
 PATH_UTILS = $(PATH_SRC)utils/
 PATH_EXEC = $(PATH_SRC)exec/
+PATH_PARSER = $(PATH_SRC)parser/
 PATH_INCLUDES = ./includes/
 
 LIBFT = $(PATH_LIBFT)libft.a
@@ -24,7 +25,9 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_ERRORS)errors.c \
 		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c $(PATH_UTILS)handle_signal.c \
 		$(PATH_UTILS)utils.c \
-		$(PATH_EXEC)exec.c
+		$(PATH_EXEC)exec.c \
+		$(PATH_PARSER)parser_cmd.c
+
 
 		
 #Os objetos
@@ -42,6 +45,7 @@ $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)errors
 	@mkdir -p $(PATH_OBJS)utils
 	@mkdir -p $(PATH_OBJS)exec
+	@mkdir -p $(PATH_OBJS)parser
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:

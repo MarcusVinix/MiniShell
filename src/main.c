@@ -17,38 +17,9 @@ void	get_command(t_shell  *shell)
 	if (shell->command)
 		free(shell->command);
 	shell->command = readline(prompt);
-	shell->split_cmd = ft_split(shell->command, ' ');
 	ret = 0;
-	if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
-	{
-		if (shell->split_cmd[1])
-			ret = ft_atoi(shell->split_cmd[1]);
-		free(prompt);
-		free_all(shell);
-		exit(status);
-	}
 	free(prompt);
 	add_history(shell->command);
-}
-
-int	check_command(t_shell *shell)
-{
-	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
-		ft_echo(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
-		ft_pwd(shell, shell->command);
-	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
-		status = ft_cd(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
-		status = ft_env(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
-		status = ft_export(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
-		status = ft_unset(shell, &shell->lst_env);
-	else
-		status = ft_exec(shell);
-	printf("STATUS IS %i\n", status);
-	return (0);
 }
 
 void	start_struct(t_shell *shell, char **env)
@@ -68,7 +39,15 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		get_command(&shell);
-		check_command(&shell);
+		check_pipe(&shell);
+		while (shell.parse_cmd)
+		{
+			check_command(&shell, &status);
+			free(shell.parse_cmd);
+			shell.parse_cmd = NULL;
+			check_pipe(&shell);
+		}
+		check_command(&shell, &status);
 		free_list_string(shell.split_cmd);
 	}
 	return (status);
