@@ -4,7 +4,7 @@
 int	check_command(t_shell *shell, int *status)
 {
 
-	if (shell->parse_cmd )
+	if (shell->parse_cmd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
@@ -39,7 +39,7 @@ void	check_pipe(t_shell *shell)
 	char *aux;
 
 	pos = find_index(shell->command, '|');
-	if(pos)
+	if(pos > 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));

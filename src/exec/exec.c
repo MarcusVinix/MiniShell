@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/08 03:33:58 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/19 20:44:04 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static	char	*ft_check_path(char *str)
 {
 	char	*path;
-
+	
 	if (ft_strncmp(str, "/bin/", 5) != 0)
 		path = ft_strjoin("/bin/", str);
 	else

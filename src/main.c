@@ -25,6 +25,7 @@ void	get_command(t_shell  *shell)
 void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
+	shell->parse_cmd = NULL;
 	shell->lst_env = create_bckup_env(env);
 }
 
@@ -48,7 +49,6 @@ int	main(int argc, char **argv, char **env)
 			check_pipe(&shell);
 		}
 		check_command(&shell, &status);
-		free_list_string(shell.split_cmd);
 	}
 	return (status);
 }

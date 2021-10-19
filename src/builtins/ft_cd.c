@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/12 02:29:06 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/19 20:52:21 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static	char	*get_variable(char *path, t_shell *shell, int quotes, int *ck)
 {
 	char	*tmp;
 
-	if (quotes == 2)
+	if (quotes == 1)
 		return (path);
 	tmp = find_value(&shell->lst_env, path + 1);
 	free(path);

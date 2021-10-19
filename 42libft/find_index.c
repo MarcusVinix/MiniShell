@@ -6,7 +6,7 @@ int	find_index(char *str, char c)
 	int	i;
 
 	if (!str)
-		return (0);
+		return (-1);
 	i = 0;
 	while (str[i])
 	{
@@ -14,5 +14,5 @@ int	find_index(char *str, char c)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
