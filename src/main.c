@@ -22,13 +22,38 @@ void	get_command(t_shell  *shell)
 	add_history(shell->command);
 }
 
-void	start_struct(t_shell *shell, char **env)
+static void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
 	shell->lst_env = create_bckup_env(env);
 }
 
+static void exec_pipe(t_shell *shell)
+{
+	int		fd[2];
+	//pid_t	pid;
+
+	while (shell->parse_cmd)
+	{
+		//pipe(fd);
+		//pid = fork();
+		//if (pid == 0)
+		//{
+			close(fd[0]);
+			//code for child
+			check_command(shell, &status, fd[1]);
+			free(shell->parse_cmd);
+			shell->parse_cmd = NULL;
+		//}
+		//else 
+		//{
+		//	//code for father
+		//}
+		
+		check_pipe(shell);
+	}
+}
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
@@ -40,15 +65,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		get_command(&shell);
-		check_pipe(&shell);
-		while (shell.parse_cmd)
-		{
-			check_command(&shell, &status);
-			free(shell.parse_cmd);
-			shell.parse_cmd = NULL;
-			check_pipe(&shell);
-		}
-		check_command(&shell, &status);
+		if (check_pipe(&shell))
+			exec_pipe(&shell);
+		check_command(&shell, &status, 1);
 	}
 	return (status);
 }

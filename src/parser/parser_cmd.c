@@ -1,9 +1,9 @@
 
 #include <minishell.h>
 
-int	check_command(t_shell *shell, int *status)
+int	check_command(t_shell *shell, int *status, int fd)
 {
-
+	(void) fd;
 	if (shell->parse_cmd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
@@ -33,11 +33,11 @@ int	check_command(t_shell *shell, int *status)
 	return (0);
 }
 
-void	check_pipe(t_shell *shell)
+int	check_pipe(t_shell *shell)
 {
 	int pos;
 	char *aux;
-
+	
 	pos = find_index(shell->command, '|');
 	if(pos > 0)
 	{
@@ -45,7 +45,9 @@ void	check_pipe(t_shell *shell)
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
 		free(shell->command);
 		shell->command = aux;
+		return (1);
 	}
+	return (0);
 }
 
 

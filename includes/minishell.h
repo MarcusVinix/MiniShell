@@ -51,7 +51,7 @@ void	sigquit_handle(int sig_num);
 int		check_quotes(t_shell *shell);
 
 //parser
-int		check_command(t_shell *shell, int *status);
-void	check_pipe(t_shell *shell);
+int		check_command(t_shell *shell, int *status, int fd);
+int		check_pipe(t_shell *shell);
 
 #endif
