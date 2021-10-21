@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/19 20:52:21 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:10:53 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ static int	go_to_old_path(t_shell *shell)
 	return (go_to_path(shell, old, 0));
 }
 
-int	ft_cd(t_shell *shell)
+int	ft_cd(t_shell *shell, int fd)
 {
 	int		len;
 	int		stat;
 	int		quotes;
 
+	if (fd > 2)
+		return (0);
 	stat = 0;
 	quotes = 0;
 	len = ft_strlen_split(shell->split_cmd);

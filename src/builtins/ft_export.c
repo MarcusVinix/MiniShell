@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/20 17:42:00 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:14:59 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,15 @@ static int verify_valid(char *str, int signal, t_shell *sh)
 	return (0);
 }
 
-int	ft_export(t_shell *sh)
+int	ft_export(t_shell *sh, int fd)
 {
 	int count;
 	int	resp;
 	
 	resp = 0;
 	count = 1;
+	if (fd > 2)
+		return (0);
 	while (sh->split_cmd[count])
 	{
 		if (verify_valid(sh->split_cmd[count], 1, sh))

@@ -13,16 +13,18 @@ int	check_command(t_shell *shell, int *status, int fd)
 		ft_echo(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
 		ft_pwd(shell, shell->command, fd);
-	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0 && fd < 2)
-		*status = ft_cd(shell);
+	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
+	 	*status = ft_cd(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
 		*status = ft_env(shell, fd);
-	else if (ft_strcmp(shell->split_cmd[0], "export") == 0 && fd < 2)
-		*status = ft_export(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0 && fd < 2)
-		*status = ft_unset(shell, &shell->lst_env);
-	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0 && fd < 2)
+	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
+		*status = ft_export(shell, fd);
+	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
+		*status = ft_unset(shell, &shell->lst_env, fd);
+	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
+		if (fd > 2)
+			return (0);
 		free_all(shell);
 		exit(*status);
 	}

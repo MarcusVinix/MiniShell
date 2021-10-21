@@ -9,17 +9,16 @@ void	get_command(t_shell  *shell)
 	char	*prompt;
 	char	*tmp;
 
+
 	getcwd(cwd, 2021);
 	tmp = ft_strjoin("\033[33m", cwd);
 	prompt = ft_strjoin(tmp, "$\033[0m ");
 	free(tmp);
 	if (shell->command)
 		free(shell->command);
-	printf("COMANNDO ANTES\n");
 	shell->command = readline(prompt);
-	if (shell->command)
-		printf("mano brow\n");
-	printf("COMANNDO depois\n");
+	if (!shell->command)
+		exit(0);
 	free(prompt);
 	add_history(shell->command);
 }
@@ -43,30 +42,28 @@ static void exec_pipe(t_shell *shell)
 	{
 		if (pipe(fd) >= 0)
 		{
-			printf("TESTE\n");
 			check_command(shell, &status, fd[1]);
-			printf("TESTE2\n");
 			
 			free(shell->parse_cmd);
-			printf("TESTE3\n");
 
 			dup2(fd[0], shell->fd_in);
-			printf("TESTE4\n");
-			
-			//dup2(fd[1], shell->fd_out);
-			printf("foir\n");
+
+			////dup2(fd[1], shell->fd_out);
 			shell->parse_cmd = NULL;
 			close(fd[0]);
 			close(fd[1]);
 		}
 		check_pipe(shell);
 	}
-	printf("foir\n");
 }
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
+	int		in;
+	int		out;
 
+	in = dup(0);
+	out = dup(1);
 	status = 0;
 	if (argc != 1 || argv[1])
 		return (0);
@@ -78,8 +75,11 @@ int	main(int argc, char **argv, char **env)
 			exec_pipe(&shell);
 		if (shell.command)
 		{
-			printf("ENTREI NO PAdrão\n");
 			check_command(&shell, &status, 1);
+			dup2(in, 0);
+			dup2(out, 1);
+			//close(shell.fd_in);
+			//close(shell.fd_out);
 		}
 	}
 	return (status);

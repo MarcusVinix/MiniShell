@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando alguns bugs do unset"
+	git commit -m "pipe funcioando com os builtins"
 
 push:	add
 	git push

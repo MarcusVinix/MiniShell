@@ -27,9 +27,9 @@ typedef struct s_shell
 int		ft_pwd(t_shell *shell, char *command, int fd);
 void	ft_echo(t_shell *sh, int fd);
 int		ft_env(t_shell *sh, int fd);
-int		ft_cd(t_shell *shell);
-int		ft_export(t_shell *sh);
-int		ft_unset(t_shell *shell, t_list **lst);
+int		ft_cd(t_shell *shell, int fd);
+int		ft_export(t_shell *sh, int fd);
+int		ft_unset(t_shell *shell, t_list **lst, int fd);
 
 
 //errors

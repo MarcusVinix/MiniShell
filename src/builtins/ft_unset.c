@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:04:58 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/14 04:56:11 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/21 18:15:56 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,13 @@ int	check_variables(t_shell *shell, int quotes)
 	return (stat);
 }
 
-int	ft_unset(t_shell *shell, t_list **lst)
+int	ft_unset(t_shell *shell, t_list **lst, int fd)
 {
 	int		stat;
 	int		quotes;
 
+	if (fd > 2)
+		return (0);
 	stat = 0;
 	quotes = check_quotes(shell);
 	stat = check_variables(shell, quotes);
