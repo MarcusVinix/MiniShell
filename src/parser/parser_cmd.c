@@ -3,7 +3,6 @@
 
 int	check_command(t_shell *shell, int *status, int fd)
 {
-	(void) fd;
 	if (shell->parse_cmd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
@@ -25,8 +24,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 	{
 		if (fd > 2)
 			return (0);
-		free_all(shell);
-		exit(*status);
+		exit_shell(shell, status);
 	}
 	else
 		*status = ft_exec(shell, fd);
@@ -45,7 +43,8 @@ int	check_pipe(t_shell *shell)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
-		free(shell->command);
+		if (shell->command)
+			free(shell->command);
 		shell->command = aux;
 		return (1);
 	}

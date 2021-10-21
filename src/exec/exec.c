@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/21 18:38:03 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 19:34:34 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_exec(t_shell *shell, int fd)
 	path = ft_check_path(shell->split_cmd[0]);
 	ret = 0;
 	pid = fork();
-
 	if (pid == 0)
 	{
 		if (fd > 2)
@@ -56,6 +55,12 @@ int	ft_exec(t_shell *shell, int fd)
 		if (execve(path, shell->split_cmd, (char *const *)shell->lst_env) == -1)
 			ret = not_found(shell->split_cmd[0]);
 		exit(ret);
+	}
+	if (pid == -1)
+	{
+		printf("Minishell: erro ao criar o fork\n");
+		ft_putendl_fd(strerror(errno), 2);
+		return (-1);
 	}
 	waitpid(pid, &status, 0);
 	free(path);

@@ -17,9 +17,9 @@ void	get_command(t_shell  *shell)
 	if (shell->command)
 		free(shell->command);
 	shell->command = readline(prompt);
-	if (!shell->command)
-		exit(0);
 	free(prompt);
+	if (!shell->command)
+		exit_shell(shell, &status);
 	add_history(shell->command);
 }
 
@@ -34,7 +34,7 @@ static void	start_struct(t_shell *shell, char **env)
 
 //fd 0 READ STDIN
 //fd 1 WRITE STDOUT
-static void exec_pipe(t_shell *shell)
+static int exec_pipe(t_shell *shell)
 {
 	int		fd[2];
 
@@ -43,19 +43,24 @@ static void exec_pipe(t_shell *shell)
 		if (pipe(fd) >= 0)
 		{
 			check_command(shell, &status, fd[1]);
-			
 			free(shell->parse_cmd);
-
 			dup2(fd[0], shell->fd_in);
-
-			////dup2(fd[1], shell->fd_out);
 			shell->parse_cmd = NULL;
 			close(fd[0]);
 			close(fd[1]);
 		}
+		else
+		{
+			printf("Minishell: falha no pipe\n");
+			ft_putendl_fd(strerror(errno), 2);
+			return (0);
+		}
+
 		check_pipe(shell);
 	}
+	return (1);
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
@@ -71,8 +76,11 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		get_command(&shell);
+		if (is_all_space(shell.command))
+			continue ;
 		if (check_pipe(&shell))
-			exec_pipe(&shell);
+			if (!exec_pipe(&shell))
+				continue ;
 		if (shell.command)
 		{
 			check_command(&shell, &status, 1);
