@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/20 22:03:52 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:38:03 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static	char	*ft_check_path(char *str)
 	return (path);
 }
 
-int	ft_exec(t_shell *shell)
+int	ft_exec(t_shell *shell, int fd)
 {
 	pid_t	pid;
 	char	*path;
@@ -47,8 +47,11 @@ int	ft_exec(t_shell *shell)
 	path = ft_check_path(shell->split_cmd[0]);
 	ret = 0;
 	pid = fork();
+
 	if (pid == 0)
 	{
+		if (fd > 2)
+			dup2(fd, 1);
 		check_standart_fd(shell->fd_in, shell->fd_out);
 		if (execve(path, shell->split_cmd, (char *const *)shell->lst_env) == -1)
 			ret = not_found(shell->split_cmd[0]);

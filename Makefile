@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "pipe funcioando com os builtins"
+	git commit -m "os não builtins funfo com cat"
 
 push:	add
 	git push

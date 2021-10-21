@@ -29,7 +29,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 		exit(*status);
 	}
 	else
-		*status = ft_exec(shell);
+		*status = ft_exec(shell, fd);
 	printf("STATUS IS %i\n", *status);
 	free_list_string(shell->split_cmd);
 	return (0);
