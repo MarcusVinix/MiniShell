@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/07 21:34:26 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:39:31 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ static void print_msg(char *msg, t_list *lst)
 	printf(" ");
 }
 
-void	ft_echo(t_shell *sh)
+void	ft_echo(t_shell *sh, int fd)
 {
 	int count;
 	int flag;
 
+	(void)fd;
 	flag = 0;
 	count = 1;
 	while (sh->split_cmd[count])

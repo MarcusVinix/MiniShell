@@ -6,15 +6,17 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/08 15:46:31 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:39:21 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void printlst(char *key, char *value)
+static void printlst(char *key, char *value, int fd)
 {
-	printf("%s=%s\n", key, value);
+	ft_putstr_fd(key, fd);
+	ft_putstr_fd("=", fd);
+	ft_putendl_fd(value, fd);
 }
 
 static int verify_$(t_shell *sh)
@@ -44,7 +46,7 @@ static int verify_$(t_shell *sh)
 	return (0);
 }
 
-int	ft_env(t_shell *sh)
+int	ft_env(t_shell *sh, int fd)
 {
 	if (ft_strlen_split(sh->split_cmd) != 1)
 	{
@@ -52,6 +54,6 @@ int	ft_env(t_shell *sh)
 		if (verify_$(sh))
 			return (127);
 	}
-	ft_lstiter(sh->lst_env, printlst);
+	ft_lstiter(sh->lst_env, printlst, fd);
 	return (0);
 }

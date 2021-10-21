@@ -10,18 +10,18 @@ int	check_command(t_shell *shell, int *status, int fd)
 		shell->split_cmd = ft_split(shell->command, ' ');
 	printf("teste |%s|\n", shell->split_cmd[0]);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
-		ft_echo(shell);
+		ft_echo(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
-		ft_pwd(shell, shell->command);
-	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
+		ft_pwd(shell, shell->command, fd);
+	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0 && fd < 2)
 		*status = ft_cd(shell);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
-		*status = ft_env(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
+		*status = ft_env(shell, fd);
+	else if (ft_strcmp(shell->split_cmd[0], "export") == 0 && fd < 2)
 		*status = ft_export(shell);
-	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
+	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0 && fd < 2)
 		*status = ft_unset(shell, &shell->lst_env);
-	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
+	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0 && fd < 2)
 	{
 		free_all(shell);
 		exit(*status);

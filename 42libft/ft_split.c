@@ -65,6 +65,8 @@ char	**ft_split(char const *s, char c)
 	int		f;
 	int		w;
 
+	if (!s)
+		return (NULL);
 	array = (char **)malloc((count_c(s, c) + 1) * sizeof(char *));
 	if (array == NULL)
 		return (NULL);

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/13 05:13:16 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/20 17:42:00 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void printlst(char *key, char *value)
+static void printlst(char *key, char *value, int fd)
 {
+	(void)fd;
 	printf("declare -x %s=%s\n", key, value);
 }
 
@@ -129,6 +130,6 @@ int	ft_export(t_shell *sh)
 		count++;
 	}
 	if (count == 1)
-		ft_lstiter(sh->lst_env, printlst);
+		ft_lstiter(sh->lst_env, printlst, 1);
 	return (resp);
 }

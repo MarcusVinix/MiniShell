@@ -19,12 +19,14 @@ typedef struct s_shell
 	char	**split_cmd;
 	t_list	*lst_env;
 	char	*parse_cmd;
+	int		fd_in;
+	int		fd_out;
 }			t_shell;
 
 //builtins
-int		ft_pwd(t_shell *shell, char *command);
-void	ft_echo(t_shell *sh);
-int		ft_env(t_shell *sh);
+int		ft_pwd(t_shell *shell, char *command, int fd);
+void	ft_echo(t_shell *sh, int fd);
+int		ft_env(t_shell *sh, int fd);
 int		ft_cd(t_shell *shell);
 int		ft_export(t_shell *sh);
 int		ft_unset(t_shell *shell, t_list **lst);
