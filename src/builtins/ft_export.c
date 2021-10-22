@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/21 23:11:26 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/22 19:01:09 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ char **ft_split_v2(char *str, char c)
 	return (rslt);
 }
 
-static void	check_is_exist(t_list *lst, char *new_env)
+static void	check_is_exist(t_list *lst, char *new_env, int sig)
 {
 	char **key_val;
 
 	key_val = ft_split_v2(new_env, '=');
-	if (!change_value(&lst, key_val[0], key_val[1]))
+	if (!change_value(&lst, key_val[0], key_val[1], sig))
 	{
 		if (key_val[1])
 			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(key_val[0]), 
-					ft_strdup(key_val[1]), 1));
+					ft_strdup(key_val[1]), sig));
 	}
 	free_list_string(key_val);
 }
@@ -117,13 +117,15 @@ static int verify_valid(char *str, int signal, t_shell *sh)
 	return (0);
 }
 
-int	ft_export(t_shell *sh, int fd)
+int	ft_export(t_shell *sh, int fd, int sig)
 {
 	int count;
 	int	resp;
 	
 	resp = 0;
 	count = 1;
+	if (sig == 0)
+		count = 0;
 	if (fd > 2)
 		return (0);
 	while (sh->split_cmd[count])
@@ -134,10 +136,10 @@ int	ft_export(t_shell *sh, int fd)
 				resp = verify_valid(sh->split_cmd[count], 2, sh);
 		}
 		else
-			check_is_exist(sh->lst_env, sh->split_cmd[count]);
+			check_is_exist(sh->lst_env, sh->split_cmd[count], sig);
 		count++;
 	}
-	if (count == 1)
+	if (count == 1 && sig == 1)
 		ft_lstiter(sh->lst_env, printlst, 1);
 	return (resp);
 }

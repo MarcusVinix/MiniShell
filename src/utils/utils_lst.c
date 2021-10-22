@@ -6,13 +6,13 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/21 23:06:48 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/22 18:40:23 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	change_value(t_list **lst, char *key, char *new_value)
+int	change_value(t_list **lst, char *key, char *new_value, int sig)
 {
 	t_list	*tmp;
 
@@ -24,7 +24,7 @@ int	change_value(t_list **lst, char *key, char *new_value)
 			if (tmp->value)
 				free(tmp->value);
 			tmp->value = ft_strdup(new_value);
-			tmp->signal = 1;
+			tmp->signal = sig;
 			return (1) ;
 		}
 		tmp = tmp->next;

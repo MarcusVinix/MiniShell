@@ -30,7 +30,7 @@ int		ft_pwd(t_shell *shell, char *command, int fd);
 void	ft_echo(t_shell *sh, int fd);
 int		ft_env(t_shell *sh, int fd);
 int		ft_cd(t_shell *shell, int fd);
-int		ft_export(t_shell *sh, int fd);
+int		ft_export(t_shell *sh, int fd, int sig);
 int		ft_unset(t_shell *shell, t_list **lst, int fd);
 
 
@@ -49,7 +49,7 @@ void	exit_shell(t_shell *shell, int *status);
 //utils
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
-int		change_value(t_list **lst, char *key, char *new_value);
+int		change_value(t_list **lst, char *key, char *new_value, int sig);
 int		ft_exec(t_shell *shell, int fd);
 void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);

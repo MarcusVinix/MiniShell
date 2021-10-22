@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/21 18:10:53 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/22 18:43:27 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static	int	go_to_path(t_shell *shell, char *go_to, int quotes)
 		stat = error_no_file(path);
 	else
 	{
-		change_value(&shell->lst_env, "OLDPWD", cwd);
+		change_value(&shell->lst_env, "OLDPWD", cwd, 1);
 		getcwd(new_cwd, 2021);
-		change_value(&shell->lst_env, "PWD", new_cwd);
+		change_value(&shell->lst_env, "PWD", new_cwd,1);
 	}
 	if (!check)
 		free(path);
