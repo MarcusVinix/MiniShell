@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 12:03:33 by marcus            #+#    #+#             */
-/*   Updated: 2021/09/29 22:20:06 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/21 23:09:06 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (lst == NULL)
 		return (NULL);
-	new_elem = ft_lstnew((*f)(lst->key), lst->value);
+	new_elem = ft_lstnew((*f)(lst->key), lst->value, lst->signal);
 	if (new_elem == NULL)
 	{
 		free(new_elem);
@@ -29,7 +29,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	lst = lst->next;
 	while (lst)
 	{
-		new_elem->next = ft_lstnew((*f)(lst->key), lst->value);
+		new_elem->next = ft_lstnew((*f)(lst->key), lst->value, lst->signal);
 		if (new_elem == NULL)
 		{
 			ft_lstclear(&new_lst, del);

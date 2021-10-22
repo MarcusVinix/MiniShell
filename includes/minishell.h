@@ -22,6 +22,7 @@ typedef struct s_shell
 	char	*parse_cmd;
 	int		fd_in;
 	int		fd_out;
+	int		*p_status;
 }			t_shell;
 
 //builtins

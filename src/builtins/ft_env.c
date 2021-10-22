@@ -6,18 +6,22 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/20 17:39:21 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 22:53:04 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void printlst(char *key, char *value, int fd)
+static void printlst(char *key, char *value, int fd, int sig)
 {
-	ft_putstr_fd(key, fd);
-	ft_putstr_fd("=", fd);
-	ft_putendl_fd(value, fd);
+	if (sig)
+	{
+		ft_putstr_fd(key, fd);
+		ft_putstr_fd("=", fd);
+		ft_putendl_fd(value, fd);
+	}
 }
+	
 
 static int verify_$(t_shell *sh)
 {

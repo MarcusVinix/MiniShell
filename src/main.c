@@ -30,6 +30,7 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->lst_env = create_bckup_env(env);
 	shell->fd_in = 0;
 	shell->fd_out = 1;
+	shell->p_status = &status;
 }
 
 //fd 0 READ STDIN
@@ -55,7 +56,6 @@ static int exec_pipe(t_shell *shell)
 			ft_putendl_fd(strerror(errno), 2);
 			return (0);
 		}
-
 		check_pipe(shell);
 	}
 	return (1);

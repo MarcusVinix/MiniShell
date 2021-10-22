@@ -6,13 +6,13 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/21 18:03:22 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 22:33:06 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void print_msg(char *msg, t_list *lst, int fd)
+static void print_msg(char *msg, t_shell *sh, int fd)
 {
 	char *var;
 	char *sub;
@@ -31,8 +31,10 @@ static void print_msg(char *msg, t_list *lst, int fd)
 	{
 		if (!msg[count + 1])
 			ft_putchar_fd('$', fd);
+		else if (msg[count + 1] == '?')
+			ft_putnbr_fd(*sh->p_status, fd);
 		sub = ft_substr(msg, ++count, ft_strlen(msg));
-		var = find_value(&lst, sub);
+		var = find_value(&sh->lst_env, sub);
 		free(sub);
 		if (var)
 			ft_putstr_fd(var, fd);
@@ -52,7 +54,7 @@ void	ft_echo(t_shell *sh, int fd)
 		if (!ft_strcmp(sh->split_cmd[count], "-n") && count == 1)
 			flag = 1;
 		else
-			print_msg(sh->split_cmd[count], sh->lst_env, fd);
+			print_msg(sh->split_cmd[count], sh, fd);
 		count++;
 	}
 	if (!flag)

@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/09/30 23:05:10 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 23:06:48 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	change_value(t_list **lst, char *key, char *new_value)
 			if (tmp->value)
 				free(tmp->value);
 			tmp->value = ft_strdup(new_value);
+			tmp->signal = 1;
 			return (1) ;
 		}
 		tmp = tmp->next;
@@ -57,7 +58,7 @@ t_list	*create_bckup_env(char **env)
 		pos = find_pos(env[i]);
 		len = ft_strlen(env[i]);
 		ft_lstadd_back(&list, ft_lstnew(ft_substr(env[i], 0, pos),
-			ft_substr(env[i], pos + 1, len - pos)));
+			ft_substr(env[i], pos + 1, len - pos), 1));
 		i++;
 	}
 	return (list);

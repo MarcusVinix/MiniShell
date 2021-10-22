@@ -6,16 +6,22 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/21 18:14:59 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/21 23:11:26 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void printlst(char *key, char *value, int fd)
+static void printlst(char *key, char *value, int fd, int sig)
 {
-	(void)fd;
-	printf("declare -x %s=%s\n", key, value);
+	if (sig)
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(key, fd);
+		ft_putchar_fd('=', fd);
+		ft_putstr_fd(value, fd);
+		ft_putchar_fd('\n', fd);
+	}
 }
 
 char **ft_split_v2(char *str, char c)
@@ -53,7 +59,7 @@ static void	check_is_exist(t_list *lst, char *new_env)
 	{
 		if (key_val[1])
 			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(key_val[0]), 
-					ft_strdup(key_val[1])));
+					ft_strdup(key_val[1]), 1));
 	}
 	free_list_string(key_val);
 }

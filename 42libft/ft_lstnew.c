@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 23:11:12 by marcus            #+#    #+#             */
-/*   Updated: 2021/09/29 23:19:49 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/21 22:48:02 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *key, void *value)
+t_list	*ft_lstnew(void *key, void *value, int sig)
 {
 	t_list	*element;
 
@@ -21,6 +21,7 @@ t_list	*ft_lstnew(void *key, void *value)
 		return (NULL);
 	element->key = key;
 	element->value = value;
+	element->signal = sig;
 	element->next = NULL;
 	return (element);
 }
