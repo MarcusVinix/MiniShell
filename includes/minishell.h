@@ -10,6 +10,9 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 # define NO_FILE "No such file or directory"
 # define NO_OLDPWD "OLDPWD not set"
 
@@ -50,13 +53,13 @@ void	exit_shell(t_shell *shell, int *status);
 t_list	*create_bckup_env(char **env);
 char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value, int sig);
-int		ft_exec(t_shell *shell, int fd);
+int		ft_exec(t_shell *shell, int fd, char **env);
 void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);
 int		check_quotes(t_shell *shell);
 
 //parser
-int		check_command(t_shell *shell, int *status, int fd);
+int		check_command(t_shell *shell, int *status, int fd, char **env);
 int		check_pipe(t_shell *shell);
 
 

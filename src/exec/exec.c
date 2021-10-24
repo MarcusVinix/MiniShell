@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/21 19:34:34 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/24 11:04:09 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,74 @@ static void	check_standart_fd(int fd_in, int fd_out)
 	}
 }
 
-static	char	*ft_check_path(char *str)
+static char	*find_command(char *path, char **command)
+{
+	struct stat	buff;
+	char		*new_path;
+	char		*new_cmd;
+
+	new_path = ft_strjoin(path, "/");
+	new_cmd = ft_strjoin(new_path, *command);
+	free(new_path);
+	if (stat(new_cmd, &buff))
+	{
+		free(new_cmd);
+		new_cmd = NULL;
+	}
+	return (new_cmd);
+}
+
+static char	*check_path_command(char **str, t_shell *shell)
+{
+	char	*path;
+	char	**split_path;
+	char	*command;
+	int		i;
+
+	path = find_value(&shell->lst_env, "PATH");
+	if (!path)
+		return (NULL);
+	split_path = ft_split(path, ':');
+	i = 0;
+	while (split_path[i])
+	{
+		command = find_command(split_path[i], str);
+		if (command)
+			break ;
+		i++;
+	}
+	free_list_string(split_path);
+	return (command);
+}
+
+static int	ft_check_path(char **str, t_shell *shell)
 {
 	char	*path;
 	
-	if (ft_strncmp(str, "/bin/", 5) != 0)
-		path = ft_strjoin("/bin/", str);
-	else
-		path = ft_strdup(str);
-	return (path);
+	if (!(ft_strchr(str[0], '/')))
+	{
+		path = check_path_command(str, shell);
+		if (!path)
+		{
+			return (1);
+		}
+		free(str[0]);
+		str[0] = path;
+	}
+	
+
+	return (0);
 }
 
-int	ft_exec(t_shell *shell, int fd)
+int	ft_exec(t_shell *shell, int fd, char **env)
 {
 	pid_t	pid;
-	char	*path;
 	int		ret;
-	int		status;
-
-	path = ft_check_path(shell->split_cmd[0]);
+	char	*cmd;
+	
+	cmd = ft_strdup(shell->split_cmd[0]);
+	ft_check_path(shell->split_cmd, shell);
+	printf("COMMAND |%s|\n", shell->split_cmd[0]);
 	ret = 0;
 	pid = fork();
 	if (pid == 0)
@@ -52,8 +101,8 @@ int	ft_exec(t_shell *shell, int fd)
 		if (fd > 2)
 			dup2(fd, 1);
 		check_standart_fd(shell->fd_in, shell->fd_out);
-		if (execve(path, shell->split_cmd, (char *const *)shell->lst_env) == -1)
-			ret = not_found(shell->split_cmd[0]);
+		if (execve(shell->split_cmd[0], shell->split_cmd, env) == -1)
+			ret = not_found(cmd);
 		exit(ret);
 	}
 	if (pid == -1)
@@ -62,7 +111,7 @@ int	ft_exec(t_shell *shell, int fd)
 		ft_putendl_fd(strerror(errno), 2);
 		return (-1);
 	}
-	waitpid(pid, &status, 0);
-	free(path);
+	free(cmd);
+	waitpid(pid, &ret, 0);
 	return (ret);
 }

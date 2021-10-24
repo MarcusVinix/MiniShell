@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "fazendo tratamento de alguns erros"
+	git commit -m "exec pega todos os path, a nossa variabel com as variaveis de ambientes estavam causando erro no execve, então usei a padrão, precisa mudar depois."
 
 push:	add
 	git push

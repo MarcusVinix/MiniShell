@@ -35,7 +35,7 @@ static void	start_struct(t_shell *shell, char **env)
 
 //fd 0 READ STDIN
 //fd 1 WRITE STDOUT
-static int exec_pipe(t_shell *shell)
+static int exec_pipe(t_shell *shell, char **env)
 {
 	int		fd[2];
 
@@ -43,7 +43,7 @@ static int exec_pipe(t_shell *shell)
 	{
 		if (pipe(fd) >= 0)
 		{
-			check_command(shell, &status, fd[1]);
+			check_command(shell, &status, fd[1], env);
 			free(shell->parse_cmd);
 			dup2(fd[0], shell->fd_in);
 			shell->parse_cmd = NULL;
@@ -79,11 +79,11 @@ int	main(int argc, char **argv, char **env)
 		if (is_all_space(shell.command))
 			continue ;
 		if (check_pipe(&shell))
-			if (!exec_pipe(&shell))
+			if (!exec_pipe(&shell, env))
 				continue ;
 		if (shell.command)
 		{
-			check_command(&shell, &status, 1);
+			check_command(&shell, &status, 1, env);
 			dup2(in, 0);
 			dup2(out, 1);
 			//close(shell.fd_in);
