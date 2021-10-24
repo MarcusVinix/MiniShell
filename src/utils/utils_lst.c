@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/22 19:15:09 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/24 13:13:20 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	find_pos(char *str)
 	return (i);
 }
 
-t_list	*create_bckup_env(char **env)
+t_list	*create_bckup_env(char **env, t_shell *shell)
 {
 	int		i;
 	int		pos;
@@ -63,6 +63,7 @@ t_list	*create_bckup_env(char **env)
 		len = ft_strlen(env[i]);
 		ft_lstadd_back(&list, ft_lstnew(ft_substr(env[i], 0, pos),
 			ft_substr(env[i], pos + 1, len - pos), 1));
+		shell->len_env++;
 		i++;
 	}
 	return (list);

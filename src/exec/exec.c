@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 11:04:09 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/24 13:47:18 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*find_command(char *path, char **command)
 	new_path = ft_strjoin(path, "/");
 	new_cmd = ft_strjoin(new_path, *command);
 	free(new_path);
-	if (stat(new_cmd, &buff))
+	if (stat(new_cmd, &buff) != 0 )
 	{
 		free(new_cmd);
 		new_cmd = NULL;
@@ -85,15 +85,19 @@ static int	ft_check_path(char **str, t_shell *shell)
 	return (0);
 }
 
-int	ft_exec(t_shell *shell, int fd, char **env)
+int	ft_exec(t_shell *shell, int fd)
 {
 	pid_t	pid;
 	int		ret;
 	char	*cmd;
+	char	**envp;
 	
+	if (ft_check_path(shell->split_cmd, shell))
+		return (1);
 	cmd = ft_strdup(shell->split_cmd[0]);
-	ft_check_path(shell->split_cmd, shell);
-	printf("COMMAND |%s|\n", shell->split_cmd[0]);
+	envp = get_env_var(&shell->lst_env, shell);
+	if (!envp)
+		return (1);
 	ret = 0;
 	pid = fork();
 	if (pid == 0)
@@ -101,7 +105,7 @@ int	ft_exec(t_shell *shell, int fd, char **env)
 		if (fd > 2)
 			dup2(fd, 1);
 		check_standart_fd(shell->fd_in, shell->fd_out);
-		if (execve(shell->split_cmd[0], shell->split_cmd, env) == -1)
+		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)
 			ret = not_found(cmd);
 		exit(ret);
 	}
@@ -112,6 +116,7 @@ int	ft_exec(t_shell *shell, int fd, char **env)
 		return (-1);
 	}
 	free(cmd);
+	free_list_string(envp);
 	waitpid(pid, &ret, 0);
 	return (ret);
 }

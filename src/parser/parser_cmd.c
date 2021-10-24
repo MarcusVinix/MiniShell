@@ -1,7 +1,7 @@
 
 #include <minishell.h>
 
-int	check_command(t_shell *shell, int *status, int fd, char **env)
+int	check_command(t_shell *shell, int *status, int fd)
 {
 	if (shell->parse_cmd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
@@ -29,7 +29,7 @@ int	check_command(t_shell *shell, int *status, int fd, char **env)
 		exit_shell(shell, status);
 	}
 	else
-		*status = ft_exec(shell, fd, env);
+		*status = ft_exec(shell, fd);
 	printf("STATUS IS %i\n", *status);
 	free_list_string(shell->split_cmd);
 	return (0);

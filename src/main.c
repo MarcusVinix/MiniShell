@@ -27,15 +27,16 @@ static void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
-	shell->lst_env = create_bckup_env(env);
 	shell->fd_in = 0;
 	shell->fd_out = 1;
 	shell->p_status = &status;
+	shell->len_env = 0;
+	shell->lst_env = create_bckup_env(env, shell);
 }
 
 //fd 0 READ STDIN
 //fd 1 WRITE STDOUT
-static int exec_pipe(t_shell *shell, char **env)
+static int exec_pipe(t_shell *shell)
 {
 	int		fd[2];
 
@@ -43,7 +44,7 @@ static int exec_pipe(t_shell *shell, char **env)
 	{
 		if (pipe(fd) >= 0)
 		{
-			check_command(shell, &status, fd[1], env);
+			check_command(shell, &status, fd[1]);
 			free(shell->parse_cmd);
 			dup2(fd[0], shell->fd_in);
 			shell->parse_cmd = NULL;
@@ -79,11 +80,11 @@ int	main(int argc, char **argv, char **env)
 		if (is_all_space(shell.command))
 			continue ;
 		if (check_pipe(&shell))
-			if (!exec_pipe(&shell, env))
+			if (!exec_pipe(&shell))
 				continue ;
 		if (shell.command)
 		{
-			check_command(&shell, &status, 1, env);
+			check_command(&shell, &status, 1);
 			dup2(in, 0);
 			dup2(out, 1);
 			//close(shell.fd_in);

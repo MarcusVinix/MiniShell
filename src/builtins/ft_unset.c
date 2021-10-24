@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:04:58 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/21 18:15:56 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/24 13:14:47 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	del_env(t_shell *shell, t_list **lst)
 					next = tmp->next->next;
 					ft_lstdelone(tmp->next, free);
 					tmp->next =  next;
+					shell->len_env--;
 					break ;
 				}
 				tmp = tmp->next;

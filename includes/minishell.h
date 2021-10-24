@@ -26,6 +26,7 @@ typedef struct s_shell
 	int		fd_in;
 	int		fd_out;
 	int		*p_status;
+	int		len_env;
 }			t_shell;
 
 //builtins
@@ -50,16 +51,17 @@ void	free_list_string(char **str);
 void	exit_shell(t_shell *shell, int *status);
 
 //utils
-t_list	*create_bckup_env(char **env);
+t_list	*create_bckup_env(char **env, t_shell *shell);
 char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value, int sig);
-int		ft_exec(t_shell *shell, int fd, char **env);
+int		ft_exec(t_shell *shell, int fd);
 void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);
 int		check_quotes(t_shell *shell);
+char	**get_env_var(t_list **list_env, t_shell *shell);
 
 //parser
-int		check_command(t_shell *shell, int *status, int fd, char **env);
+int		check_command(t_shell *shell, int *status, int fd);
 int		check_pipe(t_shell *shell);
 
 
