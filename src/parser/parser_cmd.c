@@ -13,7 +13,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 	else if (find_index(shell->split_cmd[0], '=') > 0)
 		ft_export(shell, fd, 0);
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
-		ft_pwd(shell, shell->command, fd);
+		ft_pwd(fd);
 	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
 	 	*status = ft_cd(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)

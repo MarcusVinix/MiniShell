@@ -30,7 +30,7 @@ typedef struct s_shell
 }			t_shell;
 
 //builtins
-int		ft_pwd(t_shell *shell, char *command, int fd);
+int		ft_pwd(int fd);
 void	ft_echo(t_shell *sh, int fd);
 int		ft_env(t_shell *sh, int fd);
 int		ft_cd(t_shell *shell, int fd);

@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 22:26:06 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/24 23:04:26 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,13 @@ int	ft_exec(t_shell *shell, int fd)
 			dup2(fd, 1);
 		check_standart_fd(shell->fd_in, shell->fd_out);
 		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)
-			return (no_file(shell->split_cmd[0]));
+			ret = no_file(shell->split_cmd[0]);
 		exit(ret);
 	}
 	waitpid(pid, &ret, 0);
 	if (envp)
 		free_list_string(envp);
+	if (ret > 256)
+		ret = 127;
 	return (ret);
 }

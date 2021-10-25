@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:13:34 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/21 18:20:57 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/24 23:06:11 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(t_shell *shell, char *command, int fd)
+int	ft_pwd(int fd)
 {
-	int		len;
+	char	path[2021];
 
-	len = ft_strlen(command);
-	//if (len > 3)
-	//	if (ft_strncmp(command, "pwd ", 4))
-	//		return (not_found(command));
-	ft_putendl_fd(find_value(&shell->lst_env, "PWD"), fd);
+	if (getcwd(path, 2021))
+		ft_putendl_fd(path, fd);
+	else
+	{
+		ft_putendl_fd("minishell: ", 2);
+		ft_putendl_fd("pwd: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+	}
 	return (0);
 }

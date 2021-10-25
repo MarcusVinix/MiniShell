@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/24 22:21:21 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/24 23:01:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	error_cd(char *message)
 
 int	no_file(char *file)
 {
-	printf("minishell: %s: %s\n", file, NO_FILE);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(" :", 2);
+	ft_putendl_fd(strerror(errno), 2);
 	return (127);
 }
