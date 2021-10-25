@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "criando uma variavel de env para usar no execve."
+	git commit -m "arrumando retorno da função ft_exec"
 
 push:	add
 	git push

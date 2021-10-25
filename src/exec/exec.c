@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 13:47:18 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/24 22:26:06 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,10 @@ static int	ft_check_path(char **str, t_shell *shell)
 	{
 		path = check_path_command(str, shell);
 		if (!path)
-		{
-			return (1);
-		}
+			return (not_found(shell->split_cmd[0]));
 		free(str[0]);
 		str[0] = path;
 	}
-	
-
 	return (0);
 }
 
@@ -89,15 +85,11 @@ int	ft_exec(t_shell *shell, int fd)
 {
 	pid_t	pid;
 	int		ret;
-	char	*cmd;
 	char	**envp;
 	
 	if (ft_check_path(shell->split_cmd, shell))
-		return (1);
-	cmd = ft_strdup(shell->split_cmd[0]);
+		return (127);
 	envp = get_env_var(&shell->lst_env, shell);
-	if (!envp)
-		return (1);
 	ret = 0;
 	pid = fork();
 	if (pid == 0)
@@ -106,17 +98,11 @@ int	ft_exec(t_shell *shell, int fd)
 			dup2(fd, 1);
 		check_standart_fd(shell->fd_in, shell->fd_out);
 		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)
-			ret = not_found(cmd);
+			return (no_file(shell->split_cmd[0]));
 		exit(ret);
 	}
-	if (pid == -1)
-	{
-		printf("Minishell: erro ao criar o fork\n");
-		ft_putendl_fd(strerror(errno), 2);
-		return (-1);
-	}
-	free(cmd);
-	free_list_string(envp);
 	waitpid(pid, &ret, 0);
+	if (envp)
+		free_list_string(envp);
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/13 05:12:59 by coder            ###   ########.fr       */
+/*   Updated: 2021/10/24 22:21:21 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,10 @@ int	error_cd(char *message)
 {
 	printf("minishell: cd: %s\n", message);
 	return (1);
+}
+
+int	no_file(char *file)
+{
+	printf("minishell: %s: %s\n", file, NO_FILE);
+	return (127);
 }
