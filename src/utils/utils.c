@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 13:40:31 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/24 23:21:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,18 @@ char	**get_env_var(t_list **list_env, t_shell *shell)
 	}
 	env[i] = NULL;
 	return (env);
-	
+}
+
+int	all_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (2);
+		i++;
+	}
+	return (ft_atoi(str));
 }

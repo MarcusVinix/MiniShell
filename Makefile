@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando bug Nº999 da build PWD"
+	git commit -m "arrumando argumentos do exit"
 
 push:	add
 	git push

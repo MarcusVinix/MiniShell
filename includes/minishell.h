@@ -60,6 +60,7 @@ void	get_command(t_shell  *shell);
 void	sigquit_handle(int sig_num);
 int		check_quotes(t_shell *shell);
 char	**get_env_var(t_list **list_env, t_shell *shell);
+int		all_number(char *str);
 
 //parser
 int		check_command(t_shell *shell, int *status, int fd);
