@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 23:04:26 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/25 21:22:00 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_exec(t_shell *shell, int fd)
 	pid_t	pid;
 	int		ret;
 	char	**envp;
-	
+
 	if (ft_check_path(shell->split_cmd, shell))
 		return (127);
 	envp = get_env_var(&shell->lst_env, shell);

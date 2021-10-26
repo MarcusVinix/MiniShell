@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando argumentos do exit"
+	git commit -m "começando os tratamentos de sinais"
 
 push:	add
 	git push

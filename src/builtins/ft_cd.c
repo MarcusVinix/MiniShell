@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:15:38 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/22 18:43:27 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/25 21:40:02 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-static	char	*get_variable(char *path, t_shell *shell, int quotes, int *ck)
+static	char	*get_variable(char *path, t_shell *shell, int quotes)
 {
 	char	*tmp;
 
@@ -23,7 +23,6 @@ static	char	*get_variable(char *path, t_shell *shell, int quotes, int *ck)
 	free(path);
 	if (!tmp || ft_strcmp(tmp, "") == 0)
 		tmp = find_value(&shell->lst_env, "HOME");
-	*ck = 1;
 	return (tmp);
 }
 
@@ -31,26 +30,22 @@ static	int	go_to_path(t_shell *shell, char *go_to, int quotes)
 {
 	char	cwd[2021];
 	char	new_cwd[2021];
-	char	*path;
 	int		check;
 	int		stat;
 
 	stat = 0;
 	check = 0;
-	path = ft_strtrim(go_to, " ");
-	if (*path == '$' && (*(path + 1) != ' ' || *(path + 1) != '\0'))
-		path = get_variable(path, shell, quotes, &check);
+	if (*go_to == '$' && (*(go_to + 1) != ' ' || *(go_to + 1) != '\0'))
+		go_to = get_variable(go_to, shell, quotes);
 	getcwd(cwd, 2021);
-	if (chdir(path) != 0)
-		stat = error_no_file(path);
+	if (chdir(go_to) != 0)
+		stat = error_no_file(go_to);
 	else
 	{
 		change_value(&shell->lst_env, "OLDPWD", cwd, 1);
 		getcwd(new_cwd, 2021);
 		change_value(&shell->lst_env, "PWD", new_cwd,1);
 	}
-	if (!check)
-		free(path);
 	return (stat);
 }
 
@@ -83,13 +78,13 @@ int	ft_cd(t_shell *shell, int fd)
 	int		stat;
 	int		quotes;
 
-	if (fd > 2)
-		return (0);
 	stat = 0;
 	quotes = 0;
 	len = ft_strlen_split(shell->split_cmd);
 	if (len > 2)
 		return (error_cd("too many arguments"));
+	if (fd > 2)
+		return (0);
 	quotes = check_quotes(shell);
 	if (len == 1 || ft_strcmp(shell->split_cmd[1], "~") == 0)
 		stat = go_to_home(shell);

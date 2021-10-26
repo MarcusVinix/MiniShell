@@ -76,6 +76,8 @@ int	main(int argc, char **argv, char **env)
 	start_struct(&shell, env);
 	while (1)
 	{
+		signal(SIGINT, sigint_handle);
+		signal(SIGQUIT, sigquit_handle);
 		get_command(&shell);
 		if (is_all_space(shell.command))
 			continue ;
