@@ -4,11 +4,12 @@ int	open_fd(t_shell *shell)
 {
 	int fd;
 	
-	fd = -1;
+	fd = 1;
 	if (shell->redic == 1)
-		fd = open(shell->file, O_WRONLY | O_CREAT);
+		fd = open(shell->file, O_WRONLY | O_CREAT, 0664);
 	else if (shell->redic == 2)
-		fd = open(shell->file, O_WRONLY | O_APPEND | O_CREAT);
+		fd = open(shell->file, O_APPEND| O_WRONLY | O_CREAT, 0664);
+	printf("FD is %i\n", fd);
 	free(shell->file);
 	shell->file = NULL;
 	return (fd);
@@ -19,6 +20,7 @@ int	exec_redic(t_shell *shell)
 	int fd;
 
 	fd = 0;
+	char *aux_two;
 	char *aux = ft_strdup(shell->parse_cmd);
 	while (shell->parse_cmd)
 	{
@@ -30,7 +32,12 @@ int	exec_redic(t_shell *shell)
 		}			
 		check_redic(shell);
 		if (shell->parse_cmd)
+		{
 			close(fd);
+			aux_two = ft_strjoin(aux, shell->parse_cmd);
+			free(aux);
+			aux = aux_two;
+		}
 	}
 	shell->parse_cmd = aux;
 	check_command(shell, shell->p_status, fd);

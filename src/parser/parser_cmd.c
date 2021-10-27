@@ -87,20 +87,17 @@ static int	find_redic(t_shell *shell)
 
 char	*find_file(t_shell *shell, int *pos)
 {
-	char	*aux;
+	char	**aux;
 	char	*file;
-	int		i;
+	char	*tmp;
 
-	i = *pos + 1;
-	aux = shell->command;
-	while (aux[i])
-	{
-		if (aux[i] == ' ')
-			break ;
-		i++;
-	}
-	file = ft_substr(aux, *pos, i);
-	*pos = i;
+	tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
+	aux = ft_split(tmp, ' ');
+	printf("aux |%s|\n", aux[0]);
+	*pos += ft_strlen(aux[0]) + 1;
+	file = ft_strdup(aux[0]);
+	free_list_string(aux);
+	free(tmp);
 	return (file);
 }
 
@@ -115,7 +112,9 @@ int check_redic(t_shell *shell)
 		printf("CAIU NA ONDE TEM REDIC\n");
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
 		shell->file = find_file(shell, &pos);
+		printf("pos fora do find %i\n", pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
+		printf("AUXRESTO |%s|\n", aux);
 		if(shell->command)
 		{
 			free(shell->command);
