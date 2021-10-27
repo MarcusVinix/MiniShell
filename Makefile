@@ -26,7 +26,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c $(PATH_UTILS)handle_signal.c \
 		$(PATH_UTILS)utils.c \
 		$(PATH_EXEC)exec.c \
-		$(PATH_PARSER)parser_cmd.c
+		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c
 
 
 		
@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "começando os tratamentos de sinais"
+	git commit -m "redirection > aparentemente funcionou"
 
 push:	add
 	git push

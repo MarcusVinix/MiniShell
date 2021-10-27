@@ -9,7 +9,7 @@ void	get_command(t_shell  *shell)
 	char	*prompt;
 	char	*tmp;
 
-
+	printf("TNO READ\n");
 	getcwd(cwd, 2021);
 	tmp = ft_strjoin("\033[33m", cwd);
 	prompt = ft_strjoin(tmp, "$\033[0m ");
@@ -27,9 +27,11 @@ static void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
+	shell->file = NULL;
 	shell->fd_in = 0;
 	shell->fd_out = 1;
 	shell->p_status = &status;
+	shell->redic = -1;
 	shell->len_env = 0;
 	shell->lst_env = create_bckup_env(env, shell);
 }
@@ -84,13 +86,16 @@ int	main(int argc, char **argv, char **env)
 		if (check_pipe(&shell))
 			if (!exec_pipe(&shell))
 				continue ;
+		if (check_redic(&shell))
+			if (!exec_redic(&shell))
+				continue ;
 		if (shell.command)
 		{
+			printf("CAIU E VC N VIU\n");
+			printf("ss: %s\n", shell.command);
 			check_command(&shell, &status, 1);
 			dup2(in, 0);
 			dup2(out, 1);
-			//close(shell.fd_in);
-			//close(shell.fd_out);
 		}
 	}
 	return (status);

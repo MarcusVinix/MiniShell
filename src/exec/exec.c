@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/25 21:22:00 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/26 19:06:46 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 static void	check_standart_fd(int fd_in, int fd_out)
 {
+	(void)fd_out;
 	if (fd_in != 0)
 	{
 		dup2(fd_in, 0);
 		close(fd_in);
-	}
-	if (fd_out != 1)
-	{
-		dup2(fd_in, 1);
-		close(fd_out);
 	}
 }
 

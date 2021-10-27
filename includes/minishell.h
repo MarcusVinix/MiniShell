@@ -10,11 +10,13 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <errno.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 # define NO_FILE "No such file or directory"
 # define NO_OLDPWD "OLDPWD not set"
+
 
 
 typedef struct s_shell
@@ -27,6 +29,8 @@ typedef struct s_shell
 	int		fd_out;
 	int		*p_status;
 	int		len_env;
+	int		redic;
+	char	*file;
 }			t_shell;
 
 //builtins
@@ -66,6 +70,8 @@ int		all_number(char *str);
 //parser
 int		check_command(t_shell *shell, int *status, int fd);
 int		check_pipe(t_shell *shell);
+int		check_redic(t_shell *shell);
 
-
+//title
+int		exec_redic(t_shell *shell);
 #endif
