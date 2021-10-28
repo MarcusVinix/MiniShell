@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "restante da string apararentemente funfa"
+	git commit -m "redirection < funcionando no basico"
 
 push:	add
 	git push

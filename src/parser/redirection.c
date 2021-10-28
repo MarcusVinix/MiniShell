@@ -9,7 +9,8 @@ int	open_fd(t_shell *shell)
 		fd = open(shell->file, O_TRUNC | O_WRONLY | O_CREAT, 0664);
 	else if (shell->redic == 2)
 		fd = open(shell->file, O_APPEND| O_WRONLY | O_CREAT, 0664);
-	printf("FD is %i\n", fd);
+	else if (shell->redic == 3)
+		fd = open(shell->file, O_RDONLY);
 	free(shell->file);
 	shell->file = NULL;
 	return (fd);
@@ -39,6 +40,12 @@ int	exec_redic(t_shell *shell)
 			aux = aux_two;
 		}
 	}
+	if (shell->command)
+	{
+		aux_two = ft_strjoin(aux, shell->command);
+		free(aux);
+		aux = aux_two;
+	}
 	shell->parse_cmd = aux;
 	check_command(shell, shell->p_status, fd);
 	free(aux);
@@ -47,7 +54,6 @@ int	exec_redic(t_shell *shell)
 	{
 		free(shell->command);
 		shell->command = NULL;
-		printf("CAI AQ no redic\n");
 	}
 	close(fd);
 	return (1);

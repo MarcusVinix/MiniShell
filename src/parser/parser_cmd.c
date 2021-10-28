@@ -7,7 +7,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
-	printf("teste |%s|\n", shell->split_cmd[1]);
+	printf("teste |%s|\n", shell->split_cmd[0]);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell, fd);
 	else if (find_index(shell->split_cmd[0], '=') > 0)
@@ -122,13 +122,11 @@ char	*find_file(t_shell *shell, int *pos)
 	else
 		tmp = ft_substr(shell->command, *pos + 2, ft_strlen(shell->command));
 	aux = ft_split(tmp, ' ');
-	printf("aux |%s|\n", aux[0]);
 	file = ft_strdup(aux[0]);
 	*pos = ft_strlen(file);
 	if (shell->command)
 		free(shell->command);
 	shell->command = ft_split_rev(aux);
-	printf("New command |%s|\n", shell->command);
 	free_list_string(aux);
 	free(tmp);
 	return (file);
@@ -140,14 +138,11 @@ int check_redic(t_shell *shell)
 	char *aux;
 
 	pos = find_redic(shell);
-	if (pos > 0)
+	if (pos >= 0)
 	{
-		printf("CAIU NA ONDE TEM REDIC\n");
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
 		shell->file = find_file(shell, &pos);
-		printf("pos fora do find %i\n", pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
-		printf("AUXRESTO |%s|\n", aux);
 		if(shell->command)
 		{
 			free(shell->command);

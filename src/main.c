@@ -9,7 +9,6 @@ void	get_command(t_shell  *shell)
 	char	*prompt;
 	char	*tmp;
 
-	printf("TNO READ\n");
 	getcwd(cwd, 2021);
 	tmp = ft_strjoin("\033[33m", cwd);
 	prompt = ft_strjoin(tmp, "$\033[0m ");
@@ -91,8 +90,6 @@ int	main(int argc, char **argv, char **env)
 				continue ;
 		if (shell.command)
 		{
-			printf("CAIU E VC N VIU\n");
-			printf("ss: %s\n", shell.command);
 			check_command(&shell, &status, 1);
 			dup2(in, 0);
 			dup2(out, 1);

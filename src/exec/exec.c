@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/26 19:06:46 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/10/28 20:19:51 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ int	ft_exec(t_shell *shell, int fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (fd > 2)
+		if (fd > 2 && shell->redic == -1)
 			dup2(fd, 1);
+		else if (shell->redic == 3)
+			dup2(fd, 0);
 		check_standart_fd(shell->fd_in, shell->fd_out);
 		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)
 			ret = no_file(shell->split_cmd[0]);
