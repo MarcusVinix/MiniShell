@@ -6,7 +6,7 @@ int	open_fd(t_shell *shell)
 	
 	fd = 1;
 	if (shell->redic == 1)
-		fd = open(shell->file, O_WRONLY | O_CREAT, 0664);
+		fd = open(shell->file, O_TRUNC | O_WRONLY | O_CREAT, 0664);
 	else if (shell->redic == 2)
 		fd = open(shell->file, O_APPEND| O_WRONLY | O_CREAT, 0664);
 	printf("FD is %i\n", fd);

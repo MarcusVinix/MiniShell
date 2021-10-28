@@ -15,7 +15,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
 		ft_pwd(fd);
 	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
-	 	*status = ft_cd(shell, fd);
+		*status = ft_cd(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
 		*status = ft_env(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
@@ -85,17 +85,50 @@ static int	find_redic(t_shell *shell)
 	return (-1);
 }
 
+char	*ft_split_rev(char **split)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*str;
+	int		i;
+
+	if (!split)
+		return (NULL);
+	str = ft_strjoin(split[0], " ");
+	i = 1;
+	while (split[i])
+	{
+		tmp = ft_strjoin(str, split[i]);
+		free(str);
+		str = tmp;
+		if (split[++i])
+		{
+			tmp2 = ft_strjoin(str, " ");
+			free(str);
+			str = tmp2;
+		}
+	}
+	return (str);
+}
+
 char	*find_file(t_shell *shell, int *pos)
 {
 	char	**aux;
 	char	*file;
 	char	*tmp;
 
-	tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
+	if (shell->redic == 1)
+		tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
+	else
+		tmp = ft_substr(shell->command, *pos + 2, ft_strlen(shell->command));
 	aux = ft_split(tmp, ' ');
 	printf("aux |%s|\n", aux[0]);
-	*pos += ft_strlen(aux[0]) + 1;
 	file = ft_strdup(aux[0]);
+	*pos = ft_strlen(file);
+	if (shell->command)
+		free(shell->command);
+	shell->command = ft_split_rev(aux);
+	printf("New command |%s|\n", shell->command);
 	free_list_string(aux);
 	free(tmp);
 	return (file);

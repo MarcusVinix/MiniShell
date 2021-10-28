@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "tamo tentando arrumar a divisão do nome e o restante da string"
+	git commit -m "restante da string apararentemente funfa"
 
 push:	add
 	git push
