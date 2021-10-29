@@ -48,7 +48,7 @@ int		error_cd(char *message);
 int		error_no_file(char *path);
 int		invalid_option(char *s);
 void	invalid_identifier(char *str);
-int		no_file(char *file);
+int		no_file(char *file, t_shell *shell);
 
 //free
 void	free_all(t_shell *shell);

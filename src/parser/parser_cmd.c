@@ -117,7 +117,7 @@ char	*find_file(t_shell *shell, int *pos)
 	char	*file;
 	char	*tmp;
 
-	if (shell->redic == 1)
+	if (shell->redic == 1 || shell->redic == 3)
 		tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
 	else
 		tmp = ft_substr(shell->command, *pos + 2, ft_strlen(shell->command));
@@ -141,6 +141,8 @@ int check_redic(t_shell *shell)
 	if (pos >= 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
+		if (shell->file)
+			free(shell->file);
 		shell->file = find_file(shell, &pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
 		if(shell->command)

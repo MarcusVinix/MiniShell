@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "redirection < funcionando no basico"
+	git commit -m "redirection < funcionando com argumentos mas os comandos pwd, env, export e echo tão printando no output errado. E os erros quando o arquivo não existe está arrumado"
 
 push:	add
 	git push

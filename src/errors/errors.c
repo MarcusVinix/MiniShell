@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/24 23:01:32 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/28 21:11:19 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ int	error_cd(char *message)
 	return (1);
 }
 
-int	no_file(char *file)
+int	no_file(char *file, t_shell *shell)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(" :", 2);
 	ft_putendl_fd(strerror(errno), 2);
+	if (shell->redic)
+		*shell->p_status = 1;
 	return (127);
 }

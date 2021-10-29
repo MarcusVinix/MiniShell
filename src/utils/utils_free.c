@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/25 22:50:13 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/10/28 21:09:17 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_all(t_shell *shell)
 		ft_lstclear(&shell->lst_env, free);
 	if (shell->split_cmd)
 		free_list_string(shell->split_cmd);
+	if (shell->file)
+		free(shell->file);
 }
 
 void free_list_string(char **str)

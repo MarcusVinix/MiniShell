@@ -20,6 +20,7 @@ void	get_command(t_shell  *shell)
 	if (!shell->command)
 		exit_shell(shell, &status);
 	add_history(shell->command);
+	shell->redic = -1;
 }
 
 static void	start_struct(t_shell *shell, char **env)
@@ -86,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 			if (!exec_pipe(&shell))
 				continue ;
 		if (check_redic(&shell))
-			if (!exec_redic(&shell))
+			if (exec_redic(&shell) == 127)
 				continue ;
 		if (shell.command)
 		{
