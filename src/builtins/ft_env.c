@@ -52,6 +52,8 @@ static int verify_$(t_shell *sh)
 
 int	ft_env(t_shell *sh, int fd)
 {
+	if (sh->redic > 2)
+		fd = 1;
 	if (ft_strlen_split(sh->split_cmd) != 1)
 	{
 		//printf("env: “%s”: No such file or directory\n", sh->split_cmd[1]);

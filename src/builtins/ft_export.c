@@ -85,6 +85,7 @@ static void exporting_key(char *str, t_shell *sh)
 		else
 			invalid_identifier(value);
 		free(str_val);
+		sh->len_env++;
 	}
 	else
 		invalid_identifier(new_val);
@@ -121,7 +122,7 @@ int	ft_export(t_shell *sh, int fd, int sig)
 {
 	int count;
 	int	resp;
-	
+
 	resp = 0;
 	count = 1;
 	if (sig == 0)

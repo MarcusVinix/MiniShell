@@ -17,8 +17,8 @@ void	get_command(t_shell  *shell)
 		free(shell->command);
 	shell->command = readline(prompt);
 	free(prompt);
-	if (!shell->command)
-		exit_shell(shell, &status);
+	//if (!shell->command)
+	//	exit_shell(shell, &status);
 	add_history(shell->command);
 	shell->redic = -1;
 }
@@ -28,6 +28,7 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
 	shell->file = NULL;
+	shell->delimiter = NULL;
 	shell->fd_in = 0;
 	shell->fd_out = 1;
 	shell->p_status = &status;

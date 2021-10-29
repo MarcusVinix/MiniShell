@@ -49,6 +49,8 @@ void	ft_echo(t_shell *sh, int fd)
 
 	flag = 0;
 	count = 1;
+	if (sh->redic > 2)
+		fd = 1;
 	while (sh->split_cmd[count])
 	{
 		if (!ft_strcmp(sh->split_cmd[count], "-n") && count == 1)

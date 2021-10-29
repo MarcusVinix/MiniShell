@@ -39,8 +39,9 @@ void free_list_string(char **str)
 
 void	exit_shell(t_shell *shell, int *status)
 {
-	if (shell->split_cmd[1])
-		*status = all_number(shell->split_cmd[1]);
+	if (shell->split_cmd)
+		if (shell->split_cmd[1])
+			*status = all_number(shell->split_cmd[1]);
 	
 	free_all(shell);
 	rl_clear_history();

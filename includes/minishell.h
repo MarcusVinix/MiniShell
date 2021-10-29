@@ -31,10 +31,11 @@ typedef struct s_shell
 	int		len_env;
 	int		redic;
 	char	*file;
+	char	*delimiter;
 }			t_shell;
 
 //builtins
-int		ft_pwd(int fd);
+int		ft_pwd(int fd, t_shell *shell);
 void	ft_echo(t_shell *sh, int fd);
 int		ft_env(t_shell *sh, int fd);
 int		ft_cd(t_shell *shell, int fd);
