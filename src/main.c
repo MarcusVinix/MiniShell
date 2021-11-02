@@ -25,6 +25,7 @@ void	get_command(t_shell  *shell)
 
 static void	start_struct(t_shell *shell, char **env)
 {
+	shell->s_redic = malloc(sizeof(t_redic));
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
 	shell->file = NULL;
@@ -35,6 +36,8 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->redic = -1;
 	shell->len_env = 0;
 	shell->lst_env = create_bckup_env(env, shell);
+	shell->s_redic->in = 0;
+	shell->s_redic->out = 1;
 }
 
 //fd 0 READ STDIN
@@ -91,11 +94,11 @@ int	main(int argc, char **argv, char **env)
 			if (exec_redic(&shell) == 127)
 				continue ;
 		if (shell.command)
-		{
 			check_command(&shell, &status, 1);
-			dup2(in, 0);
-			dup2(out, 1);
-		}
+		dup2(in, 0);
+		dup2(out, 1);
+		shell.s_redic->in = 0;
+		shell.s_redic->out = 1;
 	}
 	return (status);
 }

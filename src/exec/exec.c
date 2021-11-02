@@ -12,13 +12,23 @@
 
 #include "minishell.h"
 
-static void	check_standart_fd(int fd_in, int fd_out)
+static void	check_standart_fd(t_shell *shell, int fd_in, int fd_out)
 {
 	(void)fd_out;
 	if (fd_in != 0)
 	{
 		dup2(fd_in, 0);
 		close(fd_in);
+	}
+	if (shell->s_redic->in != 0)
+	{
+		dup2(shell->s_redic->in, 0);
+		close(shell->s_redic->in);
+	}
+	if (shell->s_redic->out != 1)
+	{
+		dup2(shell->s_redic->out, 1);
+		close(shell->s_redic->out);
 	}
 }
 
@@ -92,9 +102,9 @@ int	ft_exec(t_shell *shell, int fd)
 	{
 		if (fd > 2 && shell->redic == -1)
 			dup2(fd, 1);
-		else if (shell->redic == 3)
+		else if (shell->redic == 3 || shell->redic == 4)
 			dup2(fd, 0);
-		check_standart_fd(shell->fd_in, shell->fd_out);
+		check_standart_fd(shell, shell->fd_in, shell->fd_out);
 		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)
 			ret = no_file(shell->split_cmd[0], shell);
 		exit(ret);

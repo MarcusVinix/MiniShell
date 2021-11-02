@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "testando fazer << funcionar, por enquanto escreve no arquivo tmp, mas faz o readline do main retornar null"
+	git commit -m "os redirection funcionam em conjunto mas necessita testar mais para procurar falhas, e melhorar o codigo!"
 
 push:	add
 	git push

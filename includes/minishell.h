@@ -17,7 +17,11 @@
 # define NO_FILE "No such file or directory"
 # define NO_OLDPWD "OLDPWD not set"
 
-
+typedef struct s_redic
+{
+	int in;
+	int	out;
+}			t_redic;
 
 typedef struct s_shell
 {
@@ -32,6 +36,7 @@ typedef struct s_shell
 	int		redic;
 	char	*file;
 	char	*delimiter;
+	t_redic	*s_redic;
 }			t_shell;
 
 //builtins

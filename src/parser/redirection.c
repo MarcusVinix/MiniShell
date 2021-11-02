@@ -3,7 +3,7 @@
 static void	store_delimiter(t_shell *shell)
 {
 	char	*tmp;
-	
+
 	if (!shell->file)
 		return ;
 	if (!shell->delimiter)
@@ -12,6 +12,7 @@ static void	store_delimiter(t_shell *shell)
 	{
 		tmp = ft_strjoin(shell->delimiter, " ");
 		free(shell->delimiter);
+		shell->delimiter = NULL;
 		shell->delimiter = ft_strjoin(tmp, shell->file);
 		free(tmp);
 	}
@@ -23,11 +24,11 @@ static int	open_fd(t_shell *shell)
 	
 	fd = 1;
 	if (shell->redic == 1)
-		fd = open(shell->file, O_TRUNC | O_WRONLY | O_CREAT, 0664);
+		shell->s_redic->out = open(shell->file, O_TRUNC | O_WRONLY | O_CREAT, 0664);
 	else if (shell->redic == 2)
-		fd = open(shell->file, O_APPEND| O_WRONLY | O_CREAT, 0664);
+		shell->s_redic->out = open(shell->file, O_APPEND| O_WRONLY | O_CREAT, 0664);
 	else if (shell->redic == 3)
-		fd = open(shell->file, O_RDWR);
+		shell->s_redic->in = open(shell->file, O_RDWR);
 	else if (shell->redic == 4)
 		store_delimiter(shell);
 	if (shell->parse_cmd)
@@ -35,7 +36,7 @@ static int	open_fd(t_shell *shell)
 		free(shell->parse_cmd);
 		shell->parse_cmd = NULL;
 	}	
-	if (fd < 0)
+	if (shell->s_redic->in < 0 || shell->s_redic->out < 0)
 		return (no_file(shell->file, shell));
 	return (fd);
 }
@@ -44,9 +45,9 @@ static void exec_heredoc(t_shell *shell)
 {
 	char	*line;
 	char	**del_lst;
-	int		fd;
 	int		i;
-	
+	int		fd;
+
 	i = 0;
 	fd = open("/tmp/heredoc.tmp", O_TRUNC | O_RDWR | O_CREAT, 0664);
 	del_lst = ft_split(shell->delimiter, ' ');
@@ -68,35 +69,20 @@ static void exec_heredoc(t_shell *shell)
 			ft_putendl_fd(line, fd);
 		free(line);
 	}
-	dup2(fd, shell->fd_in);
-	close(fd);
+	free_list_string(del_lst);
+	free(shell->delimiter);
+	shell->delimiter = NULL;
 }
 
-int	exec_redic(t_shell *shell)
+void	exec_redic2(t_shell *shell, char *aux)
 {
-	int fd;
-
-	fd = 0;
-	char *aux_two;
-	char *aux = ft_strdup(shell->parse_cmd);
-
-	while (shell->parse_cmd)
-	{
-		fd = open_fd(shell);
-		if (fd == 127)
-		{
-			free(aux);
-			return (127);
-		}	
-		check_redic(shell);
-		if (shell->parse_cmd)
-		{
-			close(fd);
-			aux_two = ft_strjoin(aux, shell->parse_cmd);
-			free(aux);
-			aux = aux_two;
-		}
-	}
+	char	*aux_two;
+	int		fd_tmp;
+	
+	if (shell->delimiter && shell->redic == 1)
+		shell->s_redic->in = open("/tmp/heredoc.tmp", O_RDONLY);
+	else
+		fd_tmp = open("/tmp/heredoc.tmp", O_RDONLY);
 	if (shell->command)
 	{
 		aux_two = ft_strjoin(aux, shell->command);
@@ -105,8 +91,15 @@ int	exec_redic(t_shell *shell)
 	}
 	shell->parse_cmd = aux;
 	if (shell->delimiter)
+	{
 		exec_heredoc(shell);
-	check_command(shell, shell->p_status, fd);
+		check_command(shell, shell->p_status, fd_tmp);
+		close(fd_tmp);
+	}
+	else if (shell->redic == 1 || shell->redic == 2)
+		check_command(shell, shell->p_status, shell->s_redic->out);
+	else
+		check_command(shell, shell->p_status, shell->s_redic->in);
 	free(aux);
 	shell->parse_cmd = NULL;
 	if (shell->command)
@@ -114,7 +107,30 @@ int	exec_redic(t_shell *shell)
 		free(shell->command);
 		shell->command = NULL;
 	}
-	close(fd);
+}
+
+int	exec_redic(t_shell *shell)
+{
+	char	*aux_two;
+	char	*aux;
+	
+	aux = ft_strdup(shell->parse_cmd);
+	while (shell->parse_cmd)
+	{
+		if (open_fd(shell) == 127)
+		{
+			free(aux);
+			return (127);
+		}	
+		check_redic(shell);
+		if (shell->parse_cmd)
+		{
+			aux_two = ft_strjoin(aux, shell->parse_cmd);
+			free(aux);
+			aux = aux_two;
+		}
+	}
+	exec_redic2(shell, aux);
 	return (1);
 }
 
