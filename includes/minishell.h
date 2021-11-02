@@ -19,8 +19,11 @@
 
 typedef struct s_redic
 {
-	int in;
-	int	out;
+	int 	in;
+	int		out;
+	int		redic;
+	char	*file;
+	char	*delimiter;
 }			t_redic;
 
 typedef struct s_shell
@@ -33,9 +36,6 @@ typedef struct s_shell
 	int		fd_out;
 	int		*p_status;
 	int		len_env;
-	int		redic;
-	char	*file;
-	char	*delimiter;
 	t_redic	*s_redic;
 }			t_shell;
 

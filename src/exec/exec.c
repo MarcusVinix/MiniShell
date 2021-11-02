@@ -100,9 +100,9 @@ int	ft_exec(t_shell *shell, int fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (fd > 2 && shell->redic == -1)
+		if (fd > 2 && shell->s_redic->redic == -1)
 			dup2(fd, 1);
-		else if (shell->redic == 3 || shell->redic == 4)
+		else if (shell->s_redic->redic == 3 || shell->s_redic->redic == 4)
 			dup2(fd, 0);
 		check_standart_fd(shell, shell->fd_in, shell->fd_out);
 		if (execve(shell->split_cmd[0], shell->split_cmd, envp) == -1)

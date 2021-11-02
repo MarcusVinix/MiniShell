@@ -20,7 +20,7 @@ void	get_command(t_shell  *shell)
 	//if (!shell->command)
 	//	exit_shell(shell, &status);
 	add_history(shell->command);
-	shell->redic = -1;
+	shell->s_redic->redic = -1;
 }
 
 static void	start_struct(t_shell *shell, char **env)
@@ -28,16 +28,32 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->s_redic = malloc(sizeof(t_redic));
 	shell->command = NULL;
 	shell->parse_cmd = NULL;
-	shell->file = NULL;
-	shell->delimiter = NULL;
 	shell->fd_in = 0;
 	shell->fd_out = 1;
 	shell->p_status = &status;
-	shell->redic = -1;
 	shell->len_env = 0;
 	shell->lst_env = create_bckup_env(env, shell);
 	shell->s_redic->in = 0;
 	shell->s_redic->out = 1;
+	shell->s_redic->delimiter = NULL;
+	shell->s_redic->file = NULL;
+	shell->s_redic->redic = -1;
+}
+
+static void reset_struct(t_shell *shell)
+{
+	if (shell->s_redic->delimiter != NULL)
+		free(shell->s_redic->delimiter);
+	if (shell->s_redic->file)
+		free(shell->s_redic->file);
+	if (shell->s_redic)
+		free(shell->s_redic);
+	shell->s_redic = malloc(sizeof(t_redic));
+	shell->s_redic->in = 0;
+	shell->s_redic->out = 1;
+	shell->s_redic->redic = -1;
+	shell->s_redic->delimiter = NULL;
+	shell->s_redic->file = NULL;
 }
 
 //fd 0 READ STDIN
@@ -97,8 +113,7 @@ int	main(int argc, char **argv, char **env)
 			check_command(&shell, &status, 1);
 		dup2(in, 0);
 		dup2(out, 1);
-		shell.s_redic->in = 0;
-		shell.s_redic->out = 1;
+		reset_struct(&shell);
 	}
 	return (status);
 }

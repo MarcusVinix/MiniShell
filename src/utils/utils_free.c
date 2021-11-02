@@ -20,8 +20,8 @@ void	free_all(t_shell *shell)
 		ft_lstclear(&shell->lst_env, free);
 	if (shell->split_cmd)
 		free_list_string(shell->split_cmd);
-	if (shell->file)
-		free(shell->file);
+	if (shell->s_redic->file)
+		free(shell->s_redic->file);
 }
 
 void free_list_string(char **str)

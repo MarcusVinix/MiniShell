@@ -67,17 +67,17 @@ static int	find_redic(t_shell *shell)
 		if (aux[i] == '>')
 		{
 			if(aux[i + 1] == '>')
-				shell->redic = 2;
+				shell->s_redic->redic = 2;
 			else
-				shell->redic = 1;
+				shell->s_redic->redic = 1;
 			return (i);
 		}
 		else if (aux[i] == '<')
 		{
 			if (aux[i + 1] == '<')
-				shell->redic = 4;
+				shell->s_redic->redic = 4;
 			else
-				shell->redic = 3;
+				shell->s_redic->redic = 3;
 			return (i);
 		}
 		i++;
@@ -117,7 +117,7 @@ char	*find_file(t_shell *shell, int *pos)
 	char	*file;
 	char	*tmp;
 
-	if (shell->redic == 1 || shell->redic == 3)
+	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 3)
 		tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
 	else
 		tmp = ft_substr(shell->command, *pos + 2, ft_strlen(shell->command));
@@ -141,9 +141,9 @@ int check_redic(t_shell *shell)
 	if (pos >= 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
-		if (shell->file)
-			free(shell->file);
-		shell->file = find_file(shell, &pos);
+		if (shell->s_redic->file)
+			free(shell->s_redic->file);
+		shell->s_redic->file = find_file(shell, &pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
 		if(shell->command)
 		{

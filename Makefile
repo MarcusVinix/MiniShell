@@ -65,7 +65,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "os redirection funcionam em conjunto mas necessita testar mais para procurar falhas, e melhorar o codigo!"
+	git commit -m "arrumei alguns bugs do redirection mas precisa testar mais, criei uma struct para as coisas do redirection"
 
 push:	add
 	git push

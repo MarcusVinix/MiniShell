@@ -5,7 +5,7 @@
       "name": "(gdb) Iniciar",
       "type": "cppdbg",
       "request": "launch",
-      "program": "insira o nome do programa, por exemplo ${workspaceFolder}/a.out",
+      "program": "insira o nome do programa, por exemplo ${workspaceFolder}/minishell",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
