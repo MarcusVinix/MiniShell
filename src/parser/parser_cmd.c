@@ -7,6 +7,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
+	printf("parseeee |%s|\n", shell->parse_cmd);
 	printf("teste |%s|\n", shell->split_cmd[0]);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell, fd);
@@ -121,6 +122,11 @@ char	*find_file(t_shell *shell, int *pos)
 		tmp = ft_substr(shell->command, *pos + 1, ft_strlen(shell->command));
 	else
 		tmp = ft_substr(shell->command, *pos + 2, ft_strlen(shell->command));
+	if (ft_strcmp(tmp, "") == 0 || is_all_space(tmp))
+	{
+		free(tmp);
+		return (NULL);
+	}
 	aux = ft_split(tmp, ' ');
 	file = ft_strdup(aux[0]);
 	*pos = ft_strlen(file);
@@ -144,6 +150,12 @@ int check_redic(t_shell *shell)
 		if (shell->s_redic->file)
 			free(shell->s_redic->file);
 		shell->s_redic->file = find_file(shell, &pos);
+		if (!shell->s_redic->file)
+		{
+			free(shell->parse_cmd);
+			shell->parse_cmd = NULL;
+			return (error_newline(shell));
+		}
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
 		if(shell->command)
 		{

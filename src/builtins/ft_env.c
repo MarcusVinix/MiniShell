@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/22 18:48:53 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 16:28:28 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int verify_$(t_shell *sh)
 
 int	ft_env(t_shell *sh, int fd)
 {
-	if (sh->redic > 2)
+	if (sh->s_redic->redic > 2)
 		fd = 1;
 	if (ft_strlen_split(sh->split_cmd) != 1)
 	{

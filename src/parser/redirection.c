@@ -23,6 +23,8 @@ static int	open_fd(t_shell *shell)
 	int fd;
 	
 	fd = 1;
+	if (!shell->s_redic->file)
+		return (2);
 	if (shell->s_redic->redic == 1)
 		shell->s_redic->out = open(shell->s_redic->file, O_TRUNC | O_WRONLY | O_CREAT, 0664);
 	else if (shell->s_redic->redic == 2)
@@ -116,12 +118,16 @@ int	exec_redic(t_shell *shell)
 		{
 			free(aux);
 			return (127);
-		}	
-		check_redic(shell);
-		printf("parse |%s|\n", shell->parse_cmd);
+		}
+		if (check_redic(shell) == 2)
+		{
+			free(aux);
+			free(shell->parse_cmd);
+			shell->parse_cmd = NULL;
+			return (error_newline(shell));
+		}
 		if (shell->parse_cmd)
 		{
-			printf("entrei\n");
 			aux_two = ft_strjoin(aux, shell->parse_cmd);
 			free(aux);
 			aux = aux_two;
@@ -132,6 +138,7 @@ int	exec_redic(t_shell *shell)
 		}
 	}
 	exec_redic2(shell, aux);
-	return (1);
+	
+	return (0);
 }
 
