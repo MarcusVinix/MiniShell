@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/22 19:01:09 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:48:22 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int	ft_export(t_shell *sh, int fd, int sig)
 	count = 1;
 	if (sig == 0)
 		count = 0;
-	if (fd > 2)
-		return (0);
+	if (sh->s_redic->redic > 2)
+		fd = 1;
 	while (sh->split_cmd[count])
 	{
 		if (verify_valid(sh->split_cmd[count], 1, sh))
@@ -141,6 +141,6 @@ int	ft_export(t_shell *sh, int fd, int sig)
 		count++;
 	}
 	if (count == 1 && sig == 1)
-		ft_lstiter(sh->lst_env, printlst, 1);
+		ft_lstiter(sh->lst_env, printlst, fd);
 	return (resp);
 }
