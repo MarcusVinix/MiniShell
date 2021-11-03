@@ -45,40 +45,49 @@ static int	open_fd(t_shell *shell)
 	return (fd);
 }
 
-static void exec_heredoc(t_shell *shell)
+static int exec_heredoc(t_shell *shell)
 {
 	char	*line;
 	char	**del_lst;
 	int		i;
 	int		fd;
+	pid_t	pid;
 
 	i = 0;
 	fd = open("/tmp/heredoc.tmp", O_TRUNC | O_RDWR | O_CREAT, 0664);
 	del_lst = ft_split(shell->s_redic->delimiter, ' ');
-	while (1)
+	pid = fork();
+	if (pid == 0)
 	{
-		line = NULL;
-		line = readline("> ");
-		if (ft_strcmp(line, del_lst[i]) == 0)
+		signal(SIGINT, handle_heredoc);
+		while (1)
 		{
-			if (del_lst[i + 1] != NULL)
-				i++;
-			else
+			line = NULL;
+			line = readline("> ");
+			if (ft_strcmp(line, del_lst[i]) == 0)
 			{
-				free (line);
-				break ;
+				if (del_lst[i + 1] != NULL)
+					i++;
+				else
+				{
+					free (line);
+					break ;
+				}
 			}
+			else if (del_lst[i + 1] == NULL)
+				ft_putendl_fd(line, fd);
+			free(line);
 		}
-		else if (del_lst[i + 1] == NULL)
-			ft_putendl_fd(line, fd);
-		free(line);
+		exit(9);
 	}
+	waitpid(pid, shell->p_status, 0);
 	free_list_string(del_lst);
 	free(shell->s_redic->delimiter);
 	shell->s_redic->delimiter = NULL;
+	return (*shell->p_status);
 }
 
-void	exec_redic2(t_shell *shell, char *aux)
+static int	exec_redic2(t_shell *shell, char *aux)
 {
 	char	*aux_two;
 	
@@ -92,7 +101,8 @@ void	exec_redic2(t_shell *shell, char *aux)
 	}
 	shell->parse_cmd = aux;
 	if (shell->s_redic->delimiter)
-		exec_heredoc(shell);
+		if (exec_heredoc(shell) == 0)
+			return (1);
 	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 2)
 		check_command(shell, shell->p_status, shell->s_redic->out);
 	else
@@ -104,6 +114,7 @@ void	exec_redic2(t_shell *shell, char *aux)
 		free(shell->command);
 		shell->command = NULL;
 	}
+	return (0);
 }
 
 int	exec_redic(t_shell *shell)
@@ -137,8 +148,8 @@ int	exec_redic(t_shell *shell)
 			// 	close(shell->s_redic->in);
 		}
 	}
-	exec_redic2(shell, aux);
-	
+	if (exec_redic2(shell, aux))
+		return (1);
 	return (0);
 }
 

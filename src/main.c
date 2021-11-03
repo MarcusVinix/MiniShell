@@ -115,6 +115,8 @@ int	main(int argc, char **argv, char **env)
 			}
 			if (exec_redic(&shell))
 			{
+				free(shell.parse_cmd);
+				shell.parse_cmd = NULL;
 				reset_struct(&shell);
 				continue ;
 			}

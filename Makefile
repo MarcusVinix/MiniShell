@@ -28,8 +28,6 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_EXEC)exec.c \
 		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c
 
-
-		
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
 
@@ -65,9 +63,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumei alguns bugs do redirection mas precisa testar mais, criei uma struct para as coisas do redirection"
+	git commit -m "arrumando alguns bugs do redirection"
 
 push:	add
 	git push
-
-
