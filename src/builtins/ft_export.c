@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/03 19:48:22 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 20:06:48 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,7 @@ int	ft_export(t_shell *sh, int fd, int sig)
 	int	resp;
 
 	resp = 0;
-	count = 1;
-	if (sig == 0)
-		count = 0;
+	count = sig;
 	if (sh->s_redic->redic > 2)
 		fd = 1;
 	while (sh->split_cmd[count])

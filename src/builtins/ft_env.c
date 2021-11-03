@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/03 16:28:28 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 20:03:36 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,8 @@ int	ft_env(t_shell *sh, int fd)
 	if (sh->s_redic->redic > 2)
 		fd = 1;
 	if (ft_strlen_split(sh->split_cmd) != 1)
-	{
-		//printf("env: “%s”: No such file or directory\n", sh->split_cmd[1]);
 		if (verify_$(sh))
 			return (127);
-	}
 	ft_lstiter(sh->lst_env, printlst, fd);
 	return (0);
 }
