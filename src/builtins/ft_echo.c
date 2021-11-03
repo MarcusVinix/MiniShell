@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/21 22:33:06 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 16:28:18 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_echo(t_shell *sh, int fd)
 
 	flag = 0;
 	count = 1;
-	if (sh->redic > 2)
+	if (sh->s_redic->redic > 2)
 		fd = 1;
 	while (sh->split_cmd[count])
 	{

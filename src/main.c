@@ -107,8 +107,18 @@ int	main(int argc, char **argv, char **env)
 			if (!exec_pipe(&shell))
 				continue ;
 		if (check_redic(&shell))
-			if (exec_redic(&shell) == 127)
+		{
+			if (shell.parse_cmd == NULL)
+			{
+				reset_struct(&shell);
 				continue ;
+			}
+			if (exec_redic(&shell))
+			{
+				reset_struct(&shell);
+				continue ;
+			}
+		}
 		if (shell.command)
 			check_command(&shell, &status, 1);
 		dup2(in, 0);

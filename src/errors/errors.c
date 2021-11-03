@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/28 21:11:19 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/03 16:58:04 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ int	no_file(char *file, t_shell *shell)
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(" :", 2);
 	ft_putendl_fd(strerror(errno), 2);
-	if (shell->redic)
+	if (shell->s_redic->redic)
 		*shell->p_status = 1;
 	return (127);
+}
+
+int	error_newline(t_shell *shell)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+	*shell->p_status = 2;
+	return (2);
 }
