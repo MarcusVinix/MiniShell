@@ -63,7 +63,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando alguns bugs do redirection"
+	git commit -m "tentando fazer a parada dos sinais, adicionamos sigaction mas ainda da ruim"
 
 push:	add
 	git push

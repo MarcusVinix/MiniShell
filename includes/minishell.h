@@ -37,6 +37,7 @@ typedef struct s_shell
 	int		*p_status;
 	int		len_env;
 	t_redic	*s_redic;
+	struct sigaction act;
 }			t_shell;
 
 //builtins
@@ -68,8 +69,10 @@ char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value, int sig);
 int		ft_exec(t_shell *shell, int fd);
 void	get_command(t_shell  *shell);
-void	sigint_handle(int sig_num);
+// void	sigint_handle(int sig_num);
 void	sigquit_handle(int sig);
+void	sigint_handle(int sig);
+void	config_sigaction(struct sigaction *act, void (*handle)(int), int sig);
 void	handle_heredoc(int sig_num);
 int		check_quotes(t_shell *shell);
 char	**get_env_var(t_list **list_env, t_shell *shell);

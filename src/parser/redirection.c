@@ -59,7 +59,7 @@ static int exec_heredoc(t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, handle_heredoc);
+		config_sigaction(&shell->act, handle_heredoc, SIGINT);
 		while (1)
 		{
 			line = NULL;

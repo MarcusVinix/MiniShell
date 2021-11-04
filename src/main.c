@@ -3,6 +3,8 @@
 
 int	status;
 
+
+
 void	get_command(t_shell  *shell)
 {
 	char	cwd[2021];
@@ -87,6 +89,7 @@ static int exec_pipe(t_shell *shell)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
+	//struct sigaction	act_quit;
 	int		in;
 	int		out;
 
@@ -98,8 +101,7 @@ int	main(int argc, char **argv, char **env)
 	start_struct(&shell, env);
 	while (1)
 	{
-		signal(SIGINT, sigint_handle);
-		signal(SIGQUIT, sigquit_handle);
+		config_sigaction(&shell.act, sigint_handle, SIGINT);
 		get_command(&shell);
 		if (is_all_space(shell.command))
 			continue ;
