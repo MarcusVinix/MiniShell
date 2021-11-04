@@ -54,9 +54,10 @@ static int exec_heredoc(t_shell *shell)
 	pid_t	pid;
 
 	i = 0;
+	config_sigaction(&shell->act, SIG_IGN, SIGINT);
 	fd = open("/tmp/heredoc.tmp", O_TRUNC | O_RDWR | O_CREAT, 0664);
-	del_lst = ft_split(shell->s_redic->delimiter, ' ');
 	pid = fork();
+	del_lst = ft_split(shell->s_redic->delimiter, ' ');
 	if (pid == 0)
 	{
 		config_sigaction(&shell->act, handle_heredoc, SIGINT);

@@ -18,6 +18,8 @@ void	get_command(t_shell  *shell)
 	if (shell->command)
 		free(shell->command);
 	shell->command = readline(prompt);
+	if (shell->command == NULL)
+		exit_shell(shell, &status) ;
 	free(prompt);
 	//if (!shell->command)
 	//	exit_shell(shell, &status);
@@ -89,7 +91,7 @@ static int exec_pipe(t_shell *shell)
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
-	//struct sigaction	act_quit;
+	struct sigaction	act_quit;
 	int		in;
 	int		out;
 
@@ -102,6 +104,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		config_sigaction(&shell.act, sigint_handle, SIGINT);
+		config_sigaction(&act_quit, SIG_IGN, SIGQUIT);
 		get_command(&shell);
 		if (is_all_space(shell.command))
 			continue ;
@@ -128,6 +131,7 @@ int	main(int argc, char **argv, char **env)
 		dup2(in, 0);
 		dup2(out, 1);
 		reset_struct(&shell);
+		wait(NULL);
 	}
 	return (status);
 }
