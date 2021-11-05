@@ -6,19 +6,17 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:38:52 by coder             #+#    #+#             */
-/*   Updated: 2021/11/04 19:13:53 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:09:49 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 
-void	sigquit_handle(int sig)
+void	sigint_handle_cmd(int sig)
 {
 	(void)sig;
-	printf("OII\n");
-	rl_clear_history();
-	exit(0);
+	printf("\n");
 }
 
 void	sigint_handle(int sig)

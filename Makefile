@@ -63,7 +63,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando signal, Crl-D, Crl-C para cat << a"
+	git commit -m "arrumando signal Crl-C para o exec_ve, achei que tava arrumado mas n tava hehe"
 
 push:	add
 	git push

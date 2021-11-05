@@ -7,8 +7,8 @@ int	check_command(t_shell *shell, int *status, int fd)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
-	printf("parseeee |%s|\n", shell->parse_cmd);
-	printf("teste |%s|\n", shell->split_cmd[0]);
+	//printf("parseeee |%s|\n", shell->parse_cmd);
+	//printf("teste |%s|\n", shell->split_cmd[0]);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell, fd);
 	else if (find_index(shell->split_cmd[0], '=') > 0)
@@ -31,7 +31,7 @@ int	check_command(t_shell *shell, int *status, int fd)
 	}
 	else
 		*status = ft_exec(shell, fd);
-	printf("STATUS IS %i\n", *status);
+	//printf("STATUS IS %i\n", *status);
 	free_list_string(shell->split_cmd);
 	return (0);
 }

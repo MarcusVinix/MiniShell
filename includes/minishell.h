@@ -70,7 +70,7 @@ int		change_value(t_list **lst, char *key, char *new_value, int sig);
 int		ft_exec(t_shell *shell, int fd);
 void	get_command(t_shell  *shell);
 // void	sigint_handle(int sig_num);
-void	sigquit_handle(int sig);
+void	sigint_handle_cmd(int sig);
 void	sigint_handle(int sig);
 void	config_sigaction(struct sigaction *act, void (*handler)(int), int sig);
 void	handle_heredoc(int sig_num);

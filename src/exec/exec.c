@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/10/28 21:26:17 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:09:30 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ int	ft_exec(t_shell *shell, int fd)
 		return (127);
 	envp = get_env_var(&shell->lst_env, shell);
 	ret = 0;
+	config_sigaction(&shell->act, SIG_IGN, SIGINT);
 	pid = fork();
+	config_sigaction(&shell->act, sigint_handle_cmd, SIGINT);
 	if (pid == 0)
 	{
 		if (fd > 2 && shell->s_redic->redic == -1)
