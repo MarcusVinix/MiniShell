@@ -55,6 +55,7 @@ static int exec_heredoc(t_shell *shell)
 
 	i = 0;
 	config_sigaction(&shell->act, SIG_IGN, SIGINT);
+	config_sigaction(&shell->act, SIG_IGN, SIGQUIT);
 	fd = open("/tmp/heredoc.tmp", O_TRUNC | O_RDWR | O_CREAT, 0664);
 	pid = fork();
 	del_lst = ft_split(shell->s_redic->delimiter, ' ');
@@ -65,6 +66,18 @@ static int exec_heredoc(t_shell *shell)
 		{
 			line = NULL;
 			line = readline("> ");
+			if (!line)
+			{
+				ft_putstr_fd("-MiniShell: warning: ", 2);
+				ft_putstr_fd("here-document delimited by ", 2);
+				ft_putstr_fd("end-of-file (wanted `", 2);
+				ft_putstr_fd(del_lst[i++], 2);
+				ft_putendl_fd("')", 2);
+				if (del_lst[i])
+					continue ;
+				else
+					break ;
+			}
 			if (ft_strcmp(line, del_lst[i]) == 0)
 			{
 				if (del_lst[i + 1] != NULL)
