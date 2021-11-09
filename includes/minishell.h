@@ -24,6 +24,8 @@ typedef struct s_redic
 	int		redic;
 	char	*file;
 	char	*delimiter;
+	char	*parse;
+	char	*cmd;
 }			t_redic;
 
 typedef struct s_shell
@@ -81,7 +83,7 @@ int		all_number(char *str);
 //parser
 int		check_command(t_shell *shell, int *status, int fd);
 int		check_pipe(t_shell *shell);
-int		check_redic(t_shell *shell);
+int		check_redic(t_shell *shell, int signal);
 
 //title
 int		exec_redic(t_shell *shell);

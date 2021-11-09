@@ -33,10 +33,10 @@ static int	open_fd(t_shell *shell)
 		shell->s_redic->in = open(shell->s_redic->file, O_RDWR);
 	else if (shell->s_redic->redic == 4)
 		store_delimiter(shell);
-	if (shell->parse_cmd)
+	if (shell->s_redic->parse)
 	{
-		free(shell->parse_cmd);
-		shell->parse_cmd = NULL;
+		free(shell->s_redic->parse);
+		shell->s_redic->parse = NULL;
 	}	
 	if ((shell->s_redic->redic == 1 || shell->s_redic->redic == 2) && shell->s_redic->out < 0)
 		return (no_file(shell->s_redic->file, shell));
@@ -101,19 +101,22 @@ static int exec_heredoc(t_shell *shell)
 	return (*shell->p_status);
 }
 
+//signal 1 = entrou no pipe
+//signal 0 = sem pipe
 static int	exec_redic2(t_shell *shell, char *aux)
 {
 	char	*aux_two;
 	
+	//printf("CAIU NO EXEC2\n");
 	if (shell->s_redic->delimiter)
 		shell->s_redic->in = open("/tmp/heredoc.tmp", O_RDONLY);
-	if (shell->command)
+	if (shell->s_redic->cmd)
 	{
-		aux_two = ft_strjoin(aux, shell->command);
+		aux_two = ft_strjoin(aux, shell->s_redic->cmd);
 		free(aux);
 		aux = aux_two;
 	}
-	shell->parse_cmd = aux;
+	shell->s_redic->parse = aux;
 	if (shell->s_redic->delimiter)
 		if (exec_heredoc(shell) == 0)
 			return (1);
@@ -122,44 +125,43 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	else
 		check_command(shell, shell->p_status, shell->s_redic->in);
 	free(aux);
-	shell->parse_cmd = NULL;
-	if (shell->command)
+	shell->s_redic->parse = NULL;
+	if (shell->s_redic->cmd)
 	{
-		free(shell->command);
-		shell->command = NULL;
+		free(shell->s_redic->cmd);
+		shell->s_redic->cmd = NULL;
 	}
 	return (0);
 }
 
+//signal 1 = entrou no pipe
+//signal 0 = sem pipe
 int	exec_redic(t_shell *shell)
 {
 	char	*aux_two;
 	char	*aux;
 	
-	aux = ft_strdup(shell->parse_cmd);
-	while (shell->parse_cmd)
+	//printf("CAIU NO EXEC\n");
+	aux = ft_strdup(shell->s_redic->parse);
+	while (shell->s_redic->parse)
 	{
 		if (open_fd(shell) == 127)
 		{
 			free(aux);
 			return (127);
 		}
-		if (check_redic(shell) == 2)
+		if (check_redic(shell, 2) == 2)
 		{
 			free(aux);
-			free(shell->parse_cmd);
-			shell->parse_cmd = NULL;
+			free(shell->s_redic->parse);
+			shell->s_redic->parse = NULL;
 			return (error_newline(shell));
 		}
-		if (shell->parse_cmd)
+		if (shell->s_redic->parse)
 		{
-			aux_two = ft_strjoin(aux, shell->parse_cmd);
+			aux_two = ft_strjoin(aux, shell->s_redic->parse);
 			free(aux);
 			aux = aux_two;
-			// if (shell->s_redic->redic == 1 || shell->s_redic->redic == 2)
-			// 	close(shell->s_redic->out);
-			// if (shell->s_redic->redic == 3)
-			// 	close(shell->s_redic->in);
 		}
 	}
 	if (exec_redic2(shell, aux))

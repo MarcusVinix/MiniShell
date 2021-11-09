@@ -42,6 +42,8 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->s_redic->delimiter = NULL;
 	shell->s_redic->file = NULL;
 	shell->s_redic->redic = -1;
+	shell->s_redic->parse = NULL;
+	shell->s_redic->cmd = NULL;
 }
 
 static void reset_struct(t_shell *shell)
@@ -50,6 +52,10 @@ static void reset_struct(t_shell *shell)
 		free(shell->s_redic->delimiter);
 	if (shell->s_redic->file)
 		free(shell->s_redic->file);
+	if (shell->s_redic->parse)
+		free(shell->s_redic->parse);
+	if (shell->s_redic->cmd)
+		free(shell->s_redic->cmd);
 	if (shell->s_redic)
 		free(shell->s_redic);
 	shell->s_redic = malloc(sizeof(t_redic));
@@ -58,6 +64,33 @@ static void reset_struct(t_shell *shell)
 	shell->s_redic->redic = -1;
 	shell->s_redic->delimiter = NULL;
 	shell->s_redic->file = NULL;
+	shell->s_redic->parse = NULL;
+	shell->s_redic->cmd = NULL;
+}
+
+//signal 1 = entrou no pipe
+//signal 0 = sem pipe
+int	treatment_redic(t_shell *shell, int signal, int fd)
+{
+	if (check_redic(shell, signal))
+	{
+		if (signal == 1)
+			shell->s_redic->out = fd;
+		if (shell->s_redic->parse == NULL)
+		{
+			reset_struct(shell);
+			return (-1);
+		}
+		if (exec_redic(shell))
+		{
+			free(shell->s_redic->parse);
+			shell->s_redic->parse = NULL;
+			reset_struct(shell);
+			return(-1);
+		}
+		return (1);
+	}
+	return (0);
 }
 
 //fd 0 READ STDIN
@@ -70,12 +103,15 @@ static int exec_pipe(t_shell *shell)
 	{
 		if (pipe(fd) >= 0)
 		{
-			check_command(shell, &status, fd[1]);
+			if (treatment_redic(shell, 1, fd[1]) == 0)
+				check_command(shell, &status, fd[1]);
+			reset_struct(shell);
 			free(shell->parse_cmd);
 			dup2(fd[0], shell->fd_in);
 			shell->parse_cmd = NULL;
 			close(fd[0]);
 			close(fd[1]);
+			//printf("count %i\n", i++);
 		}
 		else
 		{
@@ -87,6 +123,8 @@ static int exec_pipe(t_shell *shell)
 	}
 	return (1);
 }
+
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -111,23 +149,13 @@ int	main(int argc, char **argv, char **env)
 		if (check_pipe(&shell))
 			if (!exec_pipe(&shell))
 				continue ;
-		if (check_redic(&shell))
-		{
-			if (shell.parse_cmd == NULL)
-			{
-				reset_struct(&shell);
-				continue ;
-			}
-			if (exec_redic(&shell))
-			{
-				free(shell.parse_cmd);
-				shell.parse_cmd = NULL;
-				reset_struct(&shell);
-				continue ;
-			}
-		}
+		if (treatment_redic(&shell, 0, 1) == -1)
+			continue ;
 		if (shell.command)
+		{
+			reset_struct(&shell);
 			check_command(&shell, &status, 1);
+		}
 		dup2(in, 0);
 		dup2(out, 1);
 		reset_struct(&shell);
