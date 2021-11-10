@@ -34,7 +34,7 @@ SRCS =	ft_bzero.c ft_isalpha.c \
 		ft_lstmap.c ft_putnbr_base_fd.c \
 		ft_itoa_base.c ft_swap.c ft_strcmp.c \
 		is_all_space.c ft_strlen_split.c ft_strdup2.c \
-		find_index.c
+		find_index.c ft_split_rev.c
 
 OBJS_PATH = objs
 

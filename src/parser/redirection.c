@@ -107,7 +107,6 @@ static int	exec_redic2(t_shell *shell, char *aux)
 {
 	char	*aux_two;
 	
-	//printf("CAIU NO EXEC2\n");
 	if (shell->s_redic->delimiter)
 		shell->s_redic->in = open("/tmp/heredoc.tmp", O_RDONLY);
 	if (shell->s_redic->cmd)

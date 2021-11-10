@@ -3,8 +3,6 @@
 
 static void create_split_cmd(t_shell *shell)
 {
-	//printf("parse+split |%s|\n", shell->s_redic->parse);
-	//printf("parse_cmd: |%s|\n", shell->s_redic->cmd);
 	if (shell->s_redic->parse)
 		shell->split_cmd = ft_split(shell->s_redic->parse, ' ');
 	else if (shell->s_redic->cmd)
@@ -13,16 +11,12 @@ static void create_split_cmd(t_shell *shell)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
-	//int i = 0;
-	//while (shell->split_cmd[i])
-	//	printf("split %s\n", shell->split_cmd[i++]);
+
 }
 
 int	check_command(t_shell *shell, int *status, int fd)
 {
 	create_split_cmd(shell);
-	//printf("parseeee |%s|\n", shell->parse_cmd);
-	//printf("teste |%s|\n", shell->split_cmd[0]);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell, fd);
 	else if (find_index(shell->split_cmd[0], '=') > 0)
@@ -68,126 +62,3 @@ int	check_pipe(t_shell *shell)
 	return (0);
 }
 
-static int	find_redic(t_shell *shell)
-{
-	int i;
-	char *aux;
-
-	if (!shell->s_redic->cmd)
-		return (-1);
-	aux = shell->s_redic->cmd;
-	i = 0;
-	while (aux[i])
-	{
-		if (aux[i] == '>')
-		{
-			if(aux[i + 1] == '>')
-				shell->s_redic->redic = 2;
-			else
-				shell->s_redic->redic = 1;
-			return (i);
-		}
-		else if (aux[i] == '<')
-		{
-			if (aux[i + 1] == '<')
-				shell->s_redic->redic = 4;
-			else
-				shell->s_redic->redic = 3;
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
-}
-
-char	*ft_split_rev(char **split)
-{
-	char	*tmp;
-	char	*tmp2;
-	char	*str;
-	int		i;
-
-	if (!split)
-		return (NULL);
-	str = ft_strjoin(split[0], " ");
-	i = 1;
-	while (split[i])
-	{
-		tmp = ft_strjoin(str, split[i]);
-		free(str);
-		str = tmp;
-		if (split[++i])
-		{
-			tmp2 = ft_strjoin(str, " ");
-			free(str);
-			str = tmp2;
-		}
-	}
-	return (str);
-}
-
-char	*find_file(t_shell *shell, int *pos)
-{
-	char	**aux;
-	char	*file;
-	char	*tmp;
-
-	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 3)
-		tmp = ft_substr(shell->s_redic->cmd, *pos + 1, ft_strlen(shell->s_redic->cmd));
-	else
-		tmp = ft_substr(shell->s_redic->cmd, *pos + 2, ft_strlen(shell->s_redic->cmd));
-	if (ft_strcmp(tmp, "") == 0 || is_all_space(tmp))
-	{
-		free(tmp);
-		return (NULL);
-	}
-	aux = ft_split(tmp, ' ');
-	file = ft_strdup(aux[0]);
-	*pos = ft_strlen(file);
-	if (shell->s_redic->cmd)
-		free(shell->s_redic->cmd);
-	shell->s_redic->cmd = ft_split_rev(aux);
-	free_list_string(aux);
-	free(tmp);
-	return (file);
-}
-
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
-int check_redic(t_shell *shell, int signal)
-{
-	int pos;
-	char *aux;
-
-	if (signal == 1)
-		shell->s_redic->cmd = ft_strdup(shell->parse_cmd);
-	else if (signal == 0)
-		shell->s_redic->cmd = ft_strdup(shell->command);
-	pos = find_redic(shell);
-	//printf("pos %i\n", pos);
-	if (pos >= 0)
-	{
-		shell->s_redic->parse = ft_substr(shell->s_redic->cmd, 0, pos);
-		if (shell->s_redic->file)
-			free(shell->s_redic->file);
-		shell->s_redic->file = find_file(shell, &pos);
-		//printf("file |%s|\n", shell->s_redic->file);
-		if (!shell->s_redic->file)
-		{
-			free(shell->s_redic->parse);
-			shell->s_redic->parse = NULL;
-			return (error_newline(shell));
-		}
-		aux = ft_substr(shell->s_redic->cmd, pos + 1, ft_strlen(shell->s_redic->cmd));
-		if(shell->s_redic->cmd)
-		{
-			free(shell->s_redic->cmd);
-			shell->s_redic->cmd = NULL;
-		}
-		shell->s_redic->cmd = aux;
-		//printf(" cmd |%s|\n", shell->s_redic->cmd);
-		return (1);
-	}
-	
-	return (0);
-}

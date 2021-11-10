@@ -26,7 +26,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c $(PATH_UTILS)handle_signal.c \
 		$(PATH_UTILS)utils.c \
 		$(PATH_EXEC)exec.c \
-		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c
+		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c $(PATH_PARSER)parser_redic.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -63,7 +63,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "TA FUNCIONANDOO CASILDA PIPE E REDIC"
+	git commit -m "criando e colocando na norma arquivo parser_redic"
 
 push:	add
 	git push

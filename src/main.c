@@ -88,6 +88,11 @@ int	treatment_redic(t_shell *shell, int signal, int fd)
 			reset_struct(shell);
 			return(-1);
 		}
+		if (signal == 0)
+		{
+			free(shell->command);
+			shell->command = NULL;
+		}
 		return (1);
 	}
 	return (0);
@@ -153,6 +158,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (shell.command)
 		{
+			//printf("COMMAND |%s|\n\n", shell.command);
 			reset_struct(&shell);
 			check_command(&shell, &status, 1);
 		}

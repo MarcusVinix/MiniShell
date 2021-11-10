@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/03 19:59:01 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/09 21:03:15 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_echo(t_shell *sh, int fd)
 			print_msg(sh->split_cmd[count], sh, fd);
 		count++;
 	}
-	ft_putchar_fd('\b', fd);
+	//ft_putchar_fd('\b', fd);
 	if (!flag)
 		ft_putchar_fd('\n', fd);
 }
