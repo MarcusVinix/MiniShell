@@ -154,7 +154,7 @@ int	exec_redic(t_shell *shell)
 			free(aux);
 			free(shell->s_redic->parse);
 			shell->s_redic->parse = NULL;
-			return (error_newline(shell));
+			return (2);
 		}
 		if (shell->s_redic->parse)
 		{

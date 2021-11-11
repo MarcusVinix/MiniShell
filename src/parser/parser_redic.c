@@ -18,6 +18,7 @@ int	aux_find_redic(t_shell *shell, char *aux, int i)
 			shell->s_redic->redic = 3;
 		return (i);
 	}
+	
 	return (-1);
 }
 

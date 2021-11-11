@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/10/24 23:21:32 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:42:09 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,11 @@ int	all_number(char *str)
 		i++;
 	}
 	return (ft_atoi(str));
+}
+
+void	set_free_and_null(char **str)
+{
+	if (*str)
+		free(*str);
+	*str = NULL;
 }

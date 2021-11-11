@@ -64,6 +64,7 @@ int		error_newline(t_shell *shell);
 void	free_all(t_shell *shell);
 void	free_list_string(char **str);
 void	exit_shell(t_shell *shell, int *status);
+void	set_free_and_null(char **str);
 
 //utils
 t_list	*create_bckup_env(char **env, t_shell *shell);
@@ -84,6 +85,8 @@ int		all_number(char *str);
 int		check_command(t_shell *shell, int *status, int fd);
 int		check_pipe(t_shell *shell);
 int		check_redic(t_shell *shell, int signal);
+int		trating_quotes(t_shell *shell);
+
 
 //title
 int		exec_redic(t_shell *shell);

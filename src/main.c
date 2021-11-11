@@ -79,20 +79,17 @@ int	treatment_redic(t_shell *shell, int signal, int fd)
 		if (shell->s_redic->parse == NULL)
 		{
 			reset_struct(shell);
+			set_free_and_null(&shell->parse_cmd);
 			return (-1);
 		}
 		if (exec_redic(shell))
 		{
-			free(shell->s_redic->parse);
-			shell->s_redic->parse = NULL;
+			set_free_and_null(&shell->parse_cmd);
 			reset_struct(shell);
 			return(-1);
 		}
 		if (signal == 0)
-		{
-			free(shell->command);
-			shell->command = NULL;
-		}
+			set_free_and_null(&shell->s_redic->parse);
 		return (1);
 	}
 	return (0);
@@ -103,17 +100,21 @@ int	treatment_redic(t_shell *shell, int signal, int fd)
 static int exec_pipe(t_shell *shell)
 {
 	int		fd[2];
+	int		res;
 
+	res = 0;
 	while (shell->parse_cmd)
 	{
 		if (pipe(fd) >= 0)
 		{
-			if (treatment_redic(shell, 1, fd[1]) == 0)
+			res = treatment_redic(shell, 1, fd[1]);
+			if (res == -1)
+				return (0);
+			if (res == 0)
 				check_command(shell, &status, fd[1]);
 			reset_struct(shell);
-			free(shell->parse_cmd);
+			set_free_and_null(&shell->parse_cmd);
 			dup2(fd[0], shell->fd_in);
-			shell->parse_cmd = NULL;
 			close(fd[0]);
 			close(fd[1]);
 			//printf("count %i\n", i++);
@@ -148,8 +149,12 @@ int	main(int argc, char **argv, char **env)
 	{
 		config_sigaction(&shell.act, sigint_handle, SIGINT);
 		config_sigaction(&act_quit, SIG_IGN, SIGQUIT);
+		dup2(in, 0);
+		dup2(out, 1);
 		get_command(&shell);
 		if (is_all_space(shell.command))
+			continue ;
+		if (trating_quotes(&shell))
 			continue ;
 		if (check_pipe(&shell))
 			if (!exec_pipe(&shell))
@@ -158,14 +163,10 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (shell.command)
 		{
-			//printf("COMMAND |%s|\n\n", shell.command);
 			reset_struct(&shell);
 			check_command(&shell, &status, 1);
 		}
-		dup2(in, 0);
-		dup2(out, 1);
 		reset_struct(&shell);
-		wait(NULL);
 	}
 	return (status);
 }

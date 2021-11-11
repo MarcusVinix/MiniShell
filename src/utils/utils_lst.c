@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/10/24 13:13:20 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/11 00:36:31 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,19 @@ t_list	*create_bckup_env(char **env, t_shell *shell)
 char	*find_value(t_list **lst, char *key)
 {
 	t_list	*tmp;
+	char	*resp;
 
 	tmp = *lst;
+	resp = ft_strtrim(key, " ");
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
+		if (ft_strcmp(tmp->key, resp) == 0)
+		{
+			free(resp);
 			return (tmp->value);
+		}
 		tmp = tmp->next;
 	}
+	free(resp);
 	return (NULL);
 }

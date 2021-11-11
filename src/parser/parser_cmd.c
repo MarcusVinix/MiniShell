@@ -11,7 +11,6 @@ static void create_split_cmd(t_shell *shell)
 		shell->split_cmd = ft_split(shell->parse_cmd, ' ');
 	else
 		shell->split_cmd = ft_split(shell->command, ' ');
-
 }
 
 int	check_command(t_shell *shell, int *status, int fd)
