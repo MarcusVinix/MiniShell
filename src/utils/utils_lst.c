@@ -75,7 +75,7 @@ char	*find_value(t_list **lst, char *key)
 	char	*resp;
 
 	tmp = *lst;
-	resp = ft_strtrim(key, " ");
+	resp = ft_strtrim(key, " \'\"");
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, resp) == 0)

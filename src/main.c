@@ -89,7 +89,10 @@ int	treatment_redic(t_shell *shell, int signal, int fd)
 			return(-1);
 		}
 		if (signal == 0)
+		{
 			set_free_and_null(&shell->s_redic->parse);
+			set_free_and_null(&shell->command);
+		}
 		return (1);
 	}
 	return (0);

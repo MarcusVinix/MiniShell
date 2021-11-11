@@ -13,7 +13,7 @@ static void remove_quotes(t_shell *shell, int pos)
 	free(str_right);
 }
 
-static void put_variable(t_shell *shell, int pos)
+static int put_variable(t_shell *shell, int *pos)
 {
 	char	*str_left;
 	char	*str_middle;
@@ -21,39 +21,42 @@ static void put_variable(t_shell *shell, int pos)
 	char	*value;
 	char	*key;
 
-	if (shell->command[pos + 1] == ' ' || shell->command[pos + 1] == '\0')
-		return ;
-	str_left = ft_substr(shell->command, 0, pos);
-	while (shell->command[++pos])
+	if (shell->command[*pos + 1] == ' ' || shell->command[*pos + 1] == '\0' ||
+			shell->command[*pos + 1] == ':')
+		return (1);
+	str_left = ft_substr(shell->command, 0, *pos);
+	while (shell->command[*pos])
 	{
-		if (shell->command[pos] == ' ' || shell->command[pos] == '?' || shell->command[pos + 1] == '\"')
+		if (shell->command[*pos] == ' ' || shell->command[*pos] == '?' ||
+				shell->command[*pos] == '\"' || shell->command[*pos] == '\'')
 			break ;
+		++*pos;
 	}
-	printf("char: %c %i\n", shell->command[pos], pos);
-	key = ft_substr(shell->command, ft_strlen(str_left) + 1, pos - (ft_strlen(str_left)));
+	printf("char: %c %i\n", shell->command[*pos], *pos);
+	key = ft_substr(shell->command, ft_strlen(str_left) + 1, *pos - (ft_strlen(str_left)));
 	printf("KEYY |%s|\n", key);
 	if (key[0] != '?')
 		value = ft_strdup(find_value(&shell->lst_env, key));
 	else
 	{
-		pos++;
+		*pos += 1;
 		value = ft_itoa(*shell->p_status);
 	}
 	printf("value |%s|\n", value);
 	if (value == NULL)
 		value = ft_strdup("");
 	str_middle = ft_strjoin(str_left, value);
-	str_right = ft_substr(shell->command, pos, ft_strlen(shell->command));
+	str_right = ft_substr(shell->command, *pos, ft_strlen(shell->command));
 	printf("RIGHT |%s|\n", str_right);
 	set_free_and_null(&shell->command);
 	shell->command = ft_strjoin(str_middle, str_right);
-	printf("command |%s|\n", shell->command);
-
+	*pos = ft_strlen(str_middle);
 	free(str_left);
 	free(str_middle);
 	free(str_right);
 	free(value);
 	free(key);
+	return (0);
 }
 
 int	trating_quotes(t_shell *shell)
@@ -88,8 +91,9 @@ int	trating_quotes(t_shell *shell)
 		}
 		if (quote != '\'' && shell->command[i] == '$')
 		{
-			put_variable(shell, i);
-			printf("cmd |%s|\n", shell->command);
+			if (put_variable(shell, &i) == 1)
+				i++;
+			continue ;
 		}
 		i++;
 	}
