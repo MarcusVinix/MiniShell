@@ -61,6 +61,7 @@ static int exec_heredoc(t_shell *shell)
 	del_lst = ft_split(shell->s_redic->delimiter, ' ');
 	if (pid == 0)
 	{
+		dup2(shell->in, 0);
 		config_sigaction(&shell->act, handle_heredoc, SIGINT);
 		while (1)
 		{
@@ -119,6 +120,7 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	if (shell->s_redic->delimiter)
 		if (exec_heredoc(shell) == 0)
 			return (1);
+	printf("REDI IS %i\n", shell->s_redic->redic);
 	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 2)
 		check_command(shell, shell->p_status, shell->s_redic->out);
 	else

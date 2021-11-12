@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "começamos o tratamento das aspas no pipe e redic"
+	git commit -m "resolvendo alguns bugs"
 
 push:	add
 	git push

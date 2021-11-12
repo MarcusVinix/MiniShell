@@ -49,7 +49,9 @@ void	ft_echo(t_shell *sh, int fd)
 
 	flag = 0;
 	count = 1;
-	if (sh->s_redic->redic > 2)
+	if (sh->s_redic->out != 1)
+		fd = sh->s_redic->out;
+	else if (sh->s_redic->redic > 2)
 		fd = 1;
 	while (sh->split_cmd[count])
 	{

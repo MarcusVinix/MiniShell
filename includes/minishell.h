@@ -39,6 +39,7 @@ typedef struct s_redic
 
 typedef struct s_shell
 {
+	int				in;
 	char			*command;
 	char			**split_cmd;
 	t_list			*lst_env;

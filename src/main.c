@@ -54,6 +54,7 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->status_pipe = malloc(sizeof(t_status));
 	shell->status_pipe->len = 0;
 	shell->status_pipe->pos = 0;
+	shell->in = dup(0);
 	init_struct_redic(shell);
 
 }
