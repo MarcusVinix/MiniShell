@@ -20,6 +20,8 @@ void	free_all(t_shell *shell)
 		ft_lstclear(&shell->lst_env, free);
 	// if (shell->split_cmd)
 		// free_list_string(shell->split_cmd);
+	if (shell->status_pipe)
+		free(shell->status_pipe);
 	if (shell->s_redic->file)
 		free(shell->s_redic->file);
 }

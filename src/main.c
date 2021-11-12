@@ -27,16 +27,9 @@ void	get_command(t_shell  *shell)
 	shell->s_redic->redic = -1;
 }
 
-static void	start_struct(t_shell *shell, char **env)
+void	init_struct_redic(t_shell *shell)
 {
 	shell->s_redic = malloc(sizeof(t_redic));
-	shell->command = NULL;
-	shell->parse_cmd = NULL;
-	shell->fd_in = 0;
-	shell->fd_out = 1;
-	shell->p_status = &status;
-	shell->len_env = 0;
-	shell->lst_env = create_bckup_env(env, shell);
 	shell->s_redic->in = 0;
 	shell->s_redic->out = 1;
 	shell->s_redic->delimiter = NULL;
@@ -44,6 +37,25 @@ static void	start_struct(t_shell *shell, char **env)
 	shell->s_redic->redic = -1;
 	shell->s_redic->parse = NULL;
 	shell->s_redic->cmd = NULL;
+	shell->s_redic->status = malloc(sizeof(t_status));
+	shell->s_redic->status->pos = 0;
+	shell->s_redic->status->len = 0;
+}
+
+static void	start_struct(t_shell *shell, char **env)
+{
+	shell->command = NULL;
+	shell->parse_cmd = NULL;
+	shell->fd_in = 0;
+	shell->fd_out = 1;
+	shell->p_status = &status;
+	shell->len_env = 0;
+	shell->lst_env = create_bckup_env(env, shell);
+	shell->status_pipe = malloc(sizeof(t_status));
+	shell->status_pipe->len = 0;
+	shell->status_pipe->pos = 0;
+	init_struct_redic(shell);
+
 }
 
 static void reset_struct(t_shell *shell)
@@ -56,16 +68,11 @@ static void reset_struct(t_shell *shell)
 		free(shell->s_redic->parse);
 	if (shell->s_redic->cmd)
 		free(shell->s_redic->cmd);
+	if (shell->s_redic->status)
+		free(shell->s_redic->status);
 	if (shell->s_redic)
 		free(shell->s_redic);
-	shell->s_redic = malloc(sizeof(t_redic));
-	shell->s_redic->in = 0;
-	shell->s_redic->out = 1;
-	shell->s_redic->redic = -1;
-	shell->s_redic->delimiter = NULL;
-	shell->s_redic->file = NULL;
-	shell->s_redic->parse = NULL;
-	shell->s_redic->cmd = NULL;
+	init_struct_redic(shell);
 }
 
 //signal 1 = entrou no pipe
@@ -169,6 +176,8 @@ int	main(int argc, char **argv, char **env)
 			reset_struct(&shell);
 			check_command(&shell, &status, 1);
 		}
+		shell.status_pipe->len = 0;
+		shell.status_pipe->pos = 0;
 		reset_struct(&shell);
 	}
 	return (status);

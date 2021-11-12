@@ -16,29 +16,39 @@
 #include <fcntl.h>
 # define NO_FILE "No such file or directory"
 # define NO_OLDPWD "OLDPWD not set"
+# define TRUE 1
+# define FALSE 0
 
+typedef struct s_status
+{
+	int		lst_status[100];
+	int		pos;
+	int		len;
+}			t_status;
 typedef struct s_redic
 {
-	int 	in;
-	int		out;
-	int		redic;
-	char	*file;
-	char	*delimiter;
-	char	*parse;
-	char	*cmd;
+	int 		in;
+	int			out;
+	int			redic;
+	char		*file;
+	char		*delimiter;
+	char		*parse;
+	char		*cmd;
+	t_status	*status;
 }			t_redic;
 
 typedef struct s_shell
 {
-	char	*command;
-	char	**split_cmd;
-	t_list	*lst_env;
-	char	*parse_cmd;
-	int		fd_in;
-	int		fd_out;
-	int		*p_status;
-	int		len_env;
-	t_redic	*s_redic;
+	char			*command;
+	char			**split_cmd;
+	t_list			*lst_env;
+	char			*parse_cmd;
+	int				fd_in;
+	int				fd_out;
+	int				*p_status;
+	int				len_env;
+	t_status		*status_pipe;
+	t_redic			*s_redic;
 	struct sigaction act;
 }			t_shell;
 

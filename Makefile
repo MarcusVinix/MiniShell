@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "Começando o parse das aspas"
+	git commit -m "Pegando a quantidade de pipes e redic e setando se é false ou True"
 
 push:	add
 	git push

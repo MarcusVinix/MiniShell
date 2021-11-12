@@ -59,6 +59,32 @@ static int put_variable(t_shell *shell, int *pos)
 	return (0);
 }
 
+static void	disable(t_shell *shell, int *pos, int signal)
+{
+	char		*cmd;
+	t_status	*status;
+
+	cmd = shell->command;
+	status = shell->s_redic->status;
+	if (cmd[*pos] == '<' || cmd[*pos] == '>')
+	{
+		if (signal == 0)
+			status->lst_status[status->pos] = FALSE;
+		else
+			status->lst_status[status->pos] = TRUE;
+		status->pos++;
+		if (cmd[*pos + 1] == '<' || cmd[*pos + 1] == '>')
+			*pos += 1;
+	}
+	if (cmd[*pos] == '|')
+	{
+		if (signal == 0)
+			shell->status_pipe->lst_status[shell->status_pipe->pos] = FALSE;
+		else
+			shell->status_pipe->lst_status[shell->status_pipe->pos] = TRUE;
+		shell->status_pipe->pos++;
+	}
+}
 int	trating_quotes(t_shell *shell)
 {
 	char	quote;
@@ -78,6 +104,7 @@ int	trating_quotes(t_shell *shell)
 				remove_quotes(shell, i);
 				continue ;
 			}
+			disable(shell, &i, FALSE);
 		}
 		else
 		{
@@ -88,6 +115,7 @@ int	trating_quotes(t_shell *shell)
 				remove_quotes(shell, i);
 				continue ;
 			}
+			disable(shell, &i, TRUE);
 		}
 		if (quote != '\'' && shell->command[i] == '$')
 		{
@@ -97,6 +125,10 @@ int	trating_quotes(t_shell *shell)
 		}
 		i++;
 	}
-	printf("commanddddd  |%s|\n", shell->command);
+	shell->s_redic->status->len = shell->s_redic->status->pos;
+	shell->s_redic->status->pos = 0;
+	shell->status_pipe->len = shell->status_pipe->pos;
+	shell->status_pipe->pos = 0;
+	printf("commanddddd  |%s| redic %i pipe %i\n", shell->command, shell->s_redic->status->len, shell->status_pipe->len);
 	return (0);
 }
