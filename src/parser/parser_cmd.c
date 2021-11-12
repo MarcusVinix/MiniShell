@@ -43,12 +43,38 @@ int	check_command(t_shell *shell, int *status, int fd)
 	return (0);
 }
 
+static int	find_pipe(t_shell *shell, char *str)
+{
+	int	i;
+
+	if (!str)
+		return (-1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			if (shell->status_pipe->len > 0)
+			{
+				if (shell->status_pipe->lst_status[shell->status_pipe->pos++] == FALSE)
+				{
+					i++;
+					continue;
+				}
+			}				
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
+
 int	check_pipe(t_shell *shell)
 {
 	int pos;
 	char *aux;
 	
-	pos = find_index(shell->command, '|');
+	pos = find_pipe(shell, shell->command);
 	if(pos > 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);

@@ -2,6 +2,7 @@
 
 int	aux_find_redic(t_shell *shell, char *aux, int i)
 {
+	
 	if (aux[i] == '>')
 	{
 		if (aux[i + 1] == '>')
@@ -37,7 +38,17 @@ static int	find_redic(t_shell *shell)
 	{
 		ret = aux_find_redic(shell, aux, i);
 		if (ret != -1)
+		{
+			if (shell->s_redic->status->len > 0)
+			{
+				if (shell->s_redic->status->lst_status[shell->s_redic->status->pos++] == FALSE)
+				{
+					i++;
+					continue ;
+				}
+			}
 			return (ret);
+		}
 		i++;
 	}
 	return (-1);
@@ -101,7 +112,7 @@ int	parser_redic(t_shell *shell, int pos)
 int	check_redic(t_shell *shell, int signal)
 {
 	int	pos;
-
+	
 	if (signal == 1)
 		shell->s_redic->cmd = ft_strdup(shell->parse_cmd);
 	else if (signal == 0)
