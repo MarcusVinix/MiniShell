@@ -16,7 +16,6 @@ int	ft_pwd(int fd, t_shell *shell)
 {
 	char	path[2021];
 
-
 	if (shell->s_redic->redic > 2)
 		fd = 1;
 	if (getcwd(path, 2021))

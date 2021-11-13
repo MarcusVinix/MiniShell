@@ -12,31 +12,6 @@
 
 #include "minishell.h"
 
-int	check_quotes(t_shell *shell)
-{
-	char	*str;
-	int		quotes;
-	
-	str = ft_strdup(shell->split_cmd[1]);
-	quotes = 0;
-	if (!str)
-		return (0);
-	if (*str == '\'')
-	{
-		free(shell->split_cmd[1]);
-		shell->split_cmd[1] = ft_strtrim(str, "\'");
-		quotes = 1;
-	}
-	else if (*str == '\"')
-	{
-		free(shell->split_cmd[1]);
-		shell->split_cmd[1] = ft_strtrim(str, "\"");
-		quotes = 2;
-	}
-	free(str);
-	return (quotes);
-}
-
 char	**get_env_var(t_list **list_env, t_shell *shell)
 {
 	char	**env;
@@ -44,6 +19,7 @@ char	**get_env_var(t_list **list_env, t_shell *shell)
 	char	*tmp;
 	int		i;
 
+	printf("LENFG IS %i\n", shell->len_env);
 	env = malloc(sizeof(char *) * (shell->len_env + 1));
 	if (!env)
 		return (NULL);

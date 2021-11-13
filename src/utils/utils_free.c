@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/04 22:00:34 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/13 19:33:43 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	free_all(t_shell *shell)
 		free(shell->command);
 	if (shell->lst_env)
 		ft_lstclear(&shell->lst_env, free);
-	// if (shell->split_cmd)
-		// free_list_string(shell->split_cmd);
 	if (shell->status_pipe)
 		free(shell->status_pipe);
 	if (shell->s_redic->file)
@@ -42,12 +40,8 @@ void free_list_string(char **str)
 
 void	exit_shell(t_shell *shell, int *status)
 {
-	//if (shell->split_cmd)
-	//	if (shell->split_cmd[1])
-	//		*status = all_number(shell->split_cmd[1]);
-	
 	free_all(shell);
-	//rl_clear_history();
+	rl_clear_history();
 	printf("TAMO SAINDO VLW!\nVolte Sempre!!\n");
 	exit(*status);
 }
