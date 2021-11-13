@@ -28,3 +28,21 @@ int	is_all_space(char *str)
 	}
 	return (1);
 }
+
+int	is_all_space2(char *str, char c)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}

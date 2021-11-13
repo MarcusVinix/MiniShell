@@ -92,7 +92,9 @@ int	ft_exec(t_shell *shell, int fd)
 	pid_t	pid;
 	int		ret;
 	char	**envp;
-
+	
+	if(!shell->split_cmd[0])
+		return (0);
 	if (ft_check_path(shell->split_cmd, shell))
 		return (127);
 	envp = get_env_var(&shell->lst_env, shell);

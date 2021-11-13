@@ -53,7 +53,9 @@ static int	find_pipe(t_shell *shell, char *str)
 	while (str[i])
 	{
 		if (str[i] == '|')
-		{
+		{ 
+			if (is_all_space2(str + i + 1, '|'))
+				return (-2);
 			if (shell->status_pipe->len > 0)
 			{
 				if (shell->status_pipe->lst_status[shell->status_pipe->pos++] == FALSE)
@@ -75,10 +77,13 @@ int	check_pipe(t_shell *shell)
 	char *aux;
 	
 	pos = find_pipe(shell, shell->command);
+	if (pos == -2)
+		return (error_newline(shell));
 	if(pos > 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);
 		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
+
 		if (shell->command)
 			free(shell->command);
 		shell->command = aux;

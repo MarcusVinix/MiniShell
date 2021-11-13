@@ -101,4 +101,7 @@ int		trating_quotes(t_shell *shell);
 
 //title
 int		exec_redic(t_shell *shell);
+
+//validation
+int		valid_redic(char *cmd, int pos);
 #endif

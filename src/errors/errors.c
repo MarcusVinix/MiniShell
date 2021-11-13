@@ -59,5 +59,5 @@ int	error_newline(t_shell *shell)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 	*shell->p_status = 2;
-	return (2);
+	return (-1);
 }

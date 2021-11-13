@@ -89,13 +89,13 @@ int	parser_redic(t_shell *shell, int pos)
 	shell->s_redic->parse = ft_substr(shell->s_redic->cmd, 0, pos);
 	if (shell->s_redic->file)
 		free(shell->s_redic->file);
-	shell->s_redic->file = find_file(shell, &pos);
-	if (!shell->s_redic->file)
+	if (!valid_redic(shell->s_redic->cmd, pos))
 	{
 		free(shell->s_redic->parse);
 		shell->s_redic->parse = NULL;
 		return (error_newline(shell));
 	}
+	shell->s_redic->file = find_file(shell, &pos);
 	aux = ft_substr(shell->s_redic->cmd, pos + 1,
 			ft_strlen(shell->s_redic->cmd));
 	if (shell->s_redic->cmd)

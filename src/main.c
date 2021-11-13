@@ -136,7 +136,8 @@ static int exec_pipe(t_shell *shell)
 			ft_putendl_fd(strerror(errno), 2);
 			return (0);
 		}
-		check_pipe(shell);
+		if (check_pipe(shell) == -1)
+			return (0);
 	}
 	return (1);
 }
@@ -149,7 +150,9 @@ int	main(int argc, char **argv, char **env)
 	struct sigaction	act_quit;
 	int		in;
 	int		out;
+	int		res;
 
+	res = 0;
 	in = dup(0);
 	out = dup(1);
 	status = 0;
@@ -167,7 +170,10 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (trating_quotes(&shell))
 			continue ;
-		if (check_pipe(&shell))
+		res = check_pipe(&shell);
+		if (res == -1)
+			continue ;
+		if (res)
 			if (!exec_pipe(&shell))
 				continue ;
 		if (treatment_redic(&shell, 0, 1) == -1)

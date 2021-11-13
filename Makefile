@@ -27,7 +27,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_UTILS)utils.c \
 		$(PATH_EXEC)exec.c \
 		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c $(PATH_PARSER)parser_redic.c \
-		$(PATH_PARSER)parser_quotes.c
+		$(PATH_PARSER)parser_quotes.c $(PATH_PARSER)validation.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "resolvendo alguns bugs"
+	git commit -m "resolvendo mais alguns bugs"
 
 push:	add
 	git push
