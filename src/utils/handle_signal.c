@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:38:52 by coder             #+#    #+#             */
-/*   Updated: 2021/11/13 19:28:53 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/14 12:24:23 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sigint_handle_cmd(int sig)
 {
 	(void)sig;
 	printf("\n");
+	sh_status = 130;
 }
 
 void	sigint_handle(int sig)
@@ -24,10 +25,10 @@ void	sigint_handle(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putchar_fd('\n', 1);
-		rl_clear_history();
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		sh_status = 130;
 	}
 }
 
@@ -35,7 +36,7 @@ void	handle_heredoc(int sig)
 {
 	(void)sig;
 	ft_putchar_fd('\n', 1);
-	exit(0);
+	exit(130);
 }
 
 void	config_sigaction(struct sigaction *act, void (*handler)(int), int sig)

@@ -13,7 +13,7 @@ static void create_split_cmd(t_shell *shell)
 		shell->split_cmd = ft_split(shell->command, ' ');
 }
 
-int	check_command(t_shell *shell, int *status, int fd)
+int	check_command(t_shell *shell, int fd)
 {
 	create_split_cmd(shell);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
@@ -21,24 +21,24 @@ int	check_command(t_shell *shell, int *status, int fd)
 	else if (find_index(shell->split_cmd[0], '=') > 0)
 		ft_export(shell, fd, 0);
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
-		ft_pwd(fd, shell);
+		sh_status = ft_pwd(fd, shell);
 	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
-		*status = ft_cd(shell, fd);
+		sh_status = ft_cd(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
-		*status = ft_env(shell, fd);
+		sh_status = ft_env(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
-		*status = ft_export(shell, fd, 1);
+		sh_status = ft_export(shell, fd, 1);
 	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
-		*status = ft_unset(shell, &shell->lst_env, fd);
+		sh_status = ft_unset(shell, &shell->lst_env, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
 		if (fd > 2)
 			return (0);
-		exit_shell(shell, status);
+		exit_shell(shell);
 	}
 	else
-		*status = ft_exec(shell, fd);
-	//printf("STATUS IS %i\n", *status);
+		sh_status = ft_exec(shell, fd);
+	printf("STATUS IS %i\n", sh_status);
 	free_list_string(shell->split_cmd);
 	return (0);
 }
@@ -78,7 +78,7 @@ int	check_pipe(t_shell *shell)
 	
 	pos = find_pipe(shell, shell->command);
 	if (pos == -2)
-		return (error_newline(shell));
+		return (error_newline());
 	if(pos > 0)
 	{
 		shell->parse_cmd = ft_substr(shell->command, 0, pos);

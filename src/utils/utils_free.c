@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/13 19:33:43 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/14 12:45:03 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	free_all(t_shell *shell)
 		free(shell->s_redic->file);
 }
 
-void free_list_string(char **str)
+void	free_list_string(char **str)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (!str)
@@ -37,11 +37,10 @@ void free_list_string(char **str)
 		free(str);
 }
 
-
-void	exit_shell(t_shell *shell, int *status)
+void	exit_shell(t_shell *shell)
 {
 	free_all(shell);
 	rl_clear_history();
 	printf("TAMO SAINDO VLW!\nVolte Sempre!!\n");
-	exit(*status);
+	exit(sh_status);
 }

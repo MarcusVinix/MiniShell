@@ -46,12 +46,13 @@ typedef struct s_shell
 	char			*parse_cmd;
 	int				fd_in;
 	int				fd_out;
-	int				*p_status;
 	int				len_env;
 	t_status		*status_pipe;
 	t_redic			*s_redic;
 	struct sigaction act;
 }			t_shell;
+
+int sh_status;
 
 //builtins
 int		ft_pwd(int fd, t_shell *shell);
@@ -69,13 +70,13 @@ int		error_no_file(char *path);
 int		invalid_option(char *s);
 void	invalid_identifier(char *str);
 int		no_file(char *file, t_shell *shell);
-int		error_newline(t_shell *shell);
+int		error_newline();
 int		ft_invalid_identifier_unset(char *str);
 
 //free
 void	free_all(t_shell *shell);
 void	free_list_string(char **str);
-void	exit_shell(t_shell *shell, int *status);
+void	exit_shell(t_shell *shell);
 void	set_free_and_null(char **str);
 
 //utils
@@ -84,6 +85,10 @@ char	*find_value(t_list **lst, char *key);
 int		change_value(t_list **lst, char *key, char *new_value, int sig);
 int		ft_exec(t_shell *shell, int fd);
 void	get_command(t_shell  *shell);
+void	start_struct(t_shell *shell, char **env);
+void	reset_struct(t_shell *shell);
+
+
 // void	sigint_handle(int sig_num);
 void	sigint_handle_cmd(int sig);
 void	sigint_handle(int sig);
@@ -94,7 +99,7 @@ char	**get_env_var(t_list **list_env, t_shell *shell);
 int		all_number(char *str);
 
 //parser
-int		check_command(t_shell *shell, int *status, int fd);
+int		check_command(t_shell *shell, int fd);
 int		check_pipe(t_shell *shell);
 int		check_redic(t_shell *shell, int signal);
 int		trating_quotes(t_shell *shell);

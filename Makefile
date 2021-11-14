@@ -13,7 +13,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=address
+CFLAGS = -Wextra -Werror -Wall -I ./includes/
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -24,7 +24,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c $(PATH_BUILTINS)ft_unset.c \
 		$(PATH_ERRORS)errors.c $(PATH_ERRORS)more_errors.c \
 		$(PATH_UTILS)utils_free.c $(PATH_UTILS)utils_lst.c $(PATH_UTILS)handle_signal.c \
-		$(PATH_UTILS)utils.c \
+		$(PATH_UTILS)utils.c $(PATH_UTILS)utils_struct.c \
 		$(PATH_EXEC)exec.c \
 		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c $(PATH_PARSER)parser_redic.c \
 		$(PATH_PARSER)parser_quotes.c $(PATH_PARSER)validation.c
@@ -64,7 +64,10 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "Arrumando a norma em alguns arquivos"
+	git commit -m "Criando variavel global de status pra usar em todos os arquivos, coloquei ela em todas as ocasiões que era usada as outras de status"
 
 push:	add
 	git push
+
+teste:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./minishell

@@ -93,7 +93,7 @@ int	parser_redic(t_shell *shell, int pos)
 	{
 		free(shell->s_redic->parse);
 		shell->s_redic->parse = NULL;
-		return (error_newline(shell));
+		return (error_newline());
 	}
 	shell->s_redic->file = find_file(shell, &pos);
 	aux = ft_substr(shell->s_redic->cmd, pos + 1,

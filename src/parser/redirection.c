@@ -93,13 +93,14 @@ static int exec_heredoc(t_shell *shell)
 				ft_putendl_fd(line, fd);
 			free(line);
 		}
-		exit(9);
+		exit(0);
 	}
-	waitpid(pid, shell->p_status, 0);
+	waitpid(pid, &sh_status, 0);
+	sh_status = WEXITSTATUS(sh_status);
 	free_list_string(del_lst);
 	free(shell->s_redic->delimiter);
 	shell->s_redic->delimiter = NULL;
-	return (*shell->p_status);
+	return (sh_status);
 }
 
 //signal 1 = entrou no pipe
@@ -122,9 +123,9 @@ static int	exec_redic2(t_shell *shell, char *aux)
 			return (1);
 	printf("REDI IS %i\n", shell->s_redic->redic);
 	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 2)
-		check_command(shell, shell->p_status, shell->s_redic->out);
+		check_command(shell, shell->s_redic->out);
 	else
-		check_command(shell, shell->p_status, shell->s_redic->in);
+		check_command(shell, shell->s_redic->in);
 	free(aux);
 	shell->s_redic->parse = NULL;
 	if (shell->s_redic->cmd)

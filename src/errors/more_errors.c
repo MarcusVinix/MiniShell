@@ -31,14 +31,14 @@ int	no_file(char *file, t_shell *shell)
 	ft_putstr_fd(" :", 2);
 	ft_putendl_fd(strerror(errno), 2);
 	if (shell->s_redic->redic)
-		*shell->p_status = 1;
+		sh_status = 1;
 	return (127);
 }
 
-int	error_newline(t_shell *shell)
+int	error_newline()
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
-	*shell->p_status = 2;
+	sh_status = 2;
 	return (-1);
 }
 

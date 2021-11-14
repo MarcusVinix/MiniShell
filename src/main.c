@@ -1,10 +1,6 @@
 
 #include "minishell.h"
 
-int	status;
-
-
-
 void	get_command(t_shell  *shell)
 {
 	char	cwd[2021];
@@ -18,63 +14,13 @@ void	get_command(t_shell  *shell)
 	if (shell->command)
 		free(shell->command);
 	shell->command = readline(prompt);
-	if (shell->command == NULL)
-		exit_shell(shell, &status) ;
 	free(prompt);
-	//if (!shell->command)
-	//	exit_shell(shell, &status);
+	if (shell->command == NULL)
+		exit_shell(shell);
 	add_history(shell->command);
 	shell->s_redic->redic = -1;
 }
 
-void	init_struct_redic(t_shell *shell)
-{
-	shell->s_redic = malloc(sizeof(t_redic));
-	shell->s_redic->in = 0;
-	shell->s_redic->out = 1;
-	shell->s_redic->delimiter = NULL;
-	shell->s_redic->file = NULL;
-	shell->s_redic->redic = -1;
-	shell->s_redic->parse = NULL;
-	shell->s_redic->cmd = NULL;
-	shell->s_redic->status = malloc(sizeof(t_status));
-	shell->s_redic->status->pos = 0;
-	shell->s_redic->status->len = 0;
-}
-
-static void	start_struct(t_shell *shell, char **env)
-{
-	shell->command = NULL;
-	shell->parse_cmd = NULL;
-	shell->fd_in = 0;
-	shell->fd_out = 1;
-	shell->p_status = &status;
-	shell->len_env = 0;
-	shell->lst_env = create_bckup_env(env, shell);
-	shell->status_pipe = malloc(sizeof(t_status));
-	shell->status_pipe->len = 0;
-	shell->status_pipe->pos = 0;
-	shell->in = dup(0);
-	init_struct_redic(shell);
-
-}
-
-static void reset_struct(t_shell *shell)
-{
-	if (shell->s_redic->delimiter != NULL)
-		free(shell->s_redic->delimiter);
-	if (shell->s_redic->file)
-		free(shell->s_redic->file);
-	if (shell->s_redic->parse)
-		free(shell->s_redic->parse);
-	if (shell->s_redic->cmd)
-		free(shell->s_redic->cmd);
-	if (shell->s_redic->status)
-		free(shell->s_redic->status);
-	if (shell->s_redic)
-		free(shell->s_redic);
-	init_struct_redic(shell);
-}
 
 //signal 1 = entrou no pipe
 //signal 0 = sem pipe
@@ -122,7 +68,7 @@ static int exec_pipe(t_shell *shell)
 			if (res == -1)
 				return (0);
 			if (res == 0)
-				check_command(shell, &status, fd[1]);
+				check_command(shell, fd[1]);
 			reset_struct(shell);
 			set_free_and_null(&shell->parse_cmd);
 			dup2(fd[0], shell->fd_in);
@@ -155,7 +101,7 @@ int	main(int argc, char **argv, char **env)
 	res = 0;
 	in = dup(0);
 	out = dup(1);
-	status = 0;
+	sh_status = 0;
 	if (argc != 1 || argv[1])
 		return (0);
 	start_struct(&shell, env);
@@ -181,11 +127,11 @@ int	main(int argc, char **argv, char **env)
 		if (shell.command)
 		{
 			reset_struct(&shell);
-			check_command(&shell, &status, 1);
+			check_command(&shell, 1);
 		}
 		shell.status_pipe->len = 0;
 		shell.status_pipe->pos = 0;
 		reset_struct(&shell);
 	}
-	return (status);
+	return (sh_status);
 }
