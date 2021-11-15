@@ -95,12 +95,12 @@ static int exec_heredoc(t_shell *shell)
 		}
 		exit(0);
 	}
-	waitpid(pid, &sh_status, 0);
-	sh_status = WEXITSTATUS(sh_status);
+	waitpid(pid, &g_sh_status, 0);
+	g_sh_status = WEXITSTATUS(g_sh_status);
 	free_list_string(del_lst);
 	free(shell->s_redic->delimiter);
 	shell->s_redic->delimiter = NULL;
-	return (sh_status);
+	return (g_sh_status);
 }
 
 //signal 1 = entrou no pipe

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_struct.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 14:40:08 by mavinici          #+#    #+#             */
+/*   Updated: 2021/11/15 14:40:08 by mavinici         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 static void	init_struct_redic(t_shell *shell)
@@ -27,11 +38,11 @@ void	start_struct(t_shell *shell, char **env)
 	shell->status_pipe->len = 0;
 	shell->status_pipe->pos = 0;
 	shell->in = dup(0);
+	shell->ret = 0;
 	init_struct_redic(shell);
-
 }
 
-void reset_struct(t_shell *shell)
+void	reset_struct(t_shell *shell)
 {
 	if (shell->s_redic->delimiter != NULL)
 		free(shell->s_redic->delimiter);

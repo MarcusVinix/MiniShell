@@ -6,18 +6,17 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:38:52 by coder             #+#    #+#             */
-/*   Updated: 2021/11/14 12:24:23 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/15 14:48:29 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-
 void	sigint_handle_cmd(int sig)
 {
 	(void)sig;
 	printf("\n");
-	sh_status = 130;
+	g_sh_status = 130;
 }
 
 void	sigint_handle(int sig)
@@ -28,7 +27,7 @@ void	sigint_handle(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		sh_status = 130;
+		g_sh_status = 130;
 	}
 }
 

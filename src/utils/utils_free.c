@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 12:07:25 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/14 12:45:03 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/15 14:48:33 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	exit_shell(t_shell *shell)
 	free_all(shell);
 	rl_clear_history();
 	printf("TAMO SAINDO VLW!\nVolte Sempre!!\n");
-	exit(sh_status);
+	exit(g_sh_status);
 }

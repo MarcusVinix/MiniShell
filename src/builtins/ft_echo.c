@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/14 12:02:39 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/15 14:48:51 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void print_msg(char *msg, t_shell *sh, int fd)
 		if (!msg[count + 1])
 			ft_putchar_fd('$', fd);
 		else if (msg[count + 1] == '?')
-			ft_putnbr_fd(sh_status, fd);
+			ft_putnbr_fd(g_sh_status, fd);
 		sub = ft_substr(msg, ++count, ft_strlen(msg));
 		var = find_value(&sh->lst_env, sub);
 		free(sub);

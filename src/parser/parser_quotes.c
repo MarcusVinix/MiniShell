@@ -40,7 +40,7 @@ static int put_variable(t_shell *shell, int *pos)
 	else
 	{
 		*pos += 1;
-		value = ft_itoa(sh_status);
+		value = ft_itoa(g_sh_status);
 	}
 	printf("value |%s|\n", value);
 	if (value == NULL)

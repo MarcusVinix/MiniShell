@@ -16,20 +16,21 @@ static void create_split_cmd(t_shell *shell)
 int	check_command(t_shell *shell, int fd)
 {
 	create_split_cmd(shell);
+	config_sigaction(&shell->act, sigint_handle_cmd, SIGINT);
 	if (ft_strcmp(shell->split_cmd[0], "echo") == 0)
 		ft_echo(shell, fd);
 	else if (find_index(shell->split_cmd[0], '=') > 0)
 		ft_export(shell, fd, 0);
 	else if (ft_strcmp(shell->split_cmd[0], "pwd") == 0)
-		sh_status = ft_pwd(fd, shell);
+		g_sh_status = ft_pwd(fd, shell);
 	else if (ft_strcmp(shell->split_cmd[0], "cd") == 0)
-		sh_status = ft_cd(shell, fd);
+		g_sh_status = ft_cd(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "env") == 0)
-		sh_status = ft_env(shell, fd);
+		g_sh_status = ft_env(shell, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "export") == 0)
-		sh_status = ft_export(shell, fd, 1);
+		g_sh_status = ft_export(shell, fd, 1);
 	else if (ft_strcmp(shell->split_cmd[0], "unset") == 0)
-		sh_status = ft_unset(shell, &shell->lst_env, fd);
+		g_sh_status = ft_unset(shell, &shell->lst_env, fd);
 	else if (ft_strcmp(shell->split_cmd[0], "exit") == 0)
 	{
 		if (fd > 2)
@@ -37,8 +38,8 @@ int	check_command(t_shell *shell, int fd)
 		exit_shell(shell);
 	}
 	else
-		sh_status = ft_exec(shell, fd);
-	printf("STATUS IS %i\n", sh_status);
+		g_sh_status = ft_exec(shell, fd);
+	printf("STATUS IS %i\n", g_sh_status);
 	free_list_string(shell->split_cmd);
 	return (0);
 }

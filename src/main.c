@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char **env)
 	res = 0;
 	in = dup(0);
 	out = dup(1);
-	sh_status = 0;
+	g_sh_status = 0;
 	if (argc != 1 || argv[1])
 		return (0);
 	start_struct(&shell, env);
@@ -133,5 +133,5 @@ int	main(int argc, char **argv, char **env)
 		shell.status_pipe->pos = 0;
 		reset_struct(&shell);
 	}
-	return (sh_status);
+	return (g_sh_status);
 }
