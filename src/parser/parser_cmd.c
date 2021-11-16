@@ -92,4 +92,3 @@ int	check_pipe(t_shell *shell)
 	}
 	return (0);
 }
-

@@ -13,7 +13,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=address
+CFLAGS = -Wextra -Werror -Wall -I ./includes/ #-fsanitize=address
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando mais norminette e o nome da variavel global"
+	git commit -m "arrumando mais norminette e o resolvendo uns bugs do retorno de status"
 
 push:	add
 	git push

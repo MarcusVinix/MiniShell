@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/11/10 22:42:09 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:30:51 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	**get_env_var(t_list **list_env, t_shell *shell)
 	char	*tmp;
 	int		i;
 
-	printf("LENFG IS %i\n", shell->len_env);
 	env = malloc(sizeof(char *) * (shell->len_env + 1));
 	if (!env)
 		return (NULL);

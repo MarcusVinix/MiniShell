@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/11/15 14:55:56 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/15 20:49:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	ft_exec(t_shell *shell, int fd)
 	if (pid == 0)
 		aux_exec(shell, envp, fd);
 	waitpid(pid, &ret, 0);
-	printf("ret is %i\n", ret);
-	g_sh_status = WEXITSTATUS(ret);
+	if (g_sh_status != 130)
+		g_sh_status = WEXITSTATUS(ret);
 	if (envp)
 		free_list_string(envp);
 	return (g_sh_status);

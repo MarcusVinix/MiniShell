@@ -54,7 +54,7 @@ int	treatment_redic(t_shell *shell, int signal, int fd)
 
 //fd 0 READ STDIN
 //fd 1 WRITE STDOUT
-static int exec_pipe(t_shell *shell)
+static int	exec_pipe(t_shell *shell)
 {
 	int		fd[2];
 	int		res;

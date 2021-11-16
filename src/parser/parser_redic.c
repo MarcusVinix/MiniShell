@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_redic.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 21:07:54 by mavinici          #+#    #+#             */
+/*   Updated: 2021/11/15 21:14:36 by mavinici         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	aux_find_redic(t_shell *shell, char *aux, int i)
 {
-	
 	if (aux[i] == '>')
 	{
 		if (aux[i + 1] == '>')
@@ -19,7 +30,6 @@ int	aux_find_redic(t_shell *shell, char *aux, int i)
 			shell->s_redic->redic = 3;
 		return (i);
 	}
-	
 	return (-1);
 }
 
@@ -41,7 +51,8 @@ static int	find_redic(t_shell *shell)
 		{
 			if (shell->s_redic->status->len > 0)
 			{
-				if (shell->s_redic->status->lst_status[shell->s_redic->status->pos++] == FALSE)
+				if (shell->s_redic->status->lst_status
+					[shell->s_redic->status->pos++] == FALSE)
 				{
 					i++;
 					continue ;
@@ -112,7 +123,7 @@ int	parser_redic(t_shell *shell, int pos)
 int	check_redic(t_shell *shell, int signal)
 {
 	int	pos;
-	
+
 	if (signal == 1)
 		shell->s_redic->cmd = ft_strdup(shell->parse_cmd);
 	else if (signal == 0)

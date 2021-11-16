@@ -95,12 +95,12 @@ static int exec_heredoc(t_shell *shell)
 		}
 		exit(0);
 	}
-	waitpid(pid, &g_sh_status, 0);
-	g_sh_status = WEXITSTATUS(g_sh_status);
+	waitpid(pid, &shell->ret, 0);
+	g_sh_status = WEXITSTATUS(shell->ret);
 	free_list_string(del_lst);
 	free(shell->s_redic->delimiter);
 	shell->s_redic->delimiter = NULL;
-	return (g_sh_status);
+	return (1);
 }
 
 //signal 1 = entrou no pipe
@@ -119,9 +119,8 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	}
 	shell->s_redic->parse = aux;
 	if (shell->s_redic->delimiter)
-		if (exec_heredoc(shell) == 0)
+		if (exec_heredoc(shell) == 0)//if desnecessario?
 			return (1);
-	printf("REDI IS %i\n", shell->s_redic->redic);
 	if (shell->s_redic->redic == 1 || shell->s_redic->redic == 2)
 		check_command(shell, shell->s_redic->out);
 	else
@@ -166,7 +165,7 @@ int	exec_redic(t_shell *shell)
 			aux = aux_two;
 		}
 	}
-	if (exec_redic2(shell, aux))
+	if (exec_redic2(shell, aux))//if desnecessario?
 		return (1);
 	return (0);
 }
