@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:35:04 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 16:19:14 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:18:03 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,34 @@ void	store_delimiter(t_shell *shell)
 		shell->s_redic->delimiter = ft_strjoin(tmp, shell->s_redic->file);
 		free(tmp);
 	}
+}
+
+//signal 1 = entrou no pipe
+//signal 0 = sem pipe
+int	treatment_redic(t_shell *shell, int signal, int fd)
+{
+	if (check_redic(shell, signal))
+	{
+		if (signal == 1)
+			shell->s_redic->out = fd;
+		if (shell->s_redic->parse == NULL)
+		{
+			reset_struct(shell);
+			set_free_and_null(&shell->parse_cmd);
+			return (-1);
+		}
+		if (exec_redic(shell))
+		{
+			set_free_and_null(&shell->parse_cmd);
+			reset_struct(shell);
+			return (-1);
+		}
+		if (signal == 0)
+		{
+			set_free_and_null(&shell->s_redic->parse);
+			set_free_and_null(&shell->command);
+		}
+		return (1);
+	}
+	return (0);
 }

@@ -1,7 +1,6 @@
-
 #include "minishell.h"
 
-void	get_command(t_shell  *shell)
+void	get_command(t_shell *shell)
 {
 	char	cwd[2021];
 	char	*prompt;
@@ -21,34 +20,10 @@ void	get_command(t_shell  *shell)
 	shell->s_redic->redic = -1;
 }
 
-
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
-int	treatment_redic(t_shell *shell, int signal, int fd)
+static int	error_pipe(void)
 {
-	if (check_redic(shell, signal))
-	{
-		if (signal == 1)
-			shell->s_redic->out = fd;
-		if (shell->s_redic->parse == NULL)
-		{
-			reset_struct(shell);
-			set_free_and_null(&shell->parse_cmd);
-			return (-1);
-		}
-		if (exec_redic(shell))
-		{
-			set_free_and_null(&shell->parse_cmd);
-			reset_struct(shell);
-			return(-1);
-		}
-		if (signal == 0)
-		{
-			set_free_and_null(&shell->s_redic->parse);
-			set_free_and_null(&shell->command);
-		}
-		return (1);
-	}
+	ft_putstr_fd("Minishell: falha no pipe\n", 2);
+	ft_putendl_fd(strerror(errno), 2);
 	return (0);
 }
 
@@ -74,29 +49,50 @@ static int	exec_pipe(t_shell *shell)
 			dup2(fd[0], shell->fd_in);
 			close(fd[0]);
 			close(fd[1]);
-			//printf("count %i\n", i++);
 		}
 		else
-		{
-			printf("Minishell: falha no pipe\n");
-			ft_putendl_fd(strerror(errno), 2);
-			return (0);
-		}
+			return (error_pipe());
 		if (check_pipe(shell) == -1)
 			return (0);
 	}
 	return (1);
 }
 
-
+int	exec_all_commands(t_shell *shell, int res, int in, int out)
+{
+	dup2(in, 0);
+	dup2(out, 1);
+	get_command(shell);
+	if (is_all_space(shell->command))
+		return (1);
+	if (trating_quotes(shell))
+		return (1);
+	res = check_pipe(shell);
+	if (res == -1)
+		return (1);
+	if (res)
+		if (!exec_pipe(shell))
+			return (1);
+	if (treatment_redic(shell, 0, 1) == -1)
+		return (1);
+	if (shell->command)
+	{
+		reset_struct(shell);
+		check_command(shell, 1);
+	}
+	shell->status_pipe->len = 0;
+	shell->status_pipe->pos = 0;
+	reset_struct(shell);
+	return (0);
+}
 
 int	main(int argc, char **argv, char **env)
 {
-	t_shell	shell;
+	t_shell				shell;
 	struct sigaction	act_quit;
-	int		in;
-	int		out;
-	int		res;
+	int					in;
+	int					out;
+	int					res;
 
 	res = 0;
 	in = dup(0);
@@ -109,29 +105,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		config_sigaction(&shell.act, sigint_handle, SIGINT);
 		config_sigaction(&act_quit, SIG_IGN, SIGQUIT);
-		dup2(in, 0);
-		dup2(out, 1);
-		get_command(&shell);
-		if (is_all_space(shell.command))
+		if (exec_all_commands(&shell, res, in, out))
 			continue ;
-		if (trating_quotes(&shell))
-			continue ;
-		res = check_pipe(&shell);
-		if (res == -1)
-			continue ;
-		if (res)
-			if (!exec_pipe(&shell))
-				continue ;
-		if (treatment_redic(&shell, 0, 1) == -1)
-			continue ;
-		if (shell.command)
-		{
-			reset_struct(&shell);
-			check_command(&shell, 1);
-		}
-		shell.status_pipe->len = 0;
-		shell.status_pipe->pos = 0;
-		reset_struct(&shell);
 	}
 	return (g_sh_status);
 }

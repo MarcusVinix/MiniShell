@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:43:05 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 16:19:27 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:49:18 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,5 @@ int		exec_redic(t_shell *shell);
 int		valid_redic(char *cmd, int pos);
 void	remove_quotes(t_shell *shell, int pos);
 void	store_delimiter(t_shell *shell);
-
+int		treatment_redic(t_shell *shell, int signal, int fd);
 #endif

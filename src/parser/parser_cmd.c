@@ -15,11 +15,9 @@ static void	create_split_cmd(t_shell *shell)
 
 int	aux_check_command(t_shell *shell, int fd)
 {
+	free_list_string(shell->split_cmd);
 	if (fd > 2)
-	{
-		free_list_string(shell->split_cmd);
 		return (1);
-	}
 	exit_shell(shell);
 	return (0);
 }
