@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/16 22:46:25 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:19:53 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	invalid_permission_or_file(char *comm, char *str, int signal)
+{
+	(void)str;
+	ft_putstr_fd(comm, 2);
+	ft_putstr_fd(": \"", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\": ", 2);
+	if (signal == 1)
+		ft_putendl_fd("Permision denied", 2);
+	else if (signal == 2)
+		ft_putendl_fd("No such file or diretory", 2);
+	return (0);
+}
+
 
 int	not_found(char *command)
 {

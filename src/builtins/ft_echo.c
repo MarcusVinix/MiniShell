@@ -3,49 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/15 14:48:51 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:51:59 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void print_msg(char *msg, t_shell *sh, int fd)
-{
-	char *var;
-	char *sub;
-	int count;
-
-	count = 0;
-	while (msg[count])
-	{
-		if (msg[count] == '$')
-			break;
-		else
-			ft_putchar_fd(msg[count], fd);
-		count++;
-	}
-	if (msg[count])
-	{
-		if (!msg[count + 1])
-			ft_putchar_fd('$', fd);
-		else if (msg[count + 1] == '?')
-			ft_putnbr_fd(g_sh_status, fd);
-		sub = ft_substr(msg, ++count, ft_strlen(msg));
-		var = find_value(&sh->lst_env, sub);
-		free(sub);
-		if (var)
-			ft_putstr_fd(var, fd);
-	}
-	ft_putchar_fd(' ', fd);	
-}
-
 void	ft_echo(t_shell *sh, int fd)
 {
-	int count;
-	int flag;
+	int	count;
+	int	flag;
 
 	flag = 0;
 	count = 1;
@@ -58,10 +28,13 @@ void	ft_echo(t_shell *sh, int fd)
 		if (!ft_strcmp(sh->split_cmd[count], "-n") && count == 1)
 			flag = 1;
 		else
-			print_msg(sh->split_cmd[count], sh, fd);
+		{
+			ft_putstr_fd(sh->split_cmd[count], fd);
+			ft_putchar_fd(' ', fd);
+		}
 		count++;
 	}
-	//ft_putchar_fd('\b', fd);
+	ft_putchar_fd('\b', fd);
 	if (!flag)
 		ft_putchar_fd('\n', fd);
 }

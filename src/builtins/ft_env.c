@@ -6,13 +6,13 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/03 20:03:36 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:29:00 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void printlst(char *key, char *value, int fd, int sig)
+static void	printlst(char *key, char *value, int fd, int sig)
 {
 	if (sig)
 	{
@@ -21,32 +21,19 @@ static void printlst(char *key, char *value, int fd, int sig)
 		ft_putendl_fd(value, fd);
 	}
 }
-	
 
-static int verify_$(t_shell *sh)
+static int	verify_home(char *str)
 {
-	int count;
-	char *val;
-
-	count = 1;
-	while (sh->split_cmd[count])
+	if (ft_strcmp(str, "/home") == 0)
 	{
-		if (sh->split_cmd[count][0] == '$')
-		{
-			val = find_value(&sh->lst_env, ++sh->split_cmd[count]);
-			--sh->split_cmd[count];
-			if (!ft_strcmp(val, " ") || !val)
-			{
-				count++;
-				continue;
-			}
-			else if (val)
-				printf("env: “%s”: No such file or directory\n", val);
-		}
-		else
-			printf("env: “%s”: No such file or directory\n", sh->split_cmd[count]);
+		invalid_permission_or_file("env", str, 1);
+		return (126);
+	}
+	else
+	{
+		invalid_permission_or_file("env", str, 2);
 		return (127);
-	}	
+	}
 	return (0);
 }
 
@@ -55,8 +42,7 @@ int	ft_env(t_shell *sh, int fd)
 	if (sh->s_redic->redic > 2)
 		fd = 1;
 	if (ft_strlen_split(sh->split_cmd) != 1)
-		if (verify_$(sh))
-			return (127);
+		return (verify_home(sh->split_cmd[1]));
 	ft_lstiter(sh->lst_env, printlst, fd);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:43:05 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/16 22:15:16 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:09:52 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		no_file(char *file, t_shell *shell);
 int		error_newline(void);
 int		ft_invalid_identifier_unset(char *str);
 int		error_heredoc(char **str, int *i);
+int		invalid_permission_or_file(char *comm, char *str, int signal);
 
 
 //free
