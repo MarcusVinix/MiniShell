@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 12:29:00 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:56:11 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void	printlst(char *key, char *value, int fd, int sig)
 	}
 }
 
+//will decide which error will be print by the first string
+//passed after command string 'env' 
+//return the number of the error.
 static int	verify_home(char *str)
 {
 	if (ft_strcmp(str, "/home") == 0)
@@ -37,6 +40,7 @@ static int	verify_home(char *str)
 	return (0);
 }
 
+//print a list of environment
 int	ft_env(t_shell *sh, int fd)
 {
 	if (sh->s_redic->redic > 2)

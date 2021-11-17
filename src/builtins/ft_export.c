@@ -6,7 +6,7 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 19:26:22 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:06:50 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	printlst(char *key, char *value, int fd, int sig)
 	}
 }
 
+//split a string by 2, taking the first occurrence of char c
 char	**ft_split_v2(char *str, char c)
 {
 	int		count;
@@ -49,6 +50,9 @@ char	**ft_split_v2(char *str, char c)
 	return (rslt);
 }
 
+//will check if the variable exist;
+//if yes, just refresh the data;
+//if no, create a new variable at the list 
 static void	check_is_exist(t_list *lst, char *new_env, int sig, t_shell *sh)
 {
 	char	**key_val;
@@ -68,22 +72,28 @@ static void	check_is_exist(t_list *lst, char *new_env, int sig, t_shell *sh)
 
 //signal 1 = print error;
 //signal 2 = just return the number of error
-static int	verify_valid(char *str)
+static int	verify_valid(char *str, int sig)
 {
 	if (str[0] == '-')
 	{
-		invalid_option(str);
+		if (sig == 1)
+			invalid_option(str);
 		return (2);
 	}
 	else if (str[0] == '.' || ft_isdigit(str[0])
 		|| str[0] == '?' || str[0] == '/')
 	{
-		invalid_identifier(str);
+		if (sig == 1)
+			invalid_identifier(str);
 		return (1);
 	}
 	return (0);
 }
 
+//will put a new environment variable in the list.
+//if sig is 1, means that the command string "export" was writed;
+//if sig is 0, means that the user writed the new environment variable
+//without the command string
 int	ft_export(t_shell *sh, int fd, int sig)
 {
 	int	count;
@@ -95,10 +105,10 @@ int	ft_export(t_shell *sh, int fd, int sig)
 		fd = 1;
 	while (sh->split_cmd[count])
 	{
-		if (verify_valid(sh->split_cmd[count]))
+		if (verify_valid(sh->split_cmd[count], 2))
 		{
 			if (!resp)
-				resp = verify_valid(sh->split_cmd[count]);
+				resp = verify_valid(sh->split_cmd[count], 1);
 		}
 		else
 			check_is_exist(sh->lst_env, sh->split_cmd[count], sig, sh);

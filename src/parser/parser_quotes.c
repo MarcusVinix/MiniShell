@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/17 19:40:10 by jestevam          #+#    #+#             */
+/*   Updated: 2021/11/17 19:42:29 by jestevam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	disable(t_shell *shell, int *pos, int signal)
@@ -127,6 +139,5 @@ int	trating_quotes(t_shell *shell)
 	shell->s_redic->status->pos = 0;
 	shell->status_pipe->len = shell->status_pipe->pos;
 	shell->status_pipe->pos = 0;
-	printf("commanddddd  |%s| redic %i pipe %i\n", shell->command, shell->s_redic->status->len, shell->status_pipe->len);
 	return (0);
 }

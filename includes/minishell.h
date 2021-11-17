@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 14:43:05 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 16:49:18 by mavinici         ###   ########.fr       */
+/*   Created: 2021/11/17 19:39:45 by jestevam          #+#    #+#             */
+/*   Updated: 2021/11/17 20:24:47 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int		all_number(char *str);
 //parser
 int		check_command(t_shell *shell, int fd);
 int		check_pipe(t_shell *shell);
+int		exec_pipe(t_shell *shell);
 int		check_redic(t_shell *shell, int signal);
 int		trating_quotes(t_shell *shell);
 

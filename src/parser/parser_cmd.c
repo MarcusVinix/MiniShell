@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_cmd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/17 19:40:00 by jestevam          #+#    #+#             */
+/*   Updated: 2021/11/17 20:25:24 by jestevam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <minishell.h>
 
+// will only split one of these strings.
+// The order is hierarchical
 static void	create_split_cmd(t_shell *shell)
 {
 	if (shell->s_redic->parse)
@@ -22,6 +35,8 @@ int	aux_check_command(t_shell *shell, int fd)
 	return (0);
 }
 
+//will execute the command which command word was written
+//saves the result of command in the variable "g_sh_status"
 int	check_command(t_shell *shell, int fd)
 {
 	create_split_cmd(shell);
@@ -49,50 +64,5 @@ int	check_command(t_shell *shell, int fd)
 		g_sh_status = ft_exec(shell, fd);
 	free_list_string(shell->split_cmd);
 	printf("STATUS %i\n", g_sh_status);
-	return (0);
-}
-
-static int	find_pipe(t_shell *shell, char *str)
-{
-	int	i;
-
-	if (!str)
-		return (-1);
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '|')
-		{
-			if (is_all_space2(str + i + 1, '|'))
-				return (-2);
-			if (shell->status_pipe->len > 0)
-			{
-				if (shell->status_pipe->lst_status[shell->status_pipe->pos++]
-					== FALSE)
-					continue ;
-			}
-			return (i);
-		}
-	}
-	return (-1);
-}
-
-int	check_pipe(t_shell *shell)
-{
-	int		pos;
-	char	*aux;
-
-	pos = find_pipe(shell, shell->command);
-	if (pos == -2)
-		return (error_newline());
-	if (pos > 0)
-	{
-		shell->parse_cmd = ft_substr(shell->command, 0, pos);
-		aux = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
-		if (shell->command)
-			free(shell->command);
-		shell->command = aux;
-		return (1);
-	}
 	return (0);
 }

@@ -6,12 +6,14 @@
 /*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 18:29:44 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 11:51:59 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:52:06 by jestevam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//print at output 'fd' the strings passed as parameter 
+//with flag -n does not print a new line at the end of the line.
 void	ft_echo(t_shell *sh, int fd)
 {
 	int	count;

@@ -1,5 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/17 19:40:48 by jestevam          #+#    #+#             */
+/*   Updated: 2021/11/17 20:33:05 by jestevam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
+//prints the path that usually exist at the line of the shell
+//save what the user write in a variable "command"
+//save in the history the command saved in the variable
 void	get_command(t_shell *shell)
 {
 	char	cwd[2021];
@@ -20,44 +35,6 @@ void	get_command(t_shell *shell)
 	shell->s_redic->redic = -1;
 }
 
-static int	error_pipe(void)
-{
-	ft_putstr_fd("Minishell: falha no pipe\n", 2);
-	ft_putendl_fd(strerror(errno), 2);
-	return (0);
-}
-
-//fd 0 READ STDIN
-//fd 1 WRITE STDOUT
-static int	exec_pipe(t_shell *shell)
-{
-	int		fd[2];
-	int		res;
-
-	res = 0;
-	while (shell->parse_cmd)
-	{
-		if (pipe(fd) >= 0)
-		{
-			res = treatment_redic(shell, 1, fd[1]);
-			if (res == -1)
-				return (0);
-			if (res == 0)
-				check_command(shell, fd[1]);
-			reset_struct(shell);
-			set_free_and_null(&shell->parse_cmd);
-			dup2(fd[0], shell->fd_in);
-			close(fd[0]);
-			close(fd[1]);
-		}
-		else
-			return (error_pipe());
-		if (check_pipe(shell) == -1)
-			return (0);
-	}
-	return (1);
-}
-
 int	exec_all_commands(t_shell *shell, int res, int in, int out)
 {
 	dup2(in, 0);
@@ -71,7 +48,7 @@ int	exec_all_commands(t_shell *shell, int res, int in, int out)
 	if (res == -1)
 		return (1);
 	if (res)
-		if (!exec_pipe(shell))
+		if (exec_pipe(shell))
 			return (1);
 	if (treatment_redic(shell, 0, 1) == -1)
 		return (1);
