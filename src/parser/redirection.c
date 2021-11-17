@@ -1,22 +1,5 @@
 #include <minishell.h>
 
-static void	store_delimiter(t_shell *shell)
-{
-	char	*tmp;
-
-	if (!shell->s_redic->file)
-		return ;
-	if (!shell->s_redic->delimiter)
-		shell->s_redic->delimiter = ft_strdup(shell->s_redic->file);
-	else
-	{
-		tmp = ft_strjoin(shell->s_redic->delimiter, " ");
-		set_free_and_null(&shell->s_redic->delimiter);
-		shell->s_redic->delimiter = ft_strjoin(tmp, shell->s_redic->file);
-		free(tmp);
-	}
-}
-
 static int	open_fd(t_shell *shell)
 {
 	int	fd;
@@ -49,16 +32,11 @@ int	aux_heredoc(char **del_lst, int *i, int fd)
 {
 	char	*line;
 
-	printf(": %i\n", *i);
 	line = readline("> ");
 	if (!line)
 	{
-		printf("fora: %i\n", *i);
 		if (error_heredoc(del_lst, i))
-		{
-			printf("dentro: %i\n", *i);
 			return (1);
-		}
 		return (0);
 	}
 	if (ft_strcmp(line, del_lst[*i]) == 0)
@@ -90,7 +68,6 @@ static void	exec_heredoc(t_shell *shell)
 	fd = open("/tmp/heredoc.tmp", O_TRUNC | O_RDWR | O_CREAT, 0664);
 	pid = fork();
 	del_lst = ft_split(shell->s_redic->delimiter, ' ');
-	printf("lsty: %i\n",ft_strlen_split(del_lst));
 	if (pid == 0)
 	{
 		dup2(shell->in, 0);
@@ -134,15 +111,6 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	return (0);
 }
 
-void	new_join(char **aux, char *str)
-{
-	char	*aux_two;
-
-	aux_two = ft_strjoin(*aux, str);
-	set_free_and_null(aux);
-	*aux = aux_two;
-}
-
 //signal 1 = entrou no pipe
 //signal 0 = sem pipe
 int	exec_redic(t_shell *shell)
@@ -164,7 +132,7 @@ int	exec_redic(t_shell *shell)
 			return (2);
 		}
 		if (shell->s_redic->parse)
-			new_join(&aux, shell->s_redic->parse);
+			concatenate_join(&aux, shell->s_redic->parse);
 	}
 	exec_redic2(shell, aux);
 	return (0);

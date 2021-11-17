@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:43:05 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 12:09:52 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:19:27 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		ft_invalid_identifier_unset(char *str);
 int		error_heredoc(char **str, int *i);
 int		invalid_permission_or_file(char *comm, char *str, int signal);
 
-
 //free
 void	free_all(t_shell *shell);
 void	free_list_string(char **str);
@@ -130,5 +129,6 @@ int		exec_redic(t_shell *shell);
 //aux parser
 int		valid_redic(char *cmd, int pos);
 void	remove_quotes(t_shell *shell, int pos);
+void	store_delimiter(t_shell *shell);
 
 #endif

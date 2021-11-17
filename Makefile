@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando mais norminette e falta resolver um bug do << com ctrl-D"
+	git commit -m "arrumando mais norminette e bug do << resolvido"
 
 push:	add
 	git push

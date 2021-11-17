@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 12:19:53 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:17:21 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	invalid_permission_or_file(char *comm, char *str, int signal)
 		ft_putendl_fd("No such file or diretory", 2);
 	return (0);
 }
-
 
 int	not_found(char *command)
 {
@@ -52,10 +51,9 @@ int	error_heredoc(char **str, int *i)
 	ft_putstr_fd("-MiniShell: warning: ", 2);
 	ft_putstr_fd("here-document delimited by ", 2);
 	ft_putstr_fd("end-of-file (wanted `", 2);
-	ft_putstr_fd(str[*i++], 2);
+	ft_putstr_fd(str[*i], 2);
 	ft_putendl_fd("')", 2);
-	ft_putendl_fd(str[*i], 2);
-	if (str[*i])
+	if (str[++*i])
 		return (0);
 	else
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:35:04 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/16 20:55:55 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:19:14 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,21 @@ void	remove_quotes(t_shell *shell, int pos)
 	shell->command = ft_strjoin(str_left, str_right);
 	free(str_left);
 	free(str_right);
+}
+
+void	store_delimiter(t_shell *shell)
+{
+	char	*tmp;
+
+	if (!shell->s_redic->file)
+		return ;
+	if (!shell->s_redic->delimiter)
+		shell->s_redic->delimiter = ft_strdup(shell->s_redic->file);
+	else
+	{
+		tmp = ft_strjoin(shell->s_redic->delimiter, " ");
+		set_free_and_null(&shell->s_redic->delimiter);
+		shell->s_redic->delimiter = ft_strjoin(tmp, shell->s_redic->file);
+		free(tmp);
+	}
 }
