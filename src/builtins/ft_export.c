@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/03 20:06:48 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/16 20:20:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,5 @@ int	ft_export(t_shell *sh, int fd, int sig)
 	}
 	if (count == 1 && sig == 1)
 		ft_lstiter(sh->lst_env, printlst, fd);
-	printf("LENF NO EXPORT %i\n", sh->len_env);
 	return (resp);
 }

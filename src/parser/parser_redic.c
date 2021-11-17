@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 21:07:54 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/15 21:14:36 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/16 21:12:16 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	find_redic(t_shell *shell)
 	if (!shell->s_redic->cmd)
 		return (-1);
 	aux = shell->s_redic->cmd;
-	i = 0;
+	i = -1;
 	ret = -1;
-	while (aux[i])
+	while (aux[++i])
 	{
 		ret = aux_find_redic(shell, aux, i);
 		if (ret != -1)
@@ -53,14 +53,10 @@ static int	find_redic(t_shell *shell)
 			{
 				if (shell->s_redic->status->lst_status
 					[shell->s_redic->status->pos++] == FALSE)
-				{
-					i++;
 					continue ;
-				}
 			}
 			return (ret);
 		}
-		i++;
 	}
 	return (-1);
 }
@@ -99,21 +95,17 @@ int	parser_redic(t_shell *shell, int pos)
 
 	shell->s_redic->parse = ft_substr(shell->s_redic->cmd, 0, pos);
 	if (shell->s_redic->file)
-		free(shell->s_redic->file);
+		set_free_and_null(&shell->s_redic->file);
 	if (!valid_redic(shell->s_redic->cmd, pos))
 	{
-		free(shell->s_redic->parse);
-		shell->s_redic->parse = NULL;
+		set_free_and_null(&shell->s_redic->parse);
 		return (error_newline());
 	}
 	shell->s_redic->file = find_file(shell, &pos);
 	aux = ft_substr(shell->s_redic->cmd, pos + 1,
 			ft_strlen(shell->s_redic->cmd));
 	if (shell->s_redic->cmd)
-	{
-		free(shell->s_redic->cmd);
-		shell->s_redic->cmd = NULL;
-	}
+		set_free_and_null(&shell->s_redic->cmd);
 	shell->s_redic->cmd = aux;
 	return (1);
 }

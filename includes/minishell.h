@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:43:05 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/15 14:45:24 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/16 22:15:16 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,15 @@ void	invalid_identifier(char *str);
 int		no_file(char *file, t_shell *shell);
 int		error_newline(void);
 int		ft_invalid_identifier_unset(char *str);
+int		error_heredoc(char **str, int *i);
+
 
 //free
 void	free_all(t_shell *shell);
 void	free_list_string(char **str);
 void	exit_shell(t_shell *shell);
 void	set_free_and_null(char **str);
+void	free_four(char *var1, char *var2, char *var3, char *var4);
 
 //utils
 t_list	*create_bckup_env(char **env, t_shell *shell);
@@ -123,6 +126,8 @@ int		trating_quotes(t_shell *shell);
 //title
 int		exec_redic(t_shell *shell);
 
-//validation
+//aux parser
 int		valid_redic(char *cmd, int pos);
+void	remove_quotes(t_shell *shell, int pos);
+
 #endif

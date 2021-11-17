@@ -13,7 +13,7 @@ LIBFT = $(PATH_LIBFT)libft.a
 NAME = minishell
 
 CC = clang
-CFLAGS = -Wextra -Werror -Wall -I ./includes/ #-fsanitize=address
+CFLAGS = -Wextra -Werror -Wall -I ./includes/ -fsanitize=address
 RM = rm -rf
 
 #Adicione os novos arquivos nessa linha.
@@ -27,7 +27,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_UTILS)utils.c $(PATH_UTILS)utils_struct.c \
 		$(PATH_EXEC)exec.c $(PATH_EXEC)utils_exec.c\
 		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c $(PATH_PARSER)parser_redic.c \
-		$(PATH_PARSER)parser_quotes.c $(PATH_PARSER)validation.c
+		$(PATH_PARSER)parser_quotes.c $(PATH_PARSER)aux_parser.c
 
 #Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
@@ -64,7 +64,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "arrumando mais norminette e o resolvendo uns bugs do retorno de status"
+	git commit -m "arrumando mais norminette e falta resolver um bug do << com ctrl-D"
 
 push:	add
 	git push

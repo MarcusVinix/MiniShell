@@ -1,64 +1,5 @@
 #include "minishell.h"
 
-static void remove_quotes(t_shell *shell, int pos)
-{
-	char	*str_left;
-	char	*str_right;
-
-	str_left = ft_substr(shell->command, 0, pos);
-	str_right = ft_substr(shell->command, pos + 1, ft_strlen(shell->command));
-	set_free_and_null(&shell->command);
-	shell->command = ft_strjoin(str_left, str_right);
-	free(str_left);
-	free(str_right);
-}
-
-static int put_variable(t_shell *shell, int *pos)
-{
-	char	*str_left;
-	char	*str_middle;
-	char	*str_right;
-	char	*value;
-	char	*key;
-
-	if (shell->command[*pos + 1] == ' ' || shell->command[*pos + 1] == '\0' ||
-			shell->command[*pos + 1] == ':')
-		return (1);
-	str_left = ft_substr(shell->command, 0, *pos);
-	while (shell->command[*pos])
-	{
-		if (shell->command[*pos] == ' ' || shell->command[*pos] == '?' ||
-				shell->command[*pos] == '\"' || shell->command[*pos] == '\'')
-			break ;
-		++*pos;
-	}
-	printf("char: %c %i\n", shell->command[*pos], *pos);
-	key = ft_substr(shell->command, ft_strlen(str_left) + 1, *pos - (ft_strlen(str_left)));
-	printf("KEYY |%s|\n", key);
-	if (key[0] != '?')
-		value = ft_strdup(find_value(&shell->lst_env, key));
-	else
-	{
-		*pos += 1;
-		value = ft_itoa(g_sh_status);
-	}
-	printf("value |%s|\n", value);
-	if (value == NULL)
-		value = ft_strdup("");
-	str_middle = ft_strjoin(str_left, value);
-	str_right = ft_substr(shell->command, *pos, ft_strlen(shell->command));
-	printf("RIGHT |%s|\n", str_right);
-	set_free_and_null(&shell->command);
-	shell->command = ft_strjoin(str_middle, str_right);
-	*pos = ft_strlen(str_middle);
-	free(str_left);
-	free(str_middle);
-	free(str_right);
-	free(value);
-	free(key);
-	return (0);
-}
-
 static void	disable(t_shell *shell, int *pos, int signal)
 {
 	char		*cmd;
@@ -85,6 +26,82 @@ static void	disable(t_shell *shell, int *pos, int signal)
 		shell->status_pipe->pos++;
 	}
 }
+
+char	*aux_put_var(t_shell *shell, char *str_left, int *pos)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_substr(shell->command, ft_strlen(str_left) + 1,
+			*pos - (ft_strlen(str_left)));
+	if (key[0] != '?')
+		value = ft_strdup(find_value(&shell->lst_env, key));
+	else
+	{
+		*pos += 1;
+		value = ft_itoa(g_sh_status);
+	}
+	if (value == NULL)
+		value = ft_strdup("");
+	free(key);
+	return (value);
+}
+
+static int	put_variable(t_shell *shell, int *pos)
+{
+	char	*str_left;
+	char	*str_middle;
+	char	*str_right;
+	char	*value;
+
+	if (shell->command[*pos + 1] == ' ' || shell->command[*pos + 1] == '\0'
+		|| shell->command[*pos + 1] == ':' || shell->command[*pos + 1] == '.'
+		|| shell->command[*pos + 1] == '-')
+		return (1);
+	str_left = ft_substr(shell->command, 0, *pos);
+	while (shell->command[*pos])
+	{
+		if (shell->command[*pos] == ' ' || shell->command[*pos] == '?'
+			|| shell->command[*pos] == '\"' || shell->command[*pos] == '\'')
+			break ;
+		++*pos;
+	}
+	value = aux_put_var(shell, str_left, pos);
+	str_middle = ft_strjoin(str_left, value);
+	str_right = ft_substr(shell->command, *pos, ft_strlen(shell->command));
+	set_free_and_null(&shell->command);
+	shell->command = ft_strjoin(str_middle, str_right);
+	*pos = ft_strlen(str_middle);
+	free_four(str_left, str_middle, str_right, value);
+	return (0);
+}
+
+int	aux_quotes(t_shell *shell, char *quote, int *sig, int *i)
+{
+	if (*sig == 1)
+	{
+		if (shell->command[*i] == *quote)
+		{
+			*sig = 0;
+			remove_quotes(shell, *i);
+			return (1);
+		}
+		disable(shell, i, FALSE);
+	}
+	else
+	{
+		if (shell->command[*i] == '\'' || shell->command[*i] == '"')
+		{
+			*quote = shell->command[*i];
+			*sig = 1;
+			remove_quotes(shell, *i);
+			return (1);
+		}
+		disable(shell, i, TRUE);
+	}
+	return (0);
+}
+
 int	trating_quotes(t_shell *shell)
 {
 	char	quote;
@@ -96,27 +113,8 @@ int	trating_quotes(t_shell *shell)
 	quote = ' ';
 	while (shell->command[i])
 	{
-		if (sig == 1)
-		{
-			if (shell->command[i] == quote)
-			{
-				sig = 0;
-				remove_quotes(shell, i);
-				continue ;
-			}
-			disable(shell, &i, FALSE);
-		}
-		else
-		{
-			if (shell->command[i] == '\'' || shell->command[i] == '"')
-			{
-				quote = shell->command[i];
-				sig = 1;
-				remove_quotes(shell, i);
-				continue ;
-			}
-			disable(shell, &i, TRUE);
-		}
+		if (aux_quotes(shell, &quote, &sig, &i))
+			continue ;
 		if (quote != '\'' && shell->command[i] == '$')
 		{
 			if (put_variable(shell, &i) == 1)
