@@ -16,9 +16,6 @@ CC = clang
 CFLAGS = -Wextra -Werror -Wall -I ./includes/ #-fsanitize=address
 RM = rm -rf
 
-#Adicione os novos arquivos nessa linha.
-#para melhor visão colocar no maximo 3 arquivos por linha
-#Se necessário pode criar novas pastas dentro do src
 SRC =	$(PATH_SRC)main.c \
 		$(PATH_BUILTINS)pwd.c $(PATH_BUILTINS)ft_echo.c $(PATH_BUILTINS)ft_cd.c \
 		$(PATH_BUILTINS)ft_env.c $(PATH_BUILTINS)ft_export.c $(PATH_BUILTINS)ft_unset.c \
@@ -29,7 +26,6 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_PARSER)parser_cmd.c $(PATH_PARSER)redirection.c $(PATH_PARSER)parser_redic.c \
 		$(PATH_PARSER)parser_quotes.c $(PATH_PARSER)aux_parser.c $(PATH_PARSER)pipe.c
 
-#Os objetos
 OBJS = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJS)%.o, $(SRC))
 
 all: $(NAME)
@@ -64,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "norminette, é só testar e criar coragem pra mandar"
+	git commit -m "vamo que vamo"
 
 push:	add
 	git push

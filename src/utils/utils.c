@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/11/15 19:30:51 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:48:47 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,4 @@ int	all_number(char *str)
 		i++;
 	}
 	return (ft_atoi(str));
-}
-
-void	set_free_and_null(char **str)
-{
-	if (*str)
-		free(*str);
-	*str = NULL;
 }

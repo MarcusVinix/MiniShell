@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 21:07:54 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/16 21:12:16 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:43:40 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ int	parser_redic(t_shell *shell, int pos)
 	return (1);
 }
 
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
+//signal 1 = into pipe
+//signal 0 = without pipe
 int	check_redic(t_shell *shell, int signal)
 {
 	int	pos;

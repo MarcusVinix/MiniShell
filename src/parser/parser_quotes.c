@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:10 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 19:42:29 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/18 18:21:04 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,28 @@ static int	put_variable(t_shell *shell, int *pos)
 	return (0);
 }
 
-int	aux_quotes(t_shell *shell, char *quote, int *sig, int *i)
+int	aux_quotes(t_shell *shell, char *quote, int *sig, int *pos)
 {
 	if (*sig == 1)
 	{
-		if (shell->command[*i] == *quote)
+		if (shell->command[*pos] == *quote)
 		{
 			*sig = 0;
-			remove_quotes(shell, *i);
+			remove_quotes(shell, *pos);
 			return (1);
 		}
-		disable(shell, i, FALSE);
+		disable(shell, pos, FALSE);
 	}
 	else
 	{
-		if (shell->command[*i] == '\'' || shell->command[*i] == '"')
+		if (shell->command[*pos] == '\'' || shell->command[*pos] == '"')
 		{
-			*quote = shell->command[*i];
+			*quote = shell->command[*pos];
 			*sig = 1;
-			remove_quotes(shell, *i);
+			remove_quotes(shell, *pos);
 			return (1);
 		}
-		disable(shell, i, TRUE);
+		disable(shell, pos, TRUE);
 	}
 	return (0);
 }
@@ -117,23 +117,23 @@ int	aux_quotes(t_shell *shell, char *quote, int *sig, int *i)
 int	trating_quotes(t_shell *shell)
 {
 	char	quote;
-	int		i;
+	int		pos;
 	int		sig;
 
-	i = 0;
+	pos = 0;
 	sig = 0;
 	quote = ' ';
-	while (shell->command[i])
+	while (shell->command[pos])
 	{
-		if (aux_quotes(shell, &quote, &sig, &i))
+		if (aux_quotes(shell, &quote, &sig, &pos))
 			continue ;
-		if (quote != '\'' && shell->command[i] == '$')
+		if (quote != '\'' && shell->command[pos] == '$')
 		{
-			if (put_variable(shell, &i) == 1)
-				i++;
+			if (put_variable(shell, &pos) == 1)
+				pos++;
 			continue ;
 		}
-		i++;
+		pos++;
 	}
 	shell->s_redic->status->len = shell->s_redic->status->pos;
 	shell->s_redic->status->pos = 0;

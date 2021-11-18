@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:25 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 19:40:26 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:48:18 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static void	exec_heredoc(t_shell *shell)
 	set_free_and_null(&shell->s_redic->delimiter);
 }
 
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
+//signal 1 = into pipe
+//signal 0 = without pipe
 static int	exec_redic2(t_shell *shell, char *aux)
 {
 	char	*aux_two;
@@ -123,8 +123,8 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	return (0);
 }
 
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
+//signal 1 = into pipe
+//signal 0 = without pipe
 int	exec_redic(t_shell *shell)
 {
 	char	*aux;

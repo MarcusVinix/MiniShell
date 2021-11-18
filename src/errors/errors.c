@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 22:24:49 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 22:25:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/18 18:20:56 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,36 @@ int	invalid_permission_or_file(char *comm, char *str, int signal)
 	if (signal == 1)
 		ft_putendl_fd("Permision denied", 2);
 	else if (signal == 2)
-		ft_putendl_fd("No such file or diretory", 2);
+		ft_putendl_fd(NO_FILE, 2);
 	return (0);
 }
 
 int	not_found(char *command)
 {
-	printf("%s: command not found\n", command);
+	ft_putstr_fd(command, 2);
+	ft_putendl_fd(": command not found", 2);
 	return (127);
 }
 
 int	invalid_option(char *s)
 {
+	ft_putstr_fd("bash: export: `", 2);
 	if (ft_strlen(s) > 1)
-		printf("bash: export: `%c%c': not a valid option\n", s[0], s[1]);
+	{
+		ft_putchar_fd(s[0], 2);
+		ft_putchar_fd(s[1], 2);
+	}
 	else
-		printf("bash: export: `%c': not a valid option\n", s[0]);
+		ft_putchar_fd(s[0], 2);
+	ft_putendl_fd("': not a valid option", 2);
 	return (2);
 }
 
 void	invalid_identifier(char *str)
 {
-	printf("bash: export: `%s': not a valid identifier\n", str);
+	ft_putstr_fd("bash: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
 int	error_heredoc(char **str, int *i)

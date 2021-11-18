@@ -14,13 +14,17 @@
 
 int	error_no_file(char *path)
 {
-	printf("minishell: cd: %s: %s\n", path, NO_FILE);
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(NO_FILE, 2);
 	return (1);
 }
 
 int	error_cd(char *message)
 {
-	printf("minishell: cd: %s\n", message);
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putendl_fd(message, 2);
 	return (1);
 }
 
@@ -44,6 +48,8 @@ int	error_newline(void)
 
 int	ft_invalid_identifier_unset(char *str)
 {
-	printf("minishell: unset: `%s': not a valid identifier\n", str);
+	ft_putstr_fd("minishell: unset: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
 	return (1);
 }

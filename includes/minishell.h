@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:39:45 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/18 16:36:12 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:40:09 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char	*check_path_command(char **str, t_shell *shell);
 char	*find_command(char *path, char **command);
 void	check_standart_fd(t_shell *shell, int fd_in);
 
-// void	sigint_handle(int sig_num);
 void	handle_sigquit(int sig);
 void	sigint_handle_cmd(int sig);
 void	sigint_handle(int sig);

@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:35:04 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/17 17:18:03 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:43:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	valid_redic(char *cmd, int pos)
 {
-	int	i;
-
-	i = 0;
 	if (!cmd)
 		return (0);
 	if (cmd[pos] == '<')
@@ -66,8 +63,8 @@ void	store_delimiter(t_shell *shell)
 	}
 }
 
-//signal 1 = entrou no pipe
-//signal 0 = sem pipe
+//signal 1 = into pipe
+//signal 0 = without pipe
 int	treatment_redic(t_shell *shell, int signal, int fd)
 {
 	if (check_redic(shell, signal))
