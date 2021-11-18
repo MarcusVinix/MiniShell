@@ -30,7 +30,10 @@ void	get_command(t_shell *shell)
 	shell->command = readline(prompt);
 	free(prompt);
 	if (shell->command == NULL)
+	{
+		printf("exit\n");
 		exit_shell(shell);
+	}
 	add_history(shell->command);
 	shell->s_redic->redic = -1;
 }

@@ -35,11 +35,12 @@ int	ft_exec(t_shell *shell, int fd)
 	if (ft_check_path(shell->split_cmd, shell))
 		return (127);
 	envp = get_env_var(&shell->lst_env, shell);
+	config_sigaction(&shell->act, handle_sigquit, SIGQUIT);
 	pid = fork();
 	if (pid == 0)
 		aux_exec(shell, envp, fd);
 	waitpid(pid, &ret, 0);
-	if (g_sh_status != 130)
+	if (g_sh_status != 130 && g_sh_status != 131)
 		g_sh_status = WEXITSTATUS(ret);
 	if (envp)
 		free_list_string(envp);

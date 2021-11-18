@@ -19,6 +19,13 @@ void	sigint_handle_cmd(int sig)
 	g_sh_status = 130;
 }
 
+void	handle_sigquit(int sig)
+{
+	(void)sig;
+	printf("quit (code dumped)\n");
+	g_sh_status = 131;
+}
+
 void	sigint_handle(int sig)
 {
 	if (sig == SIGINT)

@@ -29,6 +29,7 @@
 # define NO_OLDPWD "OLDPWD not set"
 # define TRUE 1
 # define FALSE 0
+int	g_sh_status;
 
 typedef struct s_status
 {
@@ -64,7 +65,6 @@ typedef struct s_shell
 	struct sigaction	act;
 }			t_shell;
 
-int	g_sh_status;
 
 //builtins
 int		ft_pwd(int fd, t_shell *shell);
@@ -109,6 +109,7 @@ char	*find_command(char *path, char **command);
 void	check_standart_fd(t_shell *shell, int fd_in);
 
 // void	sigint_handle(int sig_num);
+void	handle_sigquit(int sig);
 void	sigint_handle_cmd(int sig);
 void	sigint_handle(int sig);
 void	config_sigaction(struct sigaction *act, void (*handler)(int), int sig);
