@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:39:45 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 20:24:47 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:36:12 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define NO_OLDPWD "OLDPWD not set"
 # define TRUE 1
 # define FALSE 0
+
 int	g_sh_status;
 
 typedef struct s_status
@@ -64,7 +65,6 @@ typedef struct s_shell
 	t_redic				*s_redic;
 	struct sigaction	act;
 }			t_shell;
-
 
 //builtins
 int		ft_pwd(int fd, t_shell *shell);
