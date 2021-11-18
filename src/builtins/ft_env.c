@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 21:40:09 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 19:56:11 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 22:09:56 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	printlst(char *key, char *value, int fd, int sig)
 //return the number of the error.
 static int	verify_home(char *str)
 {
-	if (ft_strcmp(str, "/home") == 0)
+	if (str[0] == '/' && access(str, 1) == 0)
 	{
 		invalid_permission_or_file("env", str, 1);
 		return (126);

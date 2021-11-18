@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:00 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 20:25:24 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 22:43:23 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	create_split_cmd(t_shell *shell)
 
 int	aux_check_command(t_shell *shell, int fd)
 {
+	if (shell->split_cmd[1])
+		g_sh_status = ft_atoi(shell->split_cmd[1]);
 	free_list_string(shell->split_cmd);
 	if (fd > 2)
 		return (1);
@@ -63,6 +65,5 @@ int	check_command(t_shell *shell, int fd)
 	else
 		g_sh_status = ft_exec(shell, fd);
 	free_list_string(shell->split_cmd);
-	printf("STATUS %i\n", g_sh_status);
 	return (0);
 }

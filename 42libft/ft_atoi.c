@@ -12,12 +12,6 @@
 
 #include "libft.h"
 
-static void	errors(void)
-{
-	ft_putendl_fd("Error", 1);
-	exit(0);
-}
-
 static int	ft_ignore(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
@@ -39,7 +33,5 @@ int	ft_atoi(const char *nptr)
 			sign *= -1;
 	while (ft_isdigit(*nptr) == 1)
 		number = number * 10 + (*nptr++ - '0');
-	if ((number * sign) > INT_MAX || (number * sign) < INT_MIN)
-		errors();
 	return (number * sign);
 }

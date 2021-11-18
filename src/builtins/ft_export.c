@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 15:01:03 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 20:06:50 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/17 22:25:54 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	verify_valid(char *str, int sig)
 		return (2);
 	}
 	else if (str[0] == '.' || ft_isdigit(str[0])
-		|| str[0] == '?' || str[0] == '/')
+		|| str[0] == '?' || str[0] == '/' || str[0] == ':')
 	{
 		if (sig == 1)
 			invalid_identifier(str);

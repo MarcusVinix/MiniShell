@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:04:58 by mavinici          #+#    #+#             */
-/*   Updated: 2021/10/24 13:14:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/17 22:22:09 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_unset(char *tmp)
 	while (tmp[j])
 	{
 		if (tmp[j] == '-' || tmp[j] == '.' || ft_isdigit(tmp[0]) || tmp[0]
-			== '$' || tmp[j] == '=')
+			== '$' || tmp[j] == '=' || tmp[j] == ':' || tmp[j] == '?')
 		{
 			if (tmp[j] == '-' && j == 0)
 				return (invalid_option(tmp));
