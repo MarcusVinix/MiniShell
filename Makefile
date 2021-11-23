@@ -60,10 +60,13 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "vamo que vamo"
+	git commit -m "começando readme"
 
 push:	add
 	git push
 
 teste:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./minishell
+
+install:
+	sudo apt-get install libreadline-dev
