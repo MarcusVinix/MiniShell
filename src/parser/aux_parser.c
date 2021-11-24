@@ -6,12 +6,16 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:35:04 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/18 17:43:32 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:52:57 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Verify the position of redic
+// Also check if is valid with is_all_space2
+// Return 0 if after redic is just space or another redic
+// Return 1 if a valid redic is find
 int	valid_redic(char *cmd, int pos)
 {
 	if (!cmd)
@@ -33,6 +37,8 @@ int	valid_redic(char *cmd, int pos)
 	return (1);
 }
 
+// Split the string in two side left and right
+// After join the two sides removing the current quote
 void	remove_quotes(t_shell *shell, int pos)
 {
 	char	*str_left;
@@ -46,6 +52,7 @@ void	remove_quotes(t_shell *shell, int pos)
 	free(str_right);
 }
 
+// Store the current delimiter
 void	store_delimiter(t_shell *shell)
 {
 	char	*tmp;
@@ -63,8 +70,13 @@ void	store_delimiter(t_shell *shell)
 	}
 }
 
+// Call function check_redic
+// if some error happen Free parse_cmd string and return -1
+// Call function exec_redic and return -1 if some error happen
 //signal 1 = into pipe
 //signal 0 = without pipe
+// return 0 if don't have any redic
+// return 1 if is success
 int	treatment_redic(t_shell *shell, int signal, int fd)
 {
 	if (check_redic(shell, signal))

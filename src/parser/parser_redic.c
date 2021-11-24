@@ -6,12 +6,14 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 21:07:54 by mavinici          #+#    #+#             */
-/*   Updated: 2021/11/18 17:43:40 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/23 22:28:02 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Check and save wich redic is and return the position
+// Return -1 if the current position isn't a redic
 int	aux_find_redic(t_shell *shell, char *aux, int i)
 {
 	if (aux[i] == '>')
@@ -33,6 +35,9 @@ int	aux_find_redic(t_shell *shell, char *aux, int i)
 	return (-1);
 }
 
+// Check if have any redic
+// Return -1 the there no one redic in the command
+// Return the position of the current valid redic
 static int	find_redic(t_shell *shell)
 {
 	int		i;
@@ -61,6 +66,9 @@ static int	find_redic(t_shell *shell)
 	return (-1);
 }
 
+// Find and store file name of the current redic
+// Return NUll if don't have any file name
+// Return the file name if is success
 char	*find_file(t_shell *shell, int *pos)
 {
 	char	**aux;
@@ -89,6 +97,10 @@ char	*find_file(t_shell *shell, int *pos)
 	return (file);
 }
 
+// Split the string command using the parament pos
+// The parament pos is the position of the current redic
+// Return 2 if there is no file name
+// Return 1 is success
 int	parser_redic(t_shell *shell, int pos)
 {
 	char	*aux;
@@ -112,6 +124,9 @@ int	parser_redic(t_shell *shell, int pos)
 
 //signal 1 = into pipe
 //signal 0 = without pipe
+// Find the position of the redic and parser the string
+// Return 1 if parse of string is success
+// Return 0 if isn't a redic
 int	check_redic(t_shell *shell, int signal)
 {
 	int	pos;

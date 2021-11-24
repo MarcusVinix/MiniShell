@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:00 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 22:43:23 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:56:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	create_split_cmd(t_shell *shell)
 		shell->split_cmd = ft_split(shell->command, ' ');
 }
 
+// Store the exit argument
+// Return 1 if have some pipe
 int	aux_check_command(t_shell *shell, int fd)
 {
 	if (shell->split_cmd[1])
@@ -38,7 +40,7 @@ int	aux_check_command(t_shell *shell, int fd)
 }
 
 //will execute the command which command word was written
-//saves the result of command in the variable "g_sh_status"
+//saves the status of command execution in the variable "g_sh_status"
 int	check_command(t_shell *shell, int fd)
 {
 	create_split_cmd(shell);

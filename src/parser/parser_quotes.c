@@ -6,12 +6,16 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:10 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/18 18:21:04 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/23 22:15:42 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Store into a list all redic and pipes
+// Save the status depending the signal
+// If signal is 0 the status is TRUE
+// If signal is 1 the status is FALSE
 static void	disable(t_shell *shell, int *pos, int signal)
 {
 	char		*cmd;
@@ -39,6 +43,9 @@ static void	disable(t_shell *shell, int *pos, int signal)
 	}
 }
 
+// Take the value of current environment variable
+// Return the value
+// Return empty if the variable don't exist
 char	*aux_put_var(t_shell *shell, char *str_left, int *pos)
 {
 	char	*key;
@@ -59,6 +66,10 @@ char	*aux_put_var(t_shell *shell, char *str_left, int *pos)
 	return (value);
 }
 
+// Check if the variable is valid and return 1 if isn't
+// Call a function to take value of variable
+// Change the string command puting the value of the variable in the right place
+// Return 0 if is success
 static int	put_variable(t_shell *shell, int *pos)
 {
 	char	*str_left;
@@ -88,6 +99,10 @@ static int	put_variable(t_shell *shell, int *pos)
 	return (0);
 }
 
+// Check if is necessary change the string command
+// If signal is 1 the current position is inside of any quote
+// If the current position is a quote the return is 1
+// Otherwise return 0
 int	aux_quotes(t_shell *shell, char *quote, int *sig, int *pos)
 {
 	if (*sig == 1)
@@ -114,6 +129,8 @@ int	aux_quotes(t_shell *shell, char *quote, int *sig, int *pos)
 	return (0);
 }
 
+// Check if is necessary change the string command
+// Change the command string when have some variable or quotes
 int	trating_quotes(t_shell *shell)
 {
 	char	quote;

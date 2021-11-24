@@ -6,12 +6,13 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 04:00:23 by coder             #+#    #+#             */
-/*   Updated: 2021/11/15 20:49:32 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/23 20:58:32 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Try execute all no builtin commands and change the standart fd when necessary
 static void	aux_exec(t_shell *shell, char **envp, int fd)
 {
 	if (fd > 2 && shell->s_redic->redic == -1)
@@ -24,6 +25,8 @@ static void	aux_exec(t_shell *shell, char **envp, int fd)
 	exit(errno);
 }
 
+// Prepare the fork and signals to execution of no builtin commands
+// Return the status of execution of command
 int	ft_exec(t_shell *shell, int fd)
 {
 	pid_t	pid;
