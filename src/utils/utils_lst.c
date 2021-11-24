@@ -6,12 +6,13 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/15 14:39:55 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:14:43 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// 
 int	change_value(t_list **lst, char *key, char *new_value, int sig)
 {
 	t_list	*tmp;
