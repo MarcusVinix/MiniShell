@@ -6,17 +6,17 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:25 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/18 17:48:18 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:12:07 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+// open a fd with some specified config depending of which redic is
+// return 127 if have some error
+// return 0 if is success
 static int	open_fd(t_shell *shell)
 {
-	int	fd;
-
-	fd = 1;
 	if (!shell->s_redic->file)
 		return (2);
 	if (shell->s_redic->redic == 1)
@@ -37,9 +37,13 @@ static int	open_fd(t_shell *shell)
 	if ((shell->s_redic->redic == 3 || shell->s_redic->redic == 4)
 		&& shell->s_redic->in < 0)
 		return (no_file(shell->s_redic->file, shell));
-	return (fd);
+	return (0);
 }
 
+// Take a string written in the document of heredoc 
+// And save into a tmp file
+// Return 1 if receive the last EOF or some error happen
+// Return 0 if is sucess
 int	aux_heredoc(char **del_lst, int *i, int fd)
 {
 	char	*line;
@@ -67,6 +71,8 @@ int	aux_heredoc(char **del_lst, int *i, int fd)
 	return (0);
 }
 
+// Inside a fork do a loop while
+// Take and save a string written in the documents of heredoc
 static void	exec_heredoc(t_shell *shell)
 {
 	char	**del_lst;
@@ -95,9 +101,9 @@ static void	exec_heredoc(t_shell *shell)
 	set_free_and_null(&shell->s_redic->delimiter);
 }
 
-//signal 1 = into pipe
-//signal 0 = without pipe
-static int	exec_redic2(t_shell *shell, char *aux)
+// Execute heredoc
+// Management which fd will send to command execution
+static void	exec_redic2(t_shell *shell, char *aux)
 {
 	char	*aux_two;
 
@@ -120,11 +126,12 @@ static int	exec_redic2(t_shell *shell, char *aux)
 	shell->s_redic->parse = NULL;
 	if (shell->s_redic->cmd)
 		set_free_and_null(&shell->s_redic->cmd);
-	return (0);
 }
 
-//signal 1 = into pipe
-//signal 0 = without pipe
+// Open the right fd for the redic then execute it
+// return 127 if have some error
+// return 2 if have some sintaxe error
+// return 0 if is sucess
 int	exec_redic(t_shell *shell)
 {
 	char	*aux;

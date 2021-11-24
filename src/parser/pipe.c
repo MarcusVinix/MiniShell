@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 20:22:52 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 20:31:42 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:43:43 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ static int	error_pipe(void)
 {
 	ft_putstr_fd("Minishell: falha no pipe\n", 2);
 	ft_putendl_fd(strerror(errno), 2);
-	return (0);
+	return (1);
 }
 
 //find the pipe in the str, and verify if it inside of any quotes
+// Return the current position of pipe
+// Return -1 or -2 if have some error
 static int	find_pipe(t_shell *shell, char *str)
 {
 	int	i;
@@ -47,6 +49,9 @@ static int	find_pipe(t_shell *shell, char *str)
 
 //will check if exist some valid pipe in the command;
 //if yes, populate the string parse_cmd and refresh the command string;
+//return 1 if have some valid pipe
+// return 2 if have sintaxe error of pipe
+// return 0 if don't have pipe
 int	check_pipe(t_shell *shell)
 {
 	int		pos;
@@ -67,9 +72,11 @@ int	check_pipe(t_shell *shell)
 	return (0);
 }
 
-//will execute the '|' 
+//will execute the '|' if is valid
 //fd 0 READ STDIN
 //fd 1 WRITE STDOUT
+//Return 0 if is success
+//Return 1 if have some error
 int	exec_pipe(t_shell *shell)
 {
 	int		fd[2];

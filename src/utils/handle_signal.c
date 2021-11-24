@@ -6,12 +6,15 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 01:38:52 by coder             #+#    #+#             */
-/*   Updated: 2021/11/15 14:48:29 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:15:04 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+
+// Do a break line
+// Save the status 130
 void	sigint_handle_cmd(int sig)
 {
 	(void)sig;
@@ -26,6 +29,8 @@ void	handle_sigquit(int sig)
 	g_sh_status = 131;
 }
 
+// Print a new command line
+// Save the status 130
 void	sigint_handle(int sig)
 {
 	if (sig == SIGINT)
@@ -38,6 +43,8 @@ void	sigint_handle(int sig)
 	}
 }
 
+// Do a break line
+// Exit the process with status 130
 void	handle_heredoc(int sig)
 {
 	(void)sig;
@@ -45,6 +52,7 @@ void	handle_heredoc(int sig)
 	exit(130);
 }
 
+// Set up a sigaction handle signal
 void	config_sigaction(struct sigaction *act, void (*handler)(int), int sig)
 {
 	act->sa_handler = handler;

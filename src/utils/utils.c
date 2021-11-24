@@ -6,12 +6,15 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 01:40:53 by coder             #+#    #+#             */
-/*   Updated: 2021/11/18 17:48:47 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:16:37 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Save all environment variables into a char **
+// Return NULL if have some error
+// Return a char ** with all the environment variable if is succes
 char	**get_env_var(t_list **list_env, t_shell *shell)
 {
 	char	**env;
@@ -35,6 +38,7 @@ char	**get_env_var(t_list **list_env, t_shell *shell)
 	return (env);
 }
 
+// Check if its everything number
 int	all_number(char *str)
 {
 	int	i;
