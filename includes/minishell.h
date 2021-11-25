@@ -6,7 +6,7 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:39:45 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/18 17:40:09 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 21:53:27 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TRUE 1
 # define FALSE 0
 
-int	g_sh_status;
+extern int	g_sh_status;
 
 typedef struct s_status
 {

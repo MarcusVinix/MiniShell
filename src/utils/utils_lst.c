@@ -6,13 +6,16 @@
 /*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 21:46:06 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/24 18:14:43 by mavinici         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:26:57 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// 
+// Change the value of an existent variable local or environment 
+// Sig is 0 when is a local variable and 1 if is environment
+// Return 0 if the variable don't exist.
+// Return 1 if the value is changed
 int	change_value(t_list **lst, char *key, char *new_value, int sig)
 {
 	t_list	*tmp;
@@ -37,6 +40,8 @@ int	change_value(t_list **lst, char *key, char *new_value, int sig)
 	return (0);
 }
 
+// Find the position of = if exist
+// Return the position
 int	find_pos(char *str)
 {
 	int	i;
@@ -47,6 +52,10 @@ int	find_pos(char *str)
 	return (i);
 }
 
+// Create a backup of all environment variables
+// Save all of them inside a linked list
+// Return the linked list with all variables
+// Return NUll if the parament env is NULL
 t_list	*create_bckup_env(char **env, t_shell *shell)
 {
 	int		i;
@@ -70,6 +79,9 @@ t_list	*create_bckup_env(char **env, t_shell *shell)
 	return (list);
 }
 
+// Check if the char key exist inside the list of environment variables
+// If the Key exist return the value of the variable
+// Return Null if the variable don't exist
 char	*find_value(t_list **lst, char *key)
 {
 	t_list	*tmp;

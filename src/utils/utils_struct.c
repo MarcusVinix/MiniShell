@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+// Start all variable of struct redic
 static void	init_struct_redic(t_shell *shell)
 {
 	shell->s_redic = malloc(sizeof(t_redic));
@@ -26,6 +27,7 @@ static void	init_struct_redic(t_shell *shell)
 	shell->s_redic->status->len = 0;
 }
 
+// Start all struct and create a backup of all environment variables
 void	start_struct(t_shell *shell, char **env)
 {
 	shell->command = NULL;
@@ -42,6 +44,7 @@ void	start_struct(t_shell *shell, char **env)
 	init_struct_redic(shell);
 }
 
+// Reset whole struc redic
 void	reset_struct(t_shell *shell)
 {
 	if (shell->s_redic->delimiter != NULL)

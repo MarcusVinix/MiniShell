@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jestevam < jestevam@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:40:48 by jestevam          #+#    #+#             */
-/*   Updated: 2021/11/17 20:33:05 by jestevam         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:16:01 by mavinici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_sh_status;
 
 //prints the path that usually exist at the line of the shell
 //save what the user write in a variable "command"
@@ -38,6 +40,10 @@ void	get_command(t_shell *shell)
 	shell->s_redic->redic = -1;
 }
 
+// Get the line command into readline
+// Do all treatment to execute the command
+// Return 0 if the command is execute without problems
+// Return 1 if have some error
 int	exec_all_commands(t_shell *shell, int res, int in, int out)
 {
 	dup2(in, 0);
@@ -66,6 +72,9 @@ int	exec_all_commands(t_shell *shell, int res, int in, int out)
 	return (0);
 }
 
+// Start the minishell
+// Set up the signals
+// get the command passed and execute
 int	main(int argc, char **argv, char **env)
 {
 	t_shell				shell;
