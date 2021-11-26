@@ -1,51 +1,26 @@
-# MiniShell
-The objective of this project is for you to create a simple shell. Yes, your little bash or zsh. You will learn a lot about processes and file descriptors.
+# MINISHELL
 
-# Introduction
-The existence of shells is linked to the very existence of IT. At the time, all coders agreed
-that communicating with a computer using aligned 1/0 switches was seriously
-irritating. It was only logical that they came up with the idea to communicate with
-a computer using interactive lines of commands in a language somewhat close
-to english.
-With Minishell, you’ll be able to travel through time and come back to problems
-people faced when Windows didn’t exist.
+My 8th project at the 42sp and the most huge one rsrs. This is the first project that i do with a partner, that was [Marcus Vinicius](https://github.com/MarcusVinix), and was so cool training my teamwork skills with him.
 
-# Builtins Implemented
-| Command  | Description                                                     |
-|:--------:|:---------------------------------------------------------------:|
-| *echo*   | Print the string in standart output. Flag -n remove break line. |
-| *cd*     | Change the current directory to the path passed.                |
-| *pwd*    | Print the current directory in standart output.                 |
-| *export* | Create or change an environment variable.                       |
-| *unset*  | Remove an environment or local variable.                        |
-| *env*    | Print all environment variable in standart output.              |
-| *exit*   | Close the shell with the exit status specified.                 |
+## **About the Project**
+The title is already self explanatory, the goal of this project is simulates a prompt calls [Shell](https://en.wikipedia.org/wiki/Shell_(computing)). Basically almost most common commands that you do in original shell, you also can do in minishell.  
+This minishell is completely coding in C, having a makefile that compile the project and create a executing and use my [libft that is on my profile](https://github.com/jhonatan229/libft_42).  
 
-## Signals
-| Signal    | Description                                           |
-|:---------:|:-----------------------------------------------------:|
-| *CTRL-C*  | Print a new prompt on a newline.                      |
-| *CTRL-D*  | Exit the shell when the command line is empty.        |
-| *CTRL-\\* | Quit a process in execution with `quit (core dumped)` |
+## **Flux**
 
-## Redirections
-| Side | description                                                    |
-|:----:|:--------------------------------------------------------------:|
-| *<*  | Redirect input.                                                |
-| *>*  | Redirect output.                                               |
-| *<<* | Read input until a line containing only the delimiter is seen. |
-| *>>* | Redirect output with append mode.                              |
+I make a flux in the miro to this project, [click here](https://miro.com/app/board/o9J_lghFXQU=/?invite_link_id=874120899640) if you fell interesting
 
+## **How run Minishel**
+First things first, you need to clone this repository, enter the folder and run **"make"** to create a executable of the project.
 
-# How use
-> Clone the repository  
->  
-> Install `libreadline` with `make install`  
->  
-> Compile the shell with `make`  
->  
-> Execute the project `./minishell`  
-> 
-> Have fun!  
+> I tested this project only in unix architecture, so if you is using windows or MacOS, i can't confirm if this application works on this OSs.  
 
-#
+> In this project, i use the library readline, so if your pc don't have it installed, just install with apt-get:
+```shell
+sudo apt-get install -libreadline-dev
+```
+After the compile, just execute the file:
+```shell
+./minishell
+```
+and that's it, you are inside minishel now, enjoy!!
