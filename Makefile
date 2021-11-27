@@ -60,7 +60,7 @@ norminha:
 
 add:	fclean
 	git add .
-	git commit -m "adicionando mais comentarios"
+	git commit -m "adicionando README"
 
 push:	add
 	git push
